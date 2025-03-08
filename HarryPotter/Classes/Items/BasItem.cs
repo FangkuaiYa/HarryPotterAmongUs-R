@@ -1,4 +1,6 @@
-﻿namespace HarryPotter.Classes.Items
+﻿using Reactor.Utilities;
+
+namespace HarryPotter.Classes.Items
 {
     public class BasItem : Item
     {
@@ -15,7 +17,7 @@
         public override void Use()
         {
             Delete();
-            hunterlib.Classes.Coroutines.Start(Main.Instance.CoStunPlayer(Owner._Object));
+            Coroutines.Start(Main.Instance.CoStunPlayer(Owner._Object));
         }
     }
 }

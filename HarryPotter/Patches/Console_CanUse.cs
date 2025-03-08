@@ -6,7 +6,7 @@ namespace HarryPotter.Patches
     [HarmonyPatch(typeof(Console), nameof(Console.CanUse))]
     public class Console_CanUse
     {
-        static void Postfix(GameData.PlayerInfo __0, ref bool __1, ref bool __2)
+        static void Postfix(NetworkedPlayerInfo __0, ref bool __1, ref bool __2)
         {
             ModdedPlayerClass moddedPlayer = Main.Instance.ModdedPlayerById(__0.PlayerId);
 

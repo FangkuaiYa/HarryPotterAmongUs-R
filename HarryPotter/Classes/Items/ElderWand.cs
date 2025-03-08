@@ -16,7 +16,7 @@
         {
             Delete();
 
-            if (Owner._Object.Data.IsImpostor)
+            if (Owner._Object.Data.Role.IsImpostor)
                 Owner.Role?.RemoveCooldowns();
             else
                 Owner.VigilanteShotEnabled = true;

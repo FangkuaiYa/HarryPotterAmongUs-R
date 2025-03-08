@@ -2,9 +2,9 @@
 using System.Linq;
 using HarryPotter.Classes.Items;
 using Hazel;
+using Reactor.Utilities.Extensions;
 using Rewired;
 using UnityEngine;
-using hunterlib.Classes;
 
 namespace HarryPotter.Classes
 {
@@ -23,7 +23,7 @@ namespace HarryPotter.Classes
             if (PlayerControl.LocalPlayer.Data.IsDead) return;
             if (PlayerControl.LocalPlayer.Data.Disconnected) return;
             if (Main.Instance.GetLocalModdedPlayer().HasItem(Id)) return;
-            if (!ItemWorldObject.GetComponent<SpriteRenderer>().bounds.Intersects(PlayerControl.LocalPlayer.myRend.bounds)) return;
+            if (!ItemWorldObject.GetComponent<SpriteRenderer>().bounds.Intersects(PlayerControl.LocalPlayer.cosmetics.currentBodySprite.BodySprite.bounds)) return;
             
             PickUp();
         }

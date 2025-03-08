@@ -8,7 +8,7 @@ namespace HarryPotter.Classes.Roles
 {
     public class Hermione : Role
     {
-        public KillButtonManager HourglassButton { get; set; }
+        public KillButton HourglassButton { get; set; }
         public DateTime LastHourglass { get; set; }
 
         public Hermione(ModdedPlayerClass owner)
@@ -22,8 +22,8 @@ namespace HarryPotter.Classes.Roles
             if (!Owner._Object.AmOwner)
                 return;
             
-            HourglassButton = KillButtonManager.Instantiate(HudManager.Instance.KillButton);
-            HourglassButton.renderer.enabled = true;
+            HourglassButton = KillButton.Instantiate(HudManager.Instance.KillButton);
+            HourglassButton.graphic.enabled = true;
             
             Tooltip tt = HourglassButton.gameObject.AddComponent<Tooltip>();
             tt.TooltipText = $"Time Turner:\nOn a delay of {Main.Instance.Config.HourglassTimer}s, you will teleport back to your starting position\nThis will bring you back to life, unless you were killed by a spell";
@@ -45,7 +45,7 @@ namespace HarryPotter.Classes.Roles
             DrawButtons();
         }
         
-        public override bool PerformKill(KillButtonManager __instance)
+        public override bool DoClick(KillButton __instance)
         {
             if (__instance == HourglassButton)
                 ActivateHourglass();
@@ -76,8 +76,9 @@ namespace HarryPotter.Classes.Roles
         {
             Vector2 bottomLeft = Camera.main.ScreenToWorldPoint(new Vector3(0, 0));
             
-            HourglassButton.gameObject.SetActive(HudManager.Instance.UseButton.isActiveAndEnabled);
-            HourglassButton.renderer.sprite = Main.Instance.Assets.AbilityIcons[5];
+            HourglassButton.gameObject.SetActive(HudManager.Instance.ReportButton.isActiveAndEnabled);
+            HourglassButton.graphic.sprite = Main.Instance.Assets.AbilityIcons[5];
+            HourglassButton.buttonLabelText.text = "Time Turner";
             HourglassButton.transform.position = new Vector2(bottomLeft.x + 0.75f, bottomLeft.y + 0.75f);
             HourglassButton.SetTarget(null);
             HourglassButton.SetCoolDown(Main.Instance.Config.HourglassCooldown - (float)(DateTime.UtcNow - LastHourglass).TotalSeconds, Main.Instance.Config.HourglassCooldown);
@@ -88,8 +89,8 @@ namespace HarryPotter.Classes.Roles
             
             if (!HourglassButton.isCoolingDown && !isDead)
             {
-                HourglassButton.renderer.material.SetFloat("_Desat", 0f);
-                HourglassButton.renderer.color = Palette.EnabledColor;
+                HourglassButton.graphic.material.SetFloat("_Desat", 0f);
+                HourglassButton.graphic.color = Palette.EnabledColor;
             }
         }
     }

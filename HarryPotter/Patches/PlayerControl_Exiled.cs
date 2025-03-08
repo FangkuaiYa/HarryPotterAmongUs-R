@@ -1,8 +1,7 @@
 ﻿using HarmonyLib;
 using HarryPotter.Classes;
 using Hazel;
-using Il2CppSystem;
-using UnhollowerBaseLib;
+using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using UnityEngine;
 using Object = Il2CppSystem.Object;
 
@@ -22,18 +21,18 @@ namespace HarryPotter.Patches
                 {
                     Main.Instance.PlayerDie(__instance);
                     
-                    StatsManager instance = StatsManager.Instance;
-                    uint timesEjected = instance.TimesEjected;
-                    instance.TimesEjected = timesEjected + 1U;
+                    var instance = ExileController.Instance;
+                    float timesEjected = instance.Duration;
+                    instance.Duration = timesEjected + 1U;
                     DestroyableSingleton<HudManager>.Instance.ShadowQuad.gameObject.SetActive(false);
                     ImportantTextTask importantTextTask = new GameObject("_Player").AddComponent<ImportantTextTask>();
                     importantTextTask.transform.SetParent(__instance.transform, false);
-                    if (__instance.Data.IsImpostor)
+                    if (__instance.Data.Role.IsImpostor)
                     {
                         __instance.ClearTasks();
                         importantTextTask.Text = DestroyableSingleton<TranslationController>.Instance.GetString(StringNames.GhostImpostor, new Il2CppReferenceArray<Object>(0));
                     }
-                    else if (!PlayerControl.GameOptions.GhostsDoTasks)
+                    else if (!GameOptionsManager.Instance.currentNormalGameOptions.GhostsDoTasks)
                     {
                         __instance.ClearTasks();
                         importantTextTask.Text = DestroyableSingleton<TranslationController>.Instance.GetString(StringNames.GhostIgnoreTasks, new Il2CppReferenceArray<Object>(0));

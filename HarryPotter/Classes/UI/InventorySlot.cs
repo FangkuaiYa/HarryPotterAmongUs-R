@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using HarryPotter.Classes.UI;
+using Reactor.Utilities.Attributes;
 using UnityEngine;
-using hunterlib.Classes;
 
 namespace HarryPotter.Classes.Helpers.UI
 {
@@ -61,7 +61,7 @@ namespace HarryPotter.Classes.Helpers.UI
             if (TargetedItem == null) return;
             if (TargetedItem.IsSpecial) return;
 
-            if (InventoryUI.Instance.FavouritedItems.RemoveAll(x => x.Id == TargetedItem.Id) == 0)
+            if (InventoryUI.Instance.FavouritedItems.ToArray().ToList().RemoveAll(x => x.Id == TargetedItem.Id) == 0)
                 if (InventoryUI.Instance.FavouritedItems.Count < 3)
                     InventoryUI.Instance.FavouritedItems.Add(TargetedItem);
         }

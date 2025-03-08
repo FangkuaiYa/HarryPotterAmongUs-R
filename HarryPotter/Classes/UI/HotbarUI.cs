@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Reactor.Utilities.Attributes;
+using Reactor.Utilities.Extensions;
+using System;
 using UnityEngine;
-using hunterlib.Classes;
 
 namespace HarryPotter.Classes.Helpers.UI
 {
@@ -33,7 +34,7 @@ namespace HarryPotter.Classes.Helpers.UI
             Panel.active = false;
             
             if (!AmongUsClient.Instance.IsGameStarted) return;
-            if (HudManager.Instance?.UseButton?.isActiveAndEnabled == false) return;
+            if (HudManager.Instance?.ReportButton?.isActiveAndEnabled == false) return;
             if (DestroyableSingleton<IntroCutscene>.InstanceExists) return;
             if (MeetingHud.Instance) return;
             if (Minigame.Instance) return;

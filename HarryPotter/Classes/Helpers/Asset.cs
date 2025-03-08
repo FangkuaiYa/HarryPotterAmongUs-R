@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Text;
-using HarryPotter.Classes.Hats;
 using HarryPotter.Classes.Helpers.UI;
+using Reactor.Utilities.Extensions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Video;
-using hunterlib.Classes;
 
 namespace HarryPotter.Classes
 {
@@ -20,20 +20,21 @@ namespace HarryPotter.Classes
         public List<Sprite> WorldItemIcons { get; }
         public List<Sprite> CrucioSprite { get;  }
         public List<Sprite> CurseSprite { get; }
-        public List<Sprite> AllHatSprites { get; }
+        //public List<Sprite> AllHatSprites { get; }
         public PhysicsMaterial2D SnitchMaterial { get; }
         public AudioClip HPTheme { get; }
-        public Material GenericOutlineMat { get; }
+        //public Material GenericOutlineMat { get; }
         public Asset()
         {
-            AssetBundle bundle = AssetBundle.LoadFromFile(Directory.GetCurrentDirectory() + "\\Assets\\harrypotter");
-            
+            var resourceAssetBundleStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("HarryPotter.Resources.harrypotter");
+            var bundle = AssetBundle.LoadFromMemory(resourceAssetBundleStream.ReadFully());
+
             ItemIcons = new List<Sprite>();
             AbilityIcons = new List<Sprite>();
             WorldItemIcons = new List<Sprite>();
             CrucioSprite = new List<Sprite>();
             CurseSprite = new List<Sprite>();
-            AllHatSprites = new List<Sprite>();
+            //AllHatSprites = new List<Sprite>();
 
             AbilityIcons.Add(bundle.LoadAsset<Sprite>("CurseButton").DontUnload());
             AbilityIcons.Add(bundle.LoadAsset<Sprite>("CrucioButton").DontUnload());
@@ -71,11 +72,11 @@ namespace HarryPotter.Classes
             CurseSprite.Add(bundle.LoadAsset<Sprite>("CurseF1").DontUnload());
             CurseSprite.Add(bundle.LoadAsset<Sprite>("CurseF2").DontUnload());
 
-            for (var i = 0; i <= 21; i++)
+            /*for (var i = 0; i <= 21; i++)
             {
                 AllHatSprites.Add(bundle.LoadAsset<Sprite>($"hat_{i}").DontUnload());
                 System.Console.WriteLine(AllHatSprites[i].name);
-            }
+            }*/
 
             SmallSortSprite = bundle.LoadAsset<Sprite>("SmallSortIco").DontUnload();
             SmallSnitchSprite = bundle.LoadAsset<Sprite>("SmallSnitchIco").DontUnload();
@@ -84,7 +85,7 @@ namespace HarryPotter.Classes
             InventoryUI.PanelPrefab = bundle.LoadAsset<GameObject>("InventoryPanel").DontUnload();
             MindControlMenu.PanelPrefab = bundle.LoadAsset<GameObject>("ControlPanel").DontUnload();
             HotbarUI.PanelPrefab = bundle.LoadAsset<GameObject>("Hotbar").DontUnload();
-            GenericOutlineMat = bundle.LoadAsset<Material>("GenericOutline").DontUnload();
+            //GenericOutlineMat = bundle.LoadAsset<Material>("GenericOutline").DontUnload();
         }
     }
 }

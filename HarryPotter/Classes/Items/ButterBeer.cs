@@ -1,5 +1,6 @@
 ﻿using HarryPotter.Classes.WorldItems;
 using Hazel;
+using Reactor.Utilities;
 
 namespace HarryPotter.Classes.Items
 {
@@ -18,7 +19,7 @@ namespace HarryPotter.Classes.Items
         public override void Use()
         {
             this.Delete();
-            hunterlib.Classes.Coroutines.Start(Main.Instance.CoActivateButterBeer(Owner._Object));
+            Coroutines.Start(Main.Instance.CoActivateButterBeer(Owner._Object));
         }
     }
 }

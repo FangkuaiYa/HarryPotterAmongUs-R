@@ -1,7 +1,5 @@
-﻿using System;
-using System.Linq;
-using TMPro;
-using hunterlib.Classes;
+﻿using Reactor.Utilities.Attributes;
+using System;
 using UnityEngine;
 
 namespace HarryPotter.Classes.Helpers.UI
@@ -11,8 +9,8 @@ namespace HarryPotter.Classes.Helpers.UI
     [RegisterInIl2Cpp]
     public class CustomButton : MonoBehaviour
     {
-        public event ClickEvent OnClick;
-        public event ClickEvent OnRightClick;
+        public event Action OnClick;
+        public event Action OnRightClick;
         public Color HoverColor { get; set; }
         public bool Enabled { get; set; }
         public SpriteRenderer Renderer { get; set; }

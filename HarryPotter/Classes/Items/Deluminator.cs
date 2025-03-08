@@ -40,7 +40,7 @@ namespace HarryPotter.Classes.Items
                     for (var i = 0; i < 5; i++)
                         if (new System.Random().Next(0, 2) == 0)
                             b |= (byte)(1 << i);
-                    ShipStatus.Instance.RpcRepairSystem(SystemTypes.Electrical, b | 128);
+                    ShipStatus.Instance.RpcUpdateSystem(SystemTypes.Electrical, (byte)(b | 128));
                     break;
             }
         }

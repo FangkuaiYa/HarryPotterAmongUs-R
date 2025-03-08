@@ -16,7 +16,7 @@ namespace HarryPotter.Patches
             ModdedPlayerClass moddedController = Main.Instance.ModdedPlayerById(__instance.myPlayer.PlayerId);
             if (__instance.myPlayer != PlayerControl.LocalPlayer || moddedController?.Role?.RoleName != "Bellatrix" || ((Bellatrix)moddedController.Role).MindControlledPlayer == null) return true;
             PlayerPhysics controlledPlayer = ((Bellatrix)moddedController.Role).MindControlledPlayer._Object.MyPhysics;
-            Vector2 vel = HudManager.Instance.joystick.Delta * __instance.TrueSpeed;
+            Vector2 vel = (HudManager.Instance.joystick.DeltaL + HudManager.Instance.joystick.DeltaR) * __instance.TrueSpeed;
             controlledPlayer.body.velocity = vel;
             MessageWriter writer = AmongUsClient.Instance.StartRpc(PlayerControl.LocalPlayer.NetId, (byte)Packets.MoveControlledPlayer, SendOption.Reliable);
             writer.Write(controlledPlayer.myPlayer.PlayerId);

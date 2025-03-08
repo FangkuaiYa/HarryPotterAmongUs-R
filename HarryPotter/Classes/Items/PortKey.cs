@@ -28,7 +28,7 @@ namespace HarryPotter.Classes.Items
             }
             this.Delete();
             
-            Main.Instance.RpcTeleportPlayer(Owner._Object, PlayerControl.GameOptions.MapId == 4 ? new Vector2(7.620923f, 15.0479f) : ShipStatus.Instance.MeetingSpawnCenter);
+            Main.Instance.RpcTeleportPlayer(Owner._Object, GameOptionsManager.Instance.currentNormalGameOptions.MapId == 4 ? new Vector2(7.620923f, 15.0479f) : ShipStatus.Instance.MeetingSpawnCenter);
         }
     }
 }

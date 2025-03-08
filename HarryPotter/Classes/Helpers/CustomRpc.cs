@@ -11,7 +11,8 @@ using Hazel.Udp;
 using Il2CppSystem.Diagnostics;
 using Il2CppSystem.Net;
 using UnityEngine;
-using hunterlib.Classes;
+using Reactor.Networking;
+using Reactor.Utilities;
 
 namespace HarryPotter.Classes
 {
@@ -42,6 +43,7 @@ namespace HarryPotter.Classes
         FakeKill = 92,
         FinallyDie = 93,
         RequestRole = 94,
+        SyncCustomSettings = 95,
     }
 
     public class CustomRpc
@@ -97,7 +99,7 @@ namespace HarryPotter.Classes
                     break;
                 case (byte)Packets.ForceAllVotes:
                     byte forcePlayer = reader.ReadByte();
-                    Main.Instance.ForceAllVotes((sbyte)forcePlayer);
+                    Main.Instance.ForceAllVotes(forcePlayer);
                     break;
                 case (byte)Packets.CreateCurse:
                     byte casterId = reader.ReadByte();
@@ -255,6 +257,9 @@ namespace HarryPotter.Classes
                 case (byte)Packets.RevealRole:
                     byte revealId = reader.ReadByte();
                     Main.Instance.RevealRole(revealId);
+                    break;
+                case (byte)Packets.SyncCustomSettings:
+                    CustomOption.Rpc.ReceiveRpc(reader);
                     break;
             }
         }

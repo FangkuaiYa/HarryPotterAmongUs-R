@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using HarryPotter.Classes.UI;
+using Reactor.Utilities;
+using Reactor.Utilities.Extensions;
+using Reactor.Utilities.Attributes;
 using UnityEngine;
-using UnityEngine.Events;
-using hunterlib.Classes;
 
 namespace HarryPotter.Classes.Helpers.UI
 {
@@ -65,19 +65,19 @@ namespace HarryPotter.Classes.Helpers.UI
             if (MeetingHud.Instance) Close();
             if (ExileController.Instance) Close();
             if (!AmongUsClient.Instance.IsGameStarted) Close();
-            if (HudManager.Instance?.UseButton?.isActiveAndEnabled == false) Close();
+            if (HudManager.Instance?.ReportButton?.isActiveAndEnabled == false) Close();
             if (DestroyableSingleton<IntroCutscene>.InstanceExists) Close();
             if (!PlayerControl.LocalPlayer.CanMove) Close();
         }
 
         public void Open()
         {
-            hunterlib.Classes.Coroutines.Start(CoOpen());
+            Coroutines.Start(CoOpen());
         }
         
         public void Close()
         {
-            hunterlib.Classes.Coroutines.Start(CoClose());
+            Coroutines.Start(CoClose());
         }
         
         public IEnumerator CoOpen()
@@ -125,7 +125,7 @@ namespace HarryPotter.Classes.Helpers.UI
         public void Toggle()
         {
             if (!AmongUsClient.Instance.IsGameStarted) return;
-            if (HudManager.Instance?.UseButton?.isActiveAndEnabled == false) return;
+            if (HudManager.Instance?.ReportButton?.isActiveAndEnabled == false) return;
             if (DestroyableSingleton<IntroCutscene>.InstanceExists) return;
             if (MeetingHud.Instance) return;
             if (Minigame.Instance) return;

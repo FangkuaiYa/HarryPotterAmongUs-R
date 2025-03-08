@@ -6,7 +6,7 @@ namespace HarryPotter.Classes.Roles
 {
     public class Ron : Role
     {
-        public KillButtonManager DDButton { get; set; }
+        public KillButton DDButton { get; set; }
         public DateTime LastCloak { get; set; }
         
         public Ron(ModdedPlayerClass owner)
@@ -20,8 +20,8 @@ namespace HarryPotter.Classes.Roles
             if (!Owner._Object.AmOwner)
                 return;
             
-            DDButton = KillButtonManager.Instantiate(HudManager.Instance.KillButton);
-            DDButton.renderer.enabled = true;
+            DDButton = KillButton.Instantiate(HudManager.Instance.KillButton);
+            DDButton.graphic.enabled = true;
             
             Tooltip tt = DDButton.gameObject.AddComponent<Tooltip>();
             tt.TooltipText = $"Defensive Duelist:\nWill make you invulnerable to spells and kills for {Main.Instance.Config.DefensiveDuelistDuration}s\nWhile this ability is active, you cannot move";
@@ -43,7 +43,7 @@ namespace HarryPotter.Classes.Roles
             DrawButtons();
         }
         
-        public override bool PerformKill(KillButtonManager __instance)
+        public override bool DoClick(KillButton __instance)
         {
             if (__instance == DDButton)
                 ActivateDefensiveDuelist();
@@ -75,8 +75,9 @@ namespace HarryPotter.Classes.Roles
         {
             Vector2 bottomLeft = Camera.main.ScreenToWorldPoint(new Vector3(0, 0));
             
-            DDButton.gameObject.SetActive(HudManager.Instance.UseButton.isActiveAndEnabled);
-            DDButton.renderer.sprite = Main.Instance.Assets.AbilityIcons[3];
+            DDButton.gameObject.SetActive(HudManager.Instance.ReportButton.isActiveAndEnabled);
+            DDButton.graphic.sprite = Main.Instance.Assets.AbilityIcons[3];
+            DDButton.buttonLabelText.text = "Defense";
             DDButton.transform.position = new Vector2(bottomLeft.x + 0.75f, bottomLeft.y + 0.75f);
             DDButton.SetTarget(null);
             DDButton.SetCoolDown(Main.Instance.Config.DefensiveDuelistCooldown - (float)(DateTime.UtcNow - LastCloak).TotalSeconds, Main.Instance.Config.DefensiveDuelistCooldown);
@@ -87,8 +88,9 @@ namespace HarryPotter.Classes.Roles
             
             if (!DDButton.isCoolingDown && !isDead)
             {
-                DDButton.renderer.material.SetFloat("_Desat", 0f);
-                DDButton.renderer.color = Palette.EnabledColor;
+                DDButton.graphic.material.SetFloat("_Desat", 0f);
+                DDButton.graphic.color = Palette.EnabledColor;
+                DDButton.buttonLabelText.color = Palette.EnabledColor;
             }
         }
     }

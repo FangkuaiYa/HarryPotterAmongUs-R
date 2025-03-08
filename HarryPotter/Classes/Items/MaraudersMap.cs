@@ -7,6 +7,7 @@ using HarryPotter.Classes.WorldItems;
 using Hazel;
 using UnityEngine;
 using InnerNet;
+using Reactor.Utilities;
 
 namespace HarryPotter.Classes.Items
 {
@@ -24,7 +25,7 @@ namespace HarryPotter.Classes.Items
         public override void Use()
         {
             this.Delete();
-            hunterlib.Classes.Coroutines.Start(ZoomOut());
+            Coroutines.Start(ZoomOut());
         }
 
         public IEnumerator ZoomOut()

@@ -2,10 +2,11 @@
 using System.Collections;
 using System.Linq;
 using HarryPotter.Classes.Helpers.UI;
-using hunterlib.Classes;
 using HarryPotter.Classes.Roles;
 using HarryPotter.Classes.UI;
-using InnerNet;
+using Reactor.Utilities.Attributes;
+using Reactor.Utilities;
+using Reactor.Utilities.Extensions;
 using UnityEngine;
 
 namespace HarryPotter.Classes
@@ -64,18 +65,18 @@ namespace HarryPotter.Classes
             if (MeetingHud.Instance) CloseMenu();
             if (ExileController.Instance) CloseMenu();
             if (!AmongUsClient.Instance.IsGameStarted) CloseMenu();
-            if (HudManager.Instance?.UseButton?.isActiveAndEnabled == false) CloseMenu();
+            if (HudManager.Instance?.ReportButton?.isActiveAndEnabled == false) CloseMenu();
             if (DestroyableSingleton<IntroCutscene>.InstanceExists) CloseMenu();
         }
 
         public void OpenMenu()
         {
-            hunterlib.Classes.Coroutines.Start(CoOpen());
+            Coroutines.Start(CoOpen());
         }
 
         public void CloseMenu()
         {
-            hunterlib.Classes.Coroutines.Start(CoClose());
+            Coroutines.Start(CoClose());
         }
         
         public IEnumerator CoOpen()
@@ -124,7 +125,7 @@ namespace HarryPotter.Classes
         {
             if (Main.Instance.GetPlayerRoleName(Main.Instance.GetLocalModdedPlayer()) != "Bellatrix") return;
             if (!AmongUsClient.Instance.IsGameStarted) return;
-            if (HudManager.Instance?.UseButton?.isActiveAndEnabled == false) return;
+            if (HudManager.Instance?.ReportButton?.isActiveAndEnabled == false) return;
             if (DestroyableSingleton<IntroCutscene>.InstanceExists) return;
             if (MeetingHud.Instance) return;
             if (Minigame.Instance) return;

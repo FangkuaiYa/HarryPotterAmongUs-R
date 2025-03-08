@@ -11,7 +11,7 @@ namespace HarryPotter.Classes
         public ModdedPlayerClass Owner { get; set; }
         public virtual void Update() { }
 
-        public virtual bool PerformKill(KillButtonManager __instance)
+        public virtual bool DoClick(KillButton __instance)
         {
             return false;
         }

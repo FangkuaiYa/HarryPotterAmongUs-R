@@ -5,8 +5,7 @@ using HarmonyLib;
 using HarryPotter.Classes;
 using HarryPotter.Classes.WorldItems;
 using InnerNet;
-using TMPro;
-using UnhollowerBaseLib;
+using Reactor.Utilities;
 using UnityEngine;
 
 namespace HarryPotter.Patches
@@ -17,7 +16,7 @@ namespace HarryPotter.Patches
     {
         static void Postfix(InnerNetClient __instance)
         {
-            hunterlib.Classes.Coroutines.Start(LateUpdate());
+            Coroutines.Start(LateUpdate());
         }
 
         static IEnumerator LateUpdate()
@@ -28,51 +27,8 @@ namespace HarryPotter.Patches
 
         static void RunUpdate()
         {
-            if (AmongUsClient.Instance.GameState == InnerNetClient.GameStates.Joined)
-            {
-                if (Main.Instance.Config.SelectRoles)
-                {
-                    if (Input.GetKeyDown(KeyCode.Alpha1))
-                        Main.Instance.RpcRequestRole("Harry");
-                    if (Input.GetKeyDown(KeyCode.Alpha2))
-                        Main.Instance.RpcRequestRole("Hermione");
-                    if (Input.GetKeyDown(KeyCode.Alpha3))
-                        Main.Instance.RpcRequestRole("Ron");
-                    if (Input.GetKeyDown(KeyCode.Alpha4))
-                        Main.Instance.RpcRequestRole("Voldemort");
-                    if (Input.GetKeyDown(KeyCode.Alpha5))
-                        Main.Instance.RpcRequestRole("Bellatrix");
-                }
-            }
-            
             Main.Instance?.Config?.ReloadSettings();
                         
-            foreach (TextMeshPro lobbySettingTMP in Main.Instance.CustomOptions)
-            {
-                if (!HudManager.InstanceExists || HudManager.Instance.GameSettings == null)
-                {
-                    lobbySettingTMP.gameObject.SetActive(false);
-                    continue;
-                }
-
-                Vector2 pos = HudManager.Instance.GameSettings.transform.position;
-                
-                pos.x += lobbySettingTMP.renderedWidth / 2;
-                pos.y -= lobbySettingTMP.renderedHeight / 2;
-                pos.y -= HudManager.Instance.GameSettings.renderedHeight;
-                pos.y -= lobbySettingTMP.renderedHeight * Main.Instance.CustomOptions.IndexOf(lobbySettingTMP);
-                
-                lobbySettingTMP.gameObject.transform.position = pos;
-                lobbySettingTMP.gameObject.SetActive(HudManager.Instance.GameSettings.isActiveAndEnabled);
-
-                string optionText = Main.Instance.GetOptionTextByName(lobbySettingTMP.gameObject.name);
-
-                RectTransform lobbyTextTrans = lobbySettingTMP.gameObject.GetComponent<RectTransform>();
-                lobbyTextTrans.sizeDelta = lobbySettingTMP.GetPreferredValues(optionText);
-
-                lobbySettingTMP.text = optionText;
-            }
-
             if (!AmongUsClient.Instance.IsGameStarted && Main.Instance != null)
             {
                 foreach (WorldItem wItem in Main.Instance.AllItems) wItem.Delete();

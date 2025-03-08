@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Reactor.Utilities;
+using Reactor.Utilities.Attributes;
+using Reactor.Utilities.Extensions;
+using System;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using hunterlib.Classes;
 
 namespace HarryPotter.Classes.UI
 {
@@ -12,7 +14,7 @@ namespace HarryPotter.Classes.UI
         public Tooltip(IntPtr ptr) : base(ptr)
         {
         }
-        
+
         public GameObject TooltipObj { get; set; }
         public TextMeshPro TooltipTMP { get; set; }
         public RectTransform TooltipTransform { get; set; }
@@ -32,9 +34,8 @@ namespace HarryPotter.Classes.UI
             TooltipTMP.alignment = TextAlignmentOptions.BottomLeft;
             TooltipTMP.overflowMode = TextOverflowModes.Overflow;
             TooltipTMP.maskable = false;
-            TooltipTMP.fontMaterial = Main.Instance.Assets.GenericOutlineMat;
             TooltipTMP.fontMaterial.SetFloat("_UnderlayDilate", 0.75f);
-            
+
             TooltipRenderer = TooltipObj.GetComponent<MeshRenderer>();
             TooltipRenderer.sortingOrder = 1000;
 
@@ -57,21 +58,24 @@ namespace HarryPotter.Classes.UI
 
         public void LateUpdate()
         {
+            if (TooltipObj == null || TooltipTMP == null || TooltipTransform == null) return;
+
             TooltipTransform.sizeDelta = TooltipTMP.GetPreferredValues(TooltipText);
             TooltipTMP.text = "<#EEFFB3FF>" + TooltipText;
-            
+
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             TooltipObj.transform.position = new Vector3(mousePosition.x + (TooltipTMP.renderedWidth / 2) + 0.1f, mousePosition.y);
         }
 
         public void FixedUpdate()
         {
+            if (TooltipObj == null) return;
             TooltipObj.SetActive(false);
         }
-        
+
         private void OnMouseOver()
         {
-            if (!Enabled || !Main.Instance.Config.ShowPopups) return;
+            if (!Enabled || !Main.Instance.Config.ShowPopups || TooltipObj == null) return;
             TooltipObj.SetActive(true);
         }
     }

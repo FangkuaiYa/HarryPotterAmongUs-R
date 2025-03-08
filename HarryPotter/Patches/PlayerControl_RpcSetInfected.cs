@@ -1,108 +1,45 @@
 ﻿﻿﻿using HarmonyLib;
-using Hazel;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using HarryPotter.Classes;
 using HarryPotter.Classes.Roles;
-using UnityEngine;
-using hunterlib.Classes;
+using Reactor.Utilities.Extensions;
+using Reactor.Utilities;
+using AmongUs.GameOptions;
 
 namespace HarryPotter.Patches
 {
-    [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.RpcSetInfected))]
+    [HarmonyPatch(typeof(RoleOptionsData), nameof(RoleOptionsData.GetNumPerGame))]
+    class RoleOptionsDataGetNumPerGamePatch
+    {
+        public static void Postfix(ref int __result)
+        {
+            if (Main.Instance.Config.EnableModRole) __result = 0; // Deactivate Vanilla Roles if the mod roles are active
+        }
+    }
+    [HarmonyPatch(typeof(RoleManager), nameof(RoleManager.SelectRoles))]
     class PlayerControl_RpcSetInfected
     {
-        static void Prefix(ref UnhollowerBaseLib.Il2CppReferenceArray<GameData.PlayerInfo> __0)
+        static void Prefix()
         {
-            if (Main.Instance.Config.SelectRoles)
-            {
-                List<string> impRolesToAssign = new List<string> { "Voldemort", "Bellatrix" };
-                List<string> crewRolesToAssign = new List<string> { "Harry", "Hermione", "Ron" };
+            if (GameOptionsManager.Instance.currentGameMode == GameModes.HideNSeek || !Main.Instance.Config.EnableModRole) return;
 
-                List<GameData.PlayerInfo> allImpostors = new List<GameData.PlayerInfo>();
-                List<GameData.PlayerInfo> exemptPlayers = new List<GameData.PlayerInfo>();
-
-                foreach (Pair<PlayerControl, string> roleTuple in Main.Instance.PlayersWithRequestedRoles)
-                {
-                    if (crewRolesToAssign.Contains(roleTuple.Item2))
-                    {
-                        System.Console.WriteLine("Prefix: " + roleTuple.Item2);
-
-                        crewRolesToAssign.Remove(roleTuple.Item2);
-                        exemptPlayers.Add(roleTuple.Item1.Data);
-                    }
-
-                    if (impRolesToAssign.Contains(roleTuple.Item2))
-                    {
-                        System.Console.WriteLine("Prefix: " + roleTuple.Item2);
-
-                        impRolesToAssign.Remove(roleTuple.Item2);
-                        allImpostors.Add(roleTuple.Item1.Data);
-                    }
-                }
-
-                while (allImpostors.Count > PlayerControl.GameOptions.GetAdjustedNumImpostors(GameData.Instance.PlayerCount))
-                    allImpostors.Remove(allImpostors.Random());
-
-                while (allImpostors.Count < PlayerControl.GameOptions.GetAdjustedNumImpostors(GameData.Instance.PlayerCount))
-                    allImpostors.Add(PlayerControl.AllPlayerControls.ToArray().Where(x => allImpostors.All(y => y.PlayerId != x.PlayerId) && exemptPlayers.All(y => y.PlayerId != x.PlayerId)).Random().Data);
-
-                System.Console.WriteLine(allImpostors.Count + ":" + PlayerControl.GameOptions.GetAdjustedNumImpostors(GameData.Instance.PlayerCount));
-
-                __0 = allImpostors.ToArray();
-            }
+            PluginSingleton<Plugin>.Instance.Log.LogMessage("RPC SET ROLE");
+            var infected = GameData.Instance.AllPlayers.ToArray().Where(o => o.Role.IsImpostor);
         }
 
         static void Postfix()
         {
+            if (GameOptionsManager.Instance.currentGameMode == GameModes.HideNSeek || !Main.Instance.Config.EnableModRole) return;
+
             List<ModdedPlayerClass> allImp =
-                Main.Instance.AllPlayers.Where(x => x._Object.Data.IsImpostor).ToList();
+                Main.Instance.AllPlayers.Where(x => x._Object.Data.Role.IsImpostor).ToList();
             
             List<ModdedPlayerClass> allCrew =
-                Main.Instance.AllPlayers.Where(x => !x._Object.Data.IsImpostor).ToList();
+                Main.Instance.AllPlayers.Where(x => !x._Object.Data.Role.IsImpostor).ToList();
 
             List<string> impRolesToAssign = new List<string> { "Voldemort", "Bellatrix" };
             List<string> crewRolesToAssign = new List<string> { "Harry", "Hermione", "Ron" };
-
-            if (Main.Instance.Config.SelectRoles)
-            {
-                foreach (Pair<PlayerControl, string> roleTuple in Main.Instance.PlayersWithRequestedRoles)
-                {
-                    if (roleTuple.Item1.Data.IsImpostor)
-                    {
-                        if (impRolesToAssign.Contains(roleTuple.Item2))
-                        {
-                            allCrew.Remove(Main.Instance.ModdedPlayerById(roleTuple.Item1.PlayerId));
-                            allImp.Remove(Main.Instance.ModdedPlayerById(roleTuple.Item1.PlayerId));
-                            impRolesToAssign.Remove(roleTuple.Item2);
-
-                            if (roleTuple.Item2 == "Voldemort")
-                                Main.Instance.RpcAssignRole(Main.Instance.ModdedPlayerById(roleTuple.Item1.PlayerId), new Voldemort(Main.Instance.ModdedPlayerById(roleTuple.Item1.PlayerId)));
-                            else if (roleTuple.Item2 == "Bellatrix")
-                                Main.Instance.RpcAssignRole(Main.Instance.ModdedPlayerById(roleTuple.Item1.PlayerId), new Bellatrix(Main.Instance.ModdedPlayerById(roleTuple.Item1.PlayerId)));
-                        }
-                    }
-                    else
-                    {
-                        if (crewRolesToAssign.Contains(roleTuple.Item2))
-                        {
-                            allCrew.Remove(Main.Instance.ModdedPlayerById(roleTuple.Item1.PlayerId));
-                            allImp.Remove(Main.Instance.ModdedPlayerById(roleTuple.Item1.PlayerId));
-                            crewRolesToAssign.Remove(roleTuple.Item2);
-
-                            if (roleTuple.Item2 == "Harry")
-                                Main.Instance.RpcAssignRole(Main.Instance.ModdedPlayerById(roleTuple.Item1.PlayerId), new Harry(Main.Instance.ModdedPlayerById(roleTuple.Item1.PlayerId)));
-                            else if (roleTuple.Item2 == "Ron")
-                                Main.Instance.RpcAssignRole(Main.Instance.ModdedPlayerById(roleTuple.Item1.PlayerId), new Ron(Main.Instance.ModdedPlayerById(roleTuple.Item1.PlayerId)));
-                            else if (roleTuple.Item2 == "Hermione")
-                                Main.Instance.RpcAssignRole(Main.Instance.ModdedPlayerById(roleTuple.Item1.PlayerId), new Hermione(Main.Instance.ModdedPlayerById(roleTuple.Item1.PlayerId)));
-                        }
-                    }
-                }
-
-                Main.Instance.PlayersWithRequestedRoles.Clear();
-            }
 
             while (allImp.Count > 0 && impRolesToAssign.Count > 0)
             {

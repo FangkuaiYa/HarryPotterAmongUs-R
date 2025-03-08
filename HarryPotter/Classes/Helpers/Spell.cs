@@ -1,6 +1,7 @@
 ﻿using System;
-using hunterlib.Classes;
 using InnerNet;
+using Reactor.Utilities.Attributes;
+using Reactor.Utilities.Extensions;
 using UnityEngine;
 
 namespace HarryPotter.Classes
@@ -36,13 +37,13 @@ namespace HarryPotter.Classes
             gameObject.SetActive(true);
             SpellRender.enabled = true;
             
-            SpellRigid.transform.position = Owner._Object.myRend.bounds.center;
+            SpellRigid.transform.position = Owner._Object.cosmetics.currentBodySprite.BodySprite.bounds.center;
             SpellRender.transform.localScale = new Vector2(1f, 1f);
 
-            Vector3 v = MousePostition - Owner._Object.myRend.bounds.center;
-            float dist = Vector2.Distance(MousePostition, Owner._Object.myRend.bounds.center);
+            Vector3 v = MousePostition - Owner._Object.cosmetics.currentBodySprite.BodySprite.bounds.center;
+            float dist = Vector2.Distance(MousePostition, Owner._Object.cosmetics.currentBodySprite.BodySprite.bounds.center);
             Vector3 d = v * 3f * (2f / dist);
-            float AngleRad = Mathf.Atan2(MousePostition.y - Owner._Object.myRend.bounds.center.y, MousePostition.x - Owner._Object.myRend.bounds.center.x);
+            float AngleRad = Mathf.Atan2(MousePostition.y - Owner._Object.cosmetics.currentBodySprite.BodySprite.bounds.center.y, MousePostition.x - Owner._Object.cosmetics.currentBodySprite.BodySprite.bounds.center.x);
             float shootDeg = (180 / (float)Math.PI) * AngleRad;
 
             SpellCollider.isTrigger = true;
@@ -73,10 +74,10 @@ namespace HarryPotter.Classes
             {
                 foreach (PlayerControl player in PlayerControl.AllPlayerControls)
                 {
-                    if (player.Data.IsDead || player.Data.Disconnected || Owner._Object == player || player.Data.IsImpostor)
+                    if (player.Data.IsDead || player.Data.Disconnected || Owner._Object == player || player.Data.Role.IsImpostor)
                         continue;
 
-                    if (!player.myRend.bounds.Intersects(SpellRender.bounds))
+                    if (!player.cosmetics.currentBodySprite.BodySprite.bounds.Intersects(SpellRender.bounds))
                         continue;
 
                     if (!player.Collider.enabled)

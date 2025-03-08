@@ -3,7 +3,7 @@ using System.Linq;
 using Hazel;
 using UnityEngine;
 using Random = UnityEngine.Random;
-using hunterlib.Classes;
+using Reactor.Utilities.Extensions;
 
 namespace HarryPotter.Classes.WorldItems
 {

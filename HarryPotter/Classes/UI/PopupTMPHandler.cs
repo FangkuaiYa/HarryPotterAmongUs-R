@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Reactor.Utilities;
+using Reactor.Utilities.Extensions;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using hunterlib.Classes;
 
 namespace HarryPotter.Classes.UI
 {
@@ -31,7 +32,6 @@ namespace HarryPotter.Classes.UI
             popupTMP.fontSize = 2f;
             popupTMP.alignment = TextAlignmentOptions.Center;
             popupTMP.fontStyle = FontStyles.Bold;
-            popupTMP.fontMaterial = Main.Instance.Assets.GenericOutlineMat;
             popupTMP.fontMaterial.SetFloat("_UnderlayDilate", 0.6f);
             popupTMP.fontMaterial.SetColor("_UnderlayColor", outlineColor);
             

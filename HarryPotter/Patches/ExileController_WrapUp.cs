@@ -8,16 +8,16 @@ namespace HarryPotter.Patches
     {
         static bool Prefix(ExileController __instance)
         {
-            if (__instance.exiled != null)
+            if (__instance.initData.networkedPlayer != null)
             {
-                PlayerControl @object = __instance.exiled.Object;
+                PlayerControl @object = __instance.initData.networkedPlayer.Object;
                 if (@object) @object.Exiled();
             }
-            if (DestroyableSingleton<TutorialManager>.InstanceExists || !ShipStatus.Instance.IsGameOverDueToDeath())
+            if (DestroyableSingleton<TutorialManager>.InstanceExists || !GameManager.Instance.LogicFlow.IsGameOverDueToDeath())
             {
                 DestroyableSingleton<HudManager>.Instance.StartCoroutine(DestroyableSingleton<HudManager>.Instance.CoFadeFullScreen(Color.black, Color.clear, 0.2f));
-                PlayerControl.LocalPlayer.SetKillTimer(PlayerControl.GameOptions.KillCooldown);
-                ShipStatus.Instance.EmergencyCooldown = (float)PlayerControl.GameOptions.EmergencyCooldown;
+                PlayerControl.LocalPlayer.SetKillTimer(GameOptionsManager.Instance.currentNormalGameOptions.KillCooldown);
+                ShipStatus.Instance.EmergencyCooldown = (float)GameOptionsManager.Instance.currentNormalGameOptions.EmergencyCooldown;
                 Camera.main.GetComponent<FollowerCamera>().Locked = false;
                 DestroyableSingleton<HudManager>.Instance.SetHudActive(true);
                 ControllerManager.Instance.ResetAll();
