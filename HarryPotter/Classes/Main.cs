@@ -317,6 +317,17 @@ namespace HarryPotter.Classes
             new Tuple<byte, Vector2>(4, new Vector2(-8.8501f, 5.144454f)),
             new Tuple<byte, Vector2>(4, new Vector2(4.531908f, 15.29855f)),
             new Tuple<byte, Vector2>(4, new Vector2(16.36781f, 15.21838f)),
+            new Tuple<byte, Vector2>(5, new Vector2(1.0139f, 4.3129f)),
+            new Tuple<byte, Vector2>(5, new Vector2(-9.4981f, -13.4451f)),
+            new Tuple<byte, Vector2>(5, new Vector2(13.0518f, 9.8709f)),
+            new Tuple<byte, Vector2>(5, new Vector2(7.733f, 4.2049f)),
+            new Tuple<byte, Vector2>(5, new Vector2(8.8821f, -10.03f)),
+            new Tuple<byte, Vector2>(5, new Vector2(21.4631f, -7.4165f)),
+            new Tuple<byte, Vector2>(5, new Vector2(-5.075f, -9.4086f)),
+            new Tuple<byte, Vector2>(5, new Vector2(-18.7677f, -0.3175f)),
+            new Tuple<byte, Vector2>(5, new Vector2(-7.5892f, 9.5704f)),
+            new Tuple<byte, Vector2>(5, new Vector2(21.8108f, 3.1205f)),
+            new Tuple<byte, Vector2>(5, new Vector2(-0.6718f, -5.8665f))
         };
 
         public Main()
@@ -447,7 +458,10 @@ namespace HarryPotter.Classes
                         yield break;
 
                     if (player.Data.IsDead)
+                    {
+                        if (AmongUsClient.Instance.AmHost) DestroyableSingleton<RoleManager>.Instance.AssignRoleOnDeath(player, false);
                         RpcRevivePlayer(player);
+                    }
 
                     if (MeetingHud.Instance)
                         yield break;

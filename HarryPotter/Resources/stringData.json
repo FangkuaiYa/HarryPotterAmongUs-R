@@ -56,8 +56,8 @@
         "13": "{0}\u804c\u4e1a: {1}</color></color>"
     },
     "taskTextRoleIntroText": {
-        "0": "{0}Hover over ability buttons for more information.</color></color>",
-        "13": "{0}\u9f20\u6807\u60ac\u505c\u5728\u6280\u80fd\u6309\u952e\u4e0a\u83b7\u53d6\u66f4\u591a\u4fe1\u606f.</color></color>"
+        "0": "{0}Hold down the right mouse button over ability buttons for more information.</color></color>",
+        "13": "{0}\u5728\u6280\u80fd\u6309\u952e\u4e0a\u957f\u6309\u9f20\u6807\u53f3\u952e\u83b7\u53d6\u66f4\u591a\u4fe1\u606f.</color></color>"
     },
     "HPSettings": {
         "0": "<color=#FFF319>Harry Potter <color=#FC0404>Settings</color></color>",
@@ -81,7 +81,7 @@
     },
     "randomGameStartPosition": {
         "0": "<color=#FCDF04>Random Game Start Position</color>",
-        "13": "<color=#FCDF04>\u5f00\u542f\u968f\u5373\u51fa\u751f\u70b9</color>"
+        "13": "<color=#FCDF04>\u5f00\u542f\u968f\u673a\u51fa\u751f\u70b9</color>"
     },
     "separateCooldowns": {
         "0": "<color=#FCDF04>Shared Voldemort Cooldowns</color>",
@@ -192,8 +192,8 @@
         "13": "\u9632\u5fa1\u5f0f\u51b3\u6597"
     },
     "TheKillingCurseTooltipText": {
-        "0": "The Killing Curse:\nA spell which will kill any target it hits, except Harry\nIf the spell hits Harry, you will die instead\n<#FF0000FF>Right click to shoot this spell in the direction of your cursor",
-        "13": "\u963f\u74e6\u8fbe\u7d22\u547d\u5492:\n\u4e00\u4e2a\u53ef\u4ee5\u6740\u6b7b\u9664\u54c8\u5229\u4ee5\u5916\u6240\u6709\u4eba\u7684\u5492\u8bed\u3002\n\u5982\u679c\u5492\u8bed\u51fb\u4e2d\u54c8\u5229\uff0c\u4f60\u5c31\u4f1a\u6b7b\u4ea1\u3002\n<#FF0000FF>\u53f3\u51fb\u53ef\u671d\u5149\u6807\u65b9\u5411\u5c04\u51fa\u6b64\u5492\u8bed"
+        "0": "The Killing Curse:\nA spell which will kill any target it hits, except Harry\nIf the spell hits Harry, you will die instead\n<#FF0000FF>Press the F key to shoot this spell in the direction of your cursor",
+        "13": "\u963f\u74e6\u8fbe\u7d22\u547d\u5492:\n\u4e00\u4e2a\u53ef\u4ee5\u6740\u6b7b\u9664\u54c8\u5229\u4ee5\u5916\u6240\u6709\u4eba\u7684\u5492\u8bed\u3002\n\u5982\u679c\u5492\u8bed\u51fb\u4e2d\u54c8\u5229\uff0c\u4f60\u5c31\u4f1a\u6b7b\u4ea1\u3002\n<#FF0000FF>\u6309\u4e0bF\u6309\u952e\u53ef\u671d\u5149\u6807\u65b9\u5411\u5c04\u51fa\u6b64\u5492\u8bed"
     },
     "ButtonTextAvadacadavra": {
         "0": "Avadacadavra",
@@ -270,5 +270,37 @@
     "PingTracker_Update": {
         "0": "Created by: <color=#00ffff>FangkuaiYa</color>\n<#FFFFFFFF>Original Design by: <#7289DAFF>Hunter101#1337\n<#FFFFFFFF>Art by:<color=#5A5AAD>\u8ce3\u87d1\u8782</color><color=#D3A4FF>NotKomi</color> & <#E67E22FF>PhasmoFireGod</color>",
         "13": "\u6a21\u7ec4\u4f5c\u8005: <color=#00ffff>FangkuaiYa</color>\n<#FFFFFFFF>\u539f\u4f5c\u8005: <#7289DAFF>Hunter101#1337\n<#FFFFFFFF>\u7f8e\u5de5:<color=#5A5AAD>\u8ce3\u87d1\u8782</color><color=#D3A4FF>NotKomi</color> & <#E67E22FF>PhasmoFireGod</color>"
+    },
+    "DeluminatorTooltip": {
+        "0": "Deluminator:\nToggles the status of the lights (expect Fungle).",
+        "13": "\u7184\u706f\u5668:\n\u80fd\u591f\u7834\u574f\u706f\u5149(\u9664Fungle\u5730\u56fe)."
+    },
+    "ElderWandTooltip": {
+        "0": "Elder Wand:\nIf you are an Impostor, this\nitem will reset your cooldowns to zero.\nOtherwise, you will get a single use button\nto kill anyone you think might be an Impostor",
+        "13": "\u8001\u9b54\u6756:\n\u5982\u679c\u4f60\u662f\u5185\u9b3c\uff0c\u4f60\u53ef\u4ee5\u901a\u8fc7\u5b83\u91cd\u7f6e\u4f60\u7684\u51b7\u5374\u65f6\u95f4\u3002\n\u53cd\u4e4b\u5219\u4f1a\u83b7\u5f97\u4e00\u6b21\u6740\u6b7b\u4efb\u4f55\u4eba\u7684\u673a\u4f1a"
+    },
+    "GhostStoneTooltip": {
+        "0": "Resurrection Stone:\nAllows you to see ghosts.\n<#FF0000FF>This item cannot be consumed.",
+        "13": "\u56de\u9b42\u77f3\uff1a\n\u53ef\u4ee5\u8ba9\u4f60\u770b\u5230\u7075\u9b42\u73a9\u5bb6\u3002\n<#FF0000FF>\u8be5\u7269\u54c1\u4e3a\u975e\u6d88\u8017\u54c1."
+    },
+    "MaraudersMapTooltip": {
+        "0": "Marauder's Map:\nTemporarily zooms out\nthe camera. {0}s duration.",
+        "13": "\u6d3b\u70b9\u5730\u56fe:\n\u6269\u5927\u4f60\u7684\u89c6\u91ce\n\u6301\u7eed{0}\u79d2."
+    },
+    "PhiloStoneTooltip": {
+        "0": "Philosopher's Stone:\nThis item will revive you when you die.\n<#FF0000FF>This item will be automatically consumed.",
+        "13": "\u9b54\u6cd5\u77f3:\n\u5f53\u4f60\u6b7b\u4ea1\u65f6,\u5b83\u4f1a\u4f7f\u4f60\u590d\u6d3b.\n<#FF0000FF>\u8be5\u7269\u54c1\u4f1a\u81ea\u52a8\u6d88\u8017\u7684."
+    },
+    "PortKeyTooltip": {
+        "0": "Port Key:\nTeleports you to\nthe emergency button.",
+        "13": "\u95e8\u94a5\u5319:\n\u4f7f\u7528\u540e\u4f1a\u5c06\u4f60\u4f20\u9001\u5230\u7d27\u6025\u4f1a\u8bae\u7684\u6309\u94ae\u65c1\u8fb9."
+    },
+    "SortingHatTooltip": {
+        "0": "Sorting Hat:\nReveals the role of the targeted player.\n<#FF0000FF>Can only be used in meetings!",
+        "13": "\u5206\u9662\u5e3d:\n\u663e\u793a\u76ee\u6807\u73a9\u5bb6\u7684\u804c\u4e1a.\n<#FF0000FF>\u53ea\u80fd\u5728\u4f1a\u8bae\u4e2d\u4f7f\u7528!"
+    },
+    "TheGoldenSnitchTooltip": {
+        "0": "The Golden Snitch:\nForces all votes onto a targeted player.\n<#FF0000FF>Can only be used in meetings!",
+        "13": "\u91d1\u8272\u98de\u8d3c:\n\u5c06\u6240\u6709\u9009\u7968\u5f3a\u5236\u5206\u914d\u7ed9\u76ee\u6807\u73a9\u5bb6.\n<#FF0000FF>\u53ea\u80fd\u5728\u4f1a\u8bae\u4e2d\u4f7f\u7528!"
     }
 }

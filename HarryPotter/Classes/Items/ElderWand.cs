@@ -9,7 +9,7 @@
             Id = 6;
             Icon = Main.Instance.Assets.ItemIcons[Id];
             Name = "Elder Wand";
-            Tooltip = "Elder Wand:\nIf you are an Impostor, this\nitem will reset your cooldowns to zero.\nOtherwise, you will get a single use button\nto kill anyone you think might be an Impostor";
+            Tooltip = ModTranslation.getString("ElderWandTooltip");
         }
 
         public override void Use()

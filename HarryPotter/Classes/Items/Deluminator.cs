@@ -13,7 +13,7 @@ namespace HarryPotter.Classes.Items
             this.Id = 0;
             this.Icon = Main.Instance.Assets.ItemIcons[Id];
             this.Name = "Deluminator";
-            this.Tooltip = "Deluminator:\nToggles the status of the lights.";
+            this.Tooltip = ModTranslation.getString("DeluminatorTooltip");
         }
         public override void Use()
         {

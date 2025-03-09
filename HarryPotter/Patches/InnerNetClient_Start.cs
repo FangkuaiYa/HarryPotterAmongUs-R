@@ -15,7 +15,6 @@ namespace HarryPotter.Patches
 
             new GameObject().AddComponent<InventoryUI>();
             new GameObject().AddComponent<MindControlMenu>();
-            new GameObject().AddComponent<HotbarUI>();
 
             //Main.Instance.ResetCustomOptions();
         }

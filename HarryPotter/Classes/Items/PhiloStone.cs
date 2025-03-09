@@ -12,7 +12,7 @@ namespace HarryPotter.Classes.Items
             this.Id = 9;
             this.Icon = Main.Instance.Assets.WorldItemIcons[Id];
             this.Name = "Philosopher's Stone";
-            this.Tooltip = "Philosopher's Stone:\nThis item will revive you when you die.\n<#FF0000FF>This item will be automatically consumed.";
+            this.Tooltip = ModTranslation.getString("PhiloStoneTooltip");
             this.IsSpecial = true;
         }
     }

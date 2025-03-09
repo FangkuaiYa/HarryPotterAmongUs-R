@@ -87,7 +87,7 @@ namespace HarryPotter.Classes
             HPTheme = bundle.LoadAsset<AudioClip>("HPTheme").DontUnload();
             InventoryUI.PanelPrefab = bundle.LoadAsset<GameObject>("InventoryPanel").DontUnload();
             MindControlMenu.PanelPrefab = bundle.LoadAsset<GameObject>("ControlPanel").DontUnload();
-            HotbarUI.PanelPrefab = bundle.LoadAsset<GameObject>("Hotbar").DontUnload();
+            //HotbarUI.PanelPrefab = bundle.LoadAsset<GameObject>("Hotbar").DontUnload();
             //GenericOutlineMat = bundle.LoadAsset<Material>("GenericOutline").DontUnload();
         }
     }

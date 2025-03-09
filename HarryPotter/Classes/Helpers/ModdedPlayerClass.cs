@@ -46,6 +46,7 @@ namespace HarryPotter.Classes
             
             TaskInfoHandler.Instance.Update();
             HandleNameColors();
+            PopulateButtons();
             Role?.Update();
 
             if (VigilanteShotEnabled)
@@ -139,7 +140,19 @@ namespace HarryPotter.Classes
                 }
             }
         }
-        
+        public void PopulateButtons()
+        {
+            float itemCount = 0;
+            foreach (var item in Inventory)
+            {
+                if (item.IsSpecial) continue;
+                item.DrawIcon(PlayerControl.LocalPlayer.Data.Role.IsImpostor ? 
+                    HudManager.Instance.SabotageButton.graphic.bounds.max.x - 0.375f - (itemCount * 0.6f) : HudManager.Instance.ReportButton.graphic.bounds.max.x - 0.375f - (itemCount * 0.6f),
+                    PlayerControl.LocalPlayer.Data.Role.IsImpostor ?
+                    HudManager.Instance.SabotageButton.graphic.bounds.max.y + 0.375f : HudManager.Instance.ReportButton.graphic.bounds.max.y + 0.375f, HudManager.Instance.KillButton.transform.position.z);
+                itemCount++;
+            }
+        }
         public bool HasItem(int id)
         {
             return Inventory.FindAll(x => x.Id == id).Count > 0;

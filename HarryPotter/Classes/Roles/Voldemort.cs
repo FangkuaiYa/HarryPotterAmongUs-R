@@ -60,7 +60,7 @@ namespace HarryPotter.Classes.Roles
                 CurseButton.buttonLabelText.color = Palette.EnabledColor;
             }
             
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetKeyDown(KeyCode.F))
                 ShootCurse();
         }
         

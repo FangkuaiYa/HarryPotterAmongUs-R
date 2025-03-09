@@ -1,4 +1,4 @@
-﻿using Reactor.Utilities;
+﻿using HarmonyLib;
 using Reactor.Utilities.Attributes;
 using Reactor.Utilities.Extensions;
 using System;
@@ -70,12 +70,8 @@ namespace HarryPotter.Classes.UI
         {
             if (TooltipObj == null) return;
             TooltipObj.SetActive(false);
-        }
-
-        private void OnMouseOver()
-        {
-            if (!Enabled || !Main.Instance.Config.ShowPopups || TooltipObj == null) return;
-            TooltipObj.SetActive(true);
+            if (Input.GetMouseButton(1))
+                TooltipObj.SetActive(true);
         }
     }
 }

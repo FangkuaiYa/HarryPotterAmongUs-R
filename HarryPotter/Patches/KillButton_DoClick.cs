@@ -20,6 +20,14 @@ namespace HarryPotter.Patches
                 return false;
             }
 
+            foreach (Item item in Main.Instance.GetLocalModdedPlayer()?.Inventory)
+            {
+                if (__instance != item.Button) continue;
+                if (!HudManager._instance.ReportButton.isActiveAndEnabled) break;
+                item.Use();
+                return false;
+            }
+
             if (!PlayerControl.LocalPlayer.CanMove) return false;
             if (Main.Instance.GetLocalModdedPlayer()?.Role != null)
                 return Main.Instance.GetLocalModdedPlayer().Role.DoClick(__instance);

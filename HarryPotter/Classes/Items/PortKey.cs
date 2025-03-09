@@ -13,7 +13,7 @@ namespace HarryPotter.Classes.Items
             this.Id = 2;
             this.Icon = Main.Instance.Assets.ItemIcons[Id];
             this.Name = "Port Key";
-            this.Tooltip = "Port Key:\nTeleports you to\nthe emergency button.";
+            this.Tooltip = ModTranslation.getString("PortKeyTooltip");
         }
 
         public override void Use()

@@ -11,7 +11,7 @@
             this.Icon = Main.Instance.Assets.WorldItemIcons[Id];
             this.Name = "Sorting Hat";
             this.IsSpecial = true;
-            this.Tooltip = "Sorting Hat:\nReveals the role of the targeted player.\n<#FF0000FF>Can only be used in meetings!";
+            this.Tooltip = ModTranslation.getString("SortingHatTooltip");
         }
     }
 }

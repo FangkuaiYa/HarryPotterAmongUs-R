@@ -20,7 +20,7 @@ namespace HarryPotter.Classes.Items
             this.Id = 1;
             this.Icon = Main.Instance.Assets.ItemIcons[Id];
             this.Name = "Marauder's Map";
-            this.Tooltip = $"Marauder's Map:\nTemporarily zooms out\nthe camera. {Main.Instance.Config.MapDuration}s duration.";
+            this.Tooltip = string.Format(ModTranslation.getString("MaraudersMapTooltip"), Main.Instance.Config.MapDuration);
         }
         public override void Use()
         {
