@@ -22,8 +22,8 @@ namespace HarryPotter.Patches
         {
             if (GameOptionsManager.Instance.currentGameMode == GameModes.HideNSeek || !Main.Instance.Config.EnableModRole) return;
             ModdedPlayerClass localPlayer = Main.Instance.GetLocalModdedPlayer();
-            __instance.__4__this.TeamTitle.text = localPlayer._Object.Data.Role.IsImpostor ? localPlayer.Role.RoleName : "Muggle";
-            __instance.__4__this.ImpostorText.text = "Welcome To <color=#FA9E11>Harry Potter</color>!";
+            if (!localPlayer._Object.Data.Role.IsImpostor) __instance.__4__this.TeamTitle.text = ModTranslation.getString("TeamMuggle");
+            __instance.__4__this.ImpostorText.text = ModTranslation.getString("ImpostorTextHP");
             __instance.__4__this.ImpostorText.gameObject.SetActive(true);
             __instance.__4__this.ImpostorText.transform.localScale = new Vector3(0.7f, 0.7f);
         }
@@ -39,7 +39,7 @@ namespace HarryPotter.Patches
             if (localPlayer.Role == null) return;
             localPlayer.Role.ResetCooldowns();
             __instance.__4__this.RoleBlurbText.transform.localScale = new Vector3(0.7f, 0.7f);
-            __instance.__4__this.RoleText.text = localPlayer.Role.RoleName;
+            __instance.__4__this.RoleText.text = ModTranslation.getString(localPlayer.Role.RoleNameTranslation);
             __instance.__4__this.RoleText.color = localPlayer.Role.RoleColor;
             __instance.__4__this.RoleBlurbText.text = localPlayer.Role.IntroString;
             __instance.__4__this.RoleBlurbText.color = localPlayer.Role.RoleColor;

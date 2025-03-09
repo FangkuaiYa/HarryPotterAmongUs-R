@@ -28,6 +28,8 @@ namespace HarryPotter.Classes
         {
             var resourceAssetBundleStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("HarryPotter.Resources.harrypotter");
             var bundle = AssetBundle.LoadFromMemory(resourceAssetBundleStream.ReadFully());
+            var resourceAssetBundleStreamNew = Assembly.GetExecutingAssembly().GetManifestResourceStream("HarryPotter.Resources.harrypotter-new");
+            var bundleNew = AssetBundle.LoadFromMemory(resourceAssetBundleStreamNew.ReadFully());
 
             ItemIcons = new List<Sprite>();
             AbilityIcons = new List<Sprite>();
@@ -36,13 +38,14 @@ namespace HarryPotter.Classes
             CurseSprite = new List<Sprite>();
             //AllHatSprites = new List<Sprite>();
 
-            AbilityIcons.Add(bundle.LoadAsset<Sprite>("CurseButton").DontUnload());
-            AbilityIcons.Add(bundle.LoadAsset<Sprite>("CrucioButton").DontUnload());
-            AbilityIcons.Add(bundle.LoadAsset<Sprite>("ImperioButton").DontUnload());
-            AbilityIcons.Add(bundle.LoadAsset<Sprite>("DDButton").DontUnload());
-            AbilityIcons.Add(bundle.LoadAsset<Sprite>("InvisButton").DontUnload());
-            AbilityIcons.Add(bundle.LoadAsset<Sprite>("HourglassButton").DontUnload());
-            AbilityIcons.Add(bundle.LoadAsset<Sprite>("MarkButton").DontUnload());
+            AbilityIcons.Add(bundleNew.LoadAsset<Sprite>("CurseButton").DontUnload());
+            AbilityIcons.Add(bundleNew.LoadAsset<Sprite>("CrucioButton").DontUnload());
+            AbilityIcons.Add(bundleNew.LoadAsset<Sprite>("ImperioButton").DontUnload());
+            AbilityIcons.Add(bundleNew.LoadAsset<Sprite>("DDButton").DontUnload());
+            AbilityIcons.Add(bundleNew.LoadAsset<Sprite>("InvisButton").DontUnload());
+            AbilityIcons.Add(bundleNew.LoadAsset<Sprite>("HourglassButton").DontUnload());
+            AbilityIcons.Add(bundleNew.LoadAsset<Sprite>("MarkButton").DontUnload());
+            AbilityIcons.Add(bundleNew.LoadAsset<Sprite>("RightPanelCloseButton").DontUnload());
 
             ItemIcons.Add(bundle.LoadAsset<Sprite>("DelumIco").DontUnload());
             ItemIcons.Add(bundle.LoadAsset<Sprite>("MapIco").DontUnload());

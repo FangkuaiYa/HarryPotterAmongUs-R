@@ -17,12 +17,12 @@ namespace HarryPotter.Classes
             if (AllInfo.Count == 0 && PlayerControl.LocalPlayer.myTasks.Count > 0)
             {
                 string roleName = Main.Instance.GetLocalModdedPlayer().Role == null
-                    ? (PlayerControl.LocalPlayer.Data.Role.IsImpostor ? "Impostor" : "Muggle")
-                    : Main.Instance.GetLocalModdedPlayer().Role.RoleName;
-                AddNewItem(0, $"{GetRoleHexColor(PlayerControl.LocalPlayer)}Role: {roleName}</color></color>");
+                    ? (PlayerControl.LocalPlayer.Data.Role.IsImpostor ? ModTranslation.getString("TeamImpostor") : ModTranslation.getString("TeamMuggle"))
+                    : ModTranslation.getString(Main.Instance.GetLocalModdedPlayer().Role.RoleNameTranslation);
+                AddNewItem(0, string.Format(ModTranslation.getString("taskTextRoleText"), GetRoleHexColor(PlayerControl.LocalPlayer), roleName));
                 if (Main.Instance.GetLocalModdedPlayer().Role == null) return;
                 if (!Main.Instance.Config.ShowPopups) return;
-                AddNewItem(1, $"{GetRoleHexColor(PlayerControl.LocalPlayer)}Hover over ability buttons for more information.</color></color>");
+                AddNewItem(1, string.Format(ModTranslation.getString("taskTextRoleIntroText"), GetRoleHexColor(PlayerControl.LocalPlayer)));
             }
         }
 

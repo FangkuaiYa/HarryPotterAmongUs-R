@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace HarryPotter.Patches
 {
-    [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.MurderPlayer))]
+    [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.RpcMurderPlayer))]
     public class PlayerControl_RpcMurderPlayer
     {
         static bool Prefix(PlayerControl __instance, PlayerControl target)
@@ -18,7 +18,7 @@ namespace HarryPotter.Patches
             
             if (Main.Instance.ModdedPlayerById(target.PlayerId).Immortal)
             {
-                PopupTMPHandler.Instance.CreatePopup("When using his ability, Ron cannot be killed.\nYour cooldown was reset.", Color.white, Color.black);
+                PopupTMPHandler.Instance.CreatePopup(ModTranslation.getString("KillPlayerPopup"), Color.white, Color.black);
                 PlayerControl.LocalPlayer.SetKillTimer(GameOptionsManager.Instance.currentNormalGameOptions.KillCooldown);
                 Main.Instance.GetLocalModdedPlayer()?.Role?.ResetCooldowns();
                 return false;

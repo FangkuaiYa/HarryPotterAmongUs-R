@@ -6,61 +6,90 @@ namespace HarryPotter.Classes
     class Config
     {
         private static CustomHeaderOption HPSettings;
-        private static CustomToggleOption Option1;
-        private static CustomToggleOption Option3;
-        private static CustomToggleOption Option4;
-        private static CustomToggleOption Option5;
-        private static CustomNumberOption Option9;
-        private static CustomNumberOption Option10;
-        private static CustomNumberOption Option11;
-        private static CustomNumberOption Option12;
-        private static CustomToggleOption Option13;
+        private static CustomToggleOption enableModRole;
+        private static CustomToggleOption orderOfTheImp;
+        private static CustomToggleOption spellsInVents;
+        private static CustomToggleOption showPopups;
+        public static CustomToggleOption randomGameStartPosition;
+
+        private static CustomHeaderOption CooldownSettings;
+        private static CustomNumberOption beerDuration;
+        private static CustomNumberOption hourglassTimer;
+        private static CustomNumberOption defensiveDuelistDuration;
+        private static CustomNumberOption mapDuration;
+        private static CustomNumberOption imperioDuration;
+        private static CustomToggleOption separateCooldowns;
+        private static CustomNumberOption defensiveDuelistCooldown;
+        private static CustomNumberOption invisCloakCooldown;
+        private static CustomNumberOption invisCloakDuration;
+        private static CustomNumberOption hourglassCooldown;
+        private static CustomNumberOption crucioCooldown;
+        private static CustomNumberOption crucioDuration;
+
+
         public bool OrderOfTheImp { get; private set; }
-        public float MapDuration { get { return 10; } }
-        public float DefensiveDuelistDuration { get { return 10; } }
-        public float InvisCloakDuration { get { return 10; } }
-        public float HourglassTimer { get { return 10; } }
-        public float BeerDuration { get { return 10; } }
-        public float CrucioDuration { get { return 10; } }
+        public float MapDuration { get; private set; }
+        public float DefensiveDuelistDuration { get; private set; }
+        public float InvisCloakDuration { get; private set; }
+        public float HourglassTimer { get; private set; }
+        public float BeerDuration { get; private set; }
+        public float CrucioDuration { get; private set; }
         public float DefensiveDuelistCooldown { get; private set; }
         public float InvisCloakCooldown { get; private set; }
         public float HourglassCooldown { get; private set; }
         public float CrucioCooldown { get; private set; }
         public bool SpellsInVents { get; private set; }
-        public float ImperioDuration { get { return 10; } }
+        public float ImperioDuration { get; private set; }
         public bool ShowPopups { get; private set; }
         public bool SeparateCooldowns { get; private set; }
-        public bool SimplerWatermark { get { return false; } }
-        public bool UseCustomRegion { get { return false; } }
         public bool EnableModRole { get; private set; }
+        public bool RandomGameStartPosition { get; private set; }
 
         public static void LoadOption()
         {
             var num = 0;
 
-            HPSettings = new CustomHeaderOption(num++, "<color=#FFF319>Harry Potter Settings</color>");
-            Option13 = new CustomToggleOption(num++, "<color=#ffff00>Enable Mod Role</color>");
-            Option1 = new CustomToggleOption(num++, "Order of the Impostors", false);
-            Option3 = new CustomToggleOption(num++, "Can Spells be Used In Vents", false);
-            Option4 = new CustomToggleOption(num++, "Show Info Popups/Tooltips");
-            Option5 = new CustomToggleOption(num++, "Shared Voldemort Cooldowns");
-            Option9 = new CustomNumberOption(num++, "Defensive Duelist Cooldown", 20f, 40f, 10, 2.5f);
-            Option10 = new CustomNumberOption(num++, "Invisibility Cloak Cooldown", 20f, 40f, 10, 2.5f);
-            Option11 = new CustomNumberOption(num++, "Time Turner Cooldown", 20f, 40f, 10f, 2.5f);
-            Option12 = new CustomNumberOption(num++, "Crucio Cooldown", 20f, 40f, 10f, 2.5f);
+            HPSettings = new CustomHeaderOption(num++, "HPSettings");
+            enableModRole = new CustomToggleOption(num++, "enableModRole");
+            orderOfTheImp = new CustomToggleOption(num++, "orderOfTheImp", false);
+            spellsInVents = new CustomToggleOption(num++, "spellsInVents", false);
+            showPopups = new CustomToggleOption(num++, "showPopups");
+            randomGameStartPosition = new CustomToggleOption(num++, "randomGameStartPosition");
+            separateCooldowns = new CustomToggleOption(num++, "separateCooldowns");
+
+            CooldownSettings = new CustomHeaderOption(num++, "CooldownSettings");
+            beerDuration = new CustomNumberOption(num++, "beerDuration", 5f, 5f, 30f, 1f);
+            hourglassTimer = new CustomNumberOption(num++, "hourglassTimer", 5f, 5f, 30f, 1f);
+            mapDuration = new CustomNumberOption(num++, "mapDuration", 5f, 5f, 30f, 1f);
+            imperioDuration = new CustomNumberOption(num++, "imperioDuration", 5f, 5f, 30f, 1f);
+            defensiveDuelistCooldown = new CustomNumberOption(num++, "defensiveDuelistCooldown", 20f, 40f, 10, 2.5f);
+            defensiveDuelistDuration = new CustomNumberOption(num++, "defensiveDuelistDuration", 5f, 5f, 30f, 1f);
+            invisCloakCooldown = new CustomNumberOption(num++, "invisCloakCooldown", 20f, 40f, 10, 2.5f);
+            invisCloakDuration = new CustomNumberOption(num++, "invisCloakDuration", 5f, 5f, 30f, 1f);
+            hourglassCooldown = new CustomNumberOption(num++, "hourglassCooldown", 20f, 40f, 10f, 2.5f);
+            crucioCooldown = new CustomNumberOption(num++, "crucioCooldown", 20f, 40f, 10f, 2.5f);
+            crucioDuration = new CustomNumberOption(num++, "crucioDuration", 5f, 5f, 30f, 1f);
         }
 
         public void ReloadSettings()
         {
-            OrderOfTheImp = Option1.Get();
-            SpellsInVents = Option3.Get();
-            DefensiveDuelistCooldown = Option9.Get();
-            InvisCloakCooldown = Option10.Get();
-            HourglassCooldown = Option11.Get();
-            CrucioCooldown = Option12.Get();
-            ShowPopups = Option4.Get();
-            SeparateCooldowns = !Option5.Get();
-            EnableModRole = Option13.Get();
+            EnableModRole = enableModRole.Get();
+            OrderOfTheImp = orderOfTheImp.Get();
+            SpellsInVents = spellsInVents.Get();
+            DefensiveDuelistCooldown = defensiveDuelistCooldown.Get();
+            InvisCloakCooldown = invisCloakCooldown.Get();
+            HourglassCooldown = hourglassCooldown.Get();
+            CrucioCooldown = crucioCooldown.Get();
+            ShowPopups = showPopups.Get();
+            SeparateCooldowns = !separateCooldowns.Get();
+            ImperioDuration = imperioDuration.Get();
+            RandomGameStartPosition = randomGameStartPosition.Get();
+            MapDuration = mapDuration.Get();
+            DefensiveDuelistDuration = defensiveDuelistDuration.Get();
+            InvisCloakDuration = invisCloakDuration.Get();
+            HourglassTimer = hourglassTimer.Get();
+            BeerDuration = beerDuration.Get();
+            CrucioDuration = crucioDuration.Get();
         }
     }
 }

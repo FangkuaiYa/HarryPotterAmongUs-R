@@ -18,10 +18,11 @@ namespace HarryPotter.Classes.Roles
         
         public Bellatrix(ModdedPlayerClass owner)
         {
+            RoleNameTranslation = "RoleNameBellatrix";
             RoleName = "Bellatrix";
             RoleColor = Palette.ImpostorRed;
             RoleColor2 = Palette.ImpostorRed;
-            IntroString = "Oh, he knows how to play,\nlittle bitty baby Potter.";
+            IntroString = ModTranslation.getString("IntroStringBellatrix");
             Owner = owner;
             MarkedPlayers = new List<PlayerControl>();
 
@@ -32,19 +33,19 @@ namespace HarryPotter.Classes.Roles
             CrucioButton.graphic.enabled = true;
 
             Tooltip tt = CrucioButton.gameObject.AddComponent<Tooltip>();
-            tt.TooltipText = "Crucio:\nA spell which will blind and stun any target it hits\n<#FF0000FF>Right click to shoot this spell in the direction of your cursor";
+            tt.TooltipText = ModTranslation.getString("CrucioTooltipText");
             
             MindControlButton = UnityEngine.Object.Instantiate(HudManager.Instance.KillButton);
             MindControlButton.graphic.enabled = true;
 
             Tooltip tt2 = MindControlButton.gameObject.AddComponent<Tooltip>();
-            tt2.TooltipText = "Imperio:\nOpens a menu which allows you to choose a player to mind-control\n<#FF0000FF>The mind-controlled player MUST be previously 'marked'";
+            tt2.TooltipText = ModTranslation.getString("ImperioCrucioTooltipText");
             
             MarkButton = UnityEngine.Object.Instantiate(HudManager.Instance.KillButton);
             MarkButton.graphic.enabled = true;
             
             Tooltip tt3 = MarkButton.gameObject.AddComponent<Tooltip>();
-            tt3.TooltipText = "Mark:\nWill 'mark' the target player to make them vulnerable to 'Imperio'";
+            tt3.TooltipText = ModTranslation.getString("MarkCrucioTooltipText");
         }
 
         public override void RemoveCooldowns()
@@ -169,21 +170,21 @@ namespace HarryPotter.Classes.Roles
             
             CrucioButton.gameObject.SetActive(ShouldDrawCustomButtons());
             CrucioButton.graphic.sprite = Main.Instance.Assets.AbilityIcons[1];
-            CrucioButton.buttonLabelText.text = "Crucio";
+            CrucioButton.buttonLabelText.text = ModTranslation.getString("ButtonTextCrucio");
             CrucioButton.transform.position = new Vector2(bottomLeft.x + 0.75f, bottomLeft.y + 0.75f);
             CrucioButton.SetTarget(null);
             CrucioButton.SetCoolDown(Main.Instance.Config.CrucioCooldown - (float)(DateTime.UtcNow - LastCrucio).TotalSeconds, Main.Instance.Config.CrucioCooldown);
             
             MindControlButton.gameObject.SetActive(ShouldDrawCustomButtons());
             MindControlButton.graphic.sprite = Main.Instance.Assets.AbilityIcons[2];
-            MindControlButton.buttonLabelText.text = "Imperio";
+            MindControlButton.buttonLabelText.text = ModTranslation.getString("ButtonTextImperio");
             MindControlButton.transform.position = new Vector2(bottomLeft.x + MindControlButton.graphic.size.x + 0.75f, bottomLeft.y + 0.75f);
             MindControlButton.SetTarget(null);
             MindControlButton.SetCoolDown(Owner._Object.killTimer, GameOptionsManager.Instance.currentNormalGameOptions.KillCooldown);
             
             MarkButton.gameObject.SetActive(ShouldDrawCustomButtons());
             MarkButton.graphic.sprite = Main.Instance.Assets.AbilityIcons[6];
-            MarkButton.buttonLabelText.text = "Mark Victim";
+            MarkButton.buttonLabelText.text = ModTranslation.getString("ButtonTextMarkVictim");
             MarkButton.transform.position = new Vector2(bottomLeft.x + MindControlButton.graphic.size.x + MarkButton.graphic.size.x + 0.75f, bottomLeft.y + 0.75f);
             MarkButton.SetTarget(Main.Instance.GetClosestTarget(Owner._Object, true, MarkedPlayers.ToArray()));
             MarkButton.SetCoolDown(10f - (float)(DateTime.UtcNow - LastMark).TotalSeconds, 10f);
@@ -196,12 +197,14 @@ namespace HarryPotter.Classes.Roles
             {
                 MindControlButton.graphic.material.SetFloat("_Desat", 0f);
                 MindControlButton.graphic.color = Palette.EnabledColor;
+                MindControlButton.buttonLabelText.color = Palette.EnabledColor;
             }
 
             if (!CrucioButton.isCoolingDown && !isDead)
             {
                 CrucioButton.graphic.material.SetFloat("_Desat", 0f);
                 CrucioButton.graphic.color = Palette.EnabledColor;
+                CrucioButton.buttonLabelText.color = Palette.EnabledColor;
             }
         }
     }

@@ -11,10 +11,11 @@ namespace HarryPotter.Classes.Roles
         
         public Ron(ModdedPlayerClass owner)
         {
+            RoleNameTranslation = "RoleNameRon";
             RoleName = "Ron";
             RoleColor = Palette.Orange;
             RoleColor2 = Palette.Orange;
-            IntroString = "Why Spiders!? Why couldn't it\nhave been follow the butterflies!?";
+            IntroString = ModTranslation.getString("IntroStringRon");
             Owner = owner;
             
             if (!Owner._Object.AmOwner)
@@ -22,9 +23,9 @@ namespace HarryPotter.Classes.Roles
             
             DDButton = KillButton.Instantiate(HudManager.Instance.KillButton);
             DDButton.graphic.enabled = true;
-            
+
             Tooltip tt = DDButton.gameObject.AddComponent<Tooltip>();
-            tt.TooltipText = $"Defensive Duelist:\nWill make you invulnerable to spells and kills for {Main.Instance.Config.DefensiveDuelistDuration}s\nWhile this ability is active, you cannot move";
+            tt.TooltipText = string.Format(ModTranslation.getString("DefensiveDuelistTooltipText"), Main.Instance.Config.DefensiveDuelistDuration);
         }
 
         public override void ResetCooldowns()
@@ -77,7 +78,7 @@ namespace HarryPotter.Classes.Roles
             
             DDButton.gameObject.SetActive(HudManager.Instance.ReportButton.isActiveAndEnabled);
             DDButton.graphic.sprite = Main.Instance.Assets.AbilityIcons[3];
-            DDButton.buttonLabelText.text = "Defense";
+            DDButton.buttonLabelText.text = ModTranslation.getString("ButtonTextDefense");
             DDButton.transform.position = new Vector2(bottomLeft.x + 0.75f, bottomLeft.y + 0.75f);
             DDButton.SetTarget(null);
             DDButton.SetCoolDown(Main.Instance.Config.DefensiveDuelistCooldown - (float)(DateTime.UtcNow - LastCloak).TotalSeconds, Main.Instance.Config.DefensiveDuelistCooldown);

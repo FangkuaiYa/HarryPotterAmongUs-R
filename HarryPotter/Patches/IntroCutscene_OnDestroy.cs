@@ -1,39 +1,17 @@
 ﻿using HarmonyLib;
 using HarryPotter.Classes;
-using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace HarryPotter.Patches
 {
-    [HarmonyPatch]
-    class ExileControllerWrapUpPatch
+    [HarmonyPatch(typeof(IntroCutscene), nameof(IntroCutscene.OnDestroy))]
+    class IntroCutsceneOnDestroyPatch
     {
-
-        [HarmonyPatch(typeof(ExileController), nameof(ExileController.WrapUp))]
-        class BaseExileControllerPatch
-        {
-            public static void Postfix(ExileController __instance)
-            {
-                NetworkedPlayerInfo networkedPlayer = __instance.initData.networkedPlayer;
-                WrapUpPostfix((networkedPlayer != null) ? networkedPlayer.Object : null);
-            }
-        }
-
-        [HarmonyPatch(typeof(AirshipExileController), nameof(AirshipExileController.WrapUpAndSpawn))]
-        class AirshipExileControllerPatch
-        {
-            public static void Postfix(AirshipExileController __instance)
-            {
-                NetworkedPlayerInfo networkedPlayer = __instance.initData.networkedPlayer;
-                WrapUpPostfix((networkedPlayer != null) ? networkedPlayer.Object : null);
-            }
-        }
-        static void WrapUpPostfix(PlayerControl exiled)
+        public static void Prefix(IntroCutscene __instance)
         {
             if (Main.Instance.Config.RandomGameStartPosition)
-            { //Random spawn on round start
+            { //Random spawn on game start
 
                 List<Vector3> skeldSpawn = new() {
                 new Vector3(-2.2f, 2.2f, 0.0f), //cafeteria. botton. top left.
@@ -223,54 +201,6 @@ namespace HarryPotter.Patches
                 if (ModHelpers.isPolus()) PlayerControl.LocalPlayer.NetTransform.RpcSnapTo(polusSpawn[ModHelpers.rnd.Next(polusSpawn.Count)]);
                 if (GameOptionsManager.Instance.currentNormalGameOptions.MapId == 3) PlayerControl.LocalPlayer.NetTransform.RpcSnapTo(dleksSpawn[ModHelpers.rnd.Next(dleksSpawn.Count)]);
                 if (ModHelpers.isFungle()) PlayerControl.LocalPlayer.NetTransform.RpcSnapTo(fungleSpawn[ModHelpers.rnd.Next(fungleSpawn.Count)]);
-            }
-        }
-    }
-
-    [HarmonyPatch(typeof(ExileController), nameof(ExileController.WrapUp))]
-    public class ExileController_WrapUp
-    {
-        static bool Prefix(ExileController __instance)
-        {
-            if (__instance.initData.networkedPlayer != null)
-            {
-                PlayerControl @object = __instance.initData.networkedPlayer.Object;
-                if (@object) @object.Exiled();
-            }
-            if (DestroyableSingleton<TutorialManager>.InstanceExists || !GameManager.Instance.LogicFlow.IsGameOverDueToDeath())
-            {
-                DestroyableSingleton<HudManager>.Instance.StartCoroutine(DestroyableSingleton<HudManager>.Instance.CoFadeFullScreen(Color.black, Color.clear, 0.2f));
-                PlayerControl.LocalPlayer.SetKillTimer(GameOptionsManager.Instance.currentNormalGameOptions.KillCooldown);
-                ShipStatus.Instance.EmergencyCooldown = (float)GameOptionsManager.Instance.currentNormalGameOptions.EmergencyCooldown;
-                Camera.main.GetComponent<FollowerCamera>().Locked = false;
-                DestroyableSingleton<HudManager>.Instance.SetHudActive(true);
-                ControllerManager.Instance.ResetAll();
-            }
-            Object.Destroy(__instance.gameObject);
-
-            return false;
-        }
-    }
-    [HarmonyPatch(typeof(TranslationController), nameof(TranslationController.GetString), typeof(StringNames),
-    typeof(Il2CppReferenceArray<Il2CppSystem.Object>))]
-    public static class TranslationController_GetString
-    {
-        public static void Postfix(ref string __result, [HarmonyArgument(0)] StringNames name)
-        {
-            if (ExileController.Instance == null || ExileController.Instance.initData.networkedPlayer == null) return;
-
-            switch (name)
-            {
-                case StringNames.ExileTextPN:
-                case StringNames.ExileTextSN:
-                case StringNames.ExileTextPP:
-                case StringNames.ExileTextSP:
-                    {
-                        var info = ExileController.Instance.initData.networkedPlayer;
-                        var roleName = ModTranslation.getString(Main.Instance.AllPlayers.FindAll(p => p._Object.PlayerId == info.PlayerId).FirstOrDefault().Role.RoleNameTranslation);
-                        __result = string.Format(ModTranslation.getString("TranslationControllerGetString"), info.PlayerName, roleName);
-                        return;
-                    }
             }
         }
     }

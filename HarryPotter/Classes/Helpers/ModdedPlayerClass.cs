@@ -102,7 +102,7 @@ namespace HarryPotter.Classes
 
             if (Role == null)
             {
-                _Object.cosmetics.nameText.text = _Object.Data.PlayerName + "\n" + (_Object.Data.Role.IsImpostor ? "Impostor" : "Muggle");
+                _Object.cosmetics.nameText.text = _Object.Data.PlayerName + "\n" + (_Object.Data.Role.IsImpostor ? ModTranslation.getString("TeamImpostor") : ModTranslation.getString("TeamMuggle"));
                 _Object.cosmetics.nameText.transform.position = new Vector3(
                     _Object.cosmetics.nameText.transform.position.x, 
                     _Object.transform.position.y + 0.8f, 
@@ -111,7 +111,7 @@ namespace HarryPotter.Classes
             }
 
             Main.Instance.SetNameColor(_Object, Role.RoleColor);
-            _Object.cosmetics.nameText.text = _Object.Data.PlayerName + "\n" + Role.RoleName;
+            _Object.cosmetics.nameText.text = _Object.Data.PlayerName + "\n" + ModTranslation.getString(Role.RoleNameTranslation);
             _Object.cosmetics.nameText.transform.position = new Vector3(
                 _Object.cosmetics.nameText.transform.position.x, 
                 _Object.transform.position.y + 0.8f, 
@@ -135,7 +135,7 @@ namespace HarryPotter.Classes
                         moddedPlayer._Object.transform.position.y + 0.8f,
                         moddedPlayer._Object.cosmetics.nameText.transform.position.z);
                     moddedPlayer._Object.cosmetics.nameText.text =
-                        moddedPlayer._Object.Data.PlayerName + "\n" + moddedPlayer.Role.RoleName;
+                        moddedPlayer._Object.Data.PlayerName + "\n" + ModTranslation.getString(moddedPlayer.Role.RoleNameTranslation);
                 }
             }
         }
@@ -196,8 +196,8 @@ namespace HarryPotter.Classes
             if (item == null) return;
             if (item.IsTrap) item.Use();
 
-            string trapText = "You picked up a trap item! Unpredictable effects have been activated!";
-            string normalText = "You picked up an item! Press 'C' to open your Inventory.";
+            string trapText = ModTranslation.getString("trapText");
+            string normalText = ModTranslation.getString("normalText");
             
             PopupTMPHandler.Instance.CreatePopup(item.IsTrap ? trapText : normalText, Color.white, Color.black);
         }

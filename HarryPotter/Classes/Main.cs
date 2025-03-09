@@ -54,7 +54,32 @@ namespace HarryPotter.Classes
             popper.SettingsChangeMessageLogic(key, str, playSound);
         }
 
-        public static Sprite loadSpriteFromResources(string path, float pixelsPerUnit)
+        public static bool isMira()
+        {
+            return GameOptionsManager.Instance.CurrentGameOptions.MapId == 1;
+        }
+
+        public static bool isAirship()
+        {
+            return GameOptionsManager.Instance.CurrentGameOptions.MapId == 4;
+        }
+        public static bool isSkeld()
+        {
+            return GameOptionsManager.Instance.CurrentGameOptions.MapId == 0;
+        }
+        public static bool isPolus()
+        {
+            return GameOptionsManager.Instance.CurrentGameOptions.MapId == 2;
+        }
+
+        public static bool isFungle()
+        {
+            return GameOptionsManager.Instance.CurrentGameOptions.MapId == 5;
+        }
+
+        public static System.Random rnd = new((int)DateTime.Now.Ticks);
+
+        public static Sprite loadSpriteFromResources(string path, float pixelsPerUnit = 100f)
         {
             path = "HarryPotter.Resources." + path;
             try
@@ -347,7 +372,7 @@ namespace HarryPotter.Classes
                 if (player.AmOwner)
                 {
                     string roleColorHex = TaskInfoHandler.Instance.GetRoleHexColor(player);
-                    durationText.Text = $"{roleColorHex}You are stunned until the next meeting.</color></color>";
+                    durationText.Text = string.Format(ModTranslation.getString("CoStunPlayerDurationText"), roleColorHex);
                     player.lightSource.flashlightSize = Mathf.Lerp(ShipStatus.Instance.MinLightRadius, ShipStatus.Instance.MaxLightRadius, 0) * GameOptionsManager.Instance.currentNormalGameOptions.CrewLightMod;
                     player.moveable = false;
                     player.MyPhysics.body.velocity = Vector2.zero;
@@ -381,7 +406,7 @@ namespace HarryPotter.Classes
                 {
                     double remainingTime = Math.Ceiling(Config.HourglassTimer - (float) (DateTime.UtcNow - now).TotalSeconds);
                     string roleColorHex = TaskInfoHandler.Instance.GetRoleHexColor(player);
-                    durationText.Text = $"{roleColorHex}You are drunk on Butter Beer! {remainingTime}s remaining</color></color>";
+                    durationText.Text = string.Format(ModTranslation.getString("CoActivateButterBeerDurationText"), roleColorHex, remainingTime);
                 }
 
                 if (isMeeting || isGameEnded || hasTimeExpired)
@@ -403,12 +428,12 @@ namespace HarryPotter.Classes
             ImportantTextTask durationText = new ImportantTextTask();
             ModdedPlayerById(player.PlayerId).CanSeeAllRolesOveridden = true;
             if (player.AmOwner)
-                durationText = TaskInfoHandler.Instance.AddNewItem(1, $"{TaskInfoHandler.Instance.GetRoleHexColor(player)}Time Turner will activate in {Config.HourglassTimer}s</color></color>");
+                durationText = TaskInfoHandler.Instance.AddNewItem(1, string.Format(ModTranslation.getString("CoActivateHourglassDurationText"), TaskInfoHandler.Instance.GetRoleHexColor(player), Config.HourglassTimer));
             while (true)
             {
                 if (player.AmOwner)
                 {
-                    durationText.Text = $"{TaskInfoHandler.Instance.GetRoleHexColor(player)}Time Turner will activate in {Math.Ceiling(Config.HourglassTimer - (float) (DateTime.UtcNow - now).TotalSeconds)}s</color></color>";
+                    durationText.Text = string.Format(ModTranslation.getString("CoActivateHourglassDurationText"), TaskInfoHandler.Instance.GetRoleHexColor(player), Math.Ceiling(Config.HourglassTimer - (float)(DateTime.UtcNow - now).TotalSeconds));
                     GetLocalModdedPlayer().Role?.ResetCooldowns();
                 }
                 
@@ -526,7 +551,7 @@ namespace HarryPotter.Classes
                     if (target.AmOwner)
                     {
                         GetLocalModdedPlayer().Inventory.Find(x => x.Id == 9).Delete();
-                        PopupTMPHandler.Instance.CreatePopup("You were revived by The Philosopher's Stone!", Color.white, Color.black);
+                        PopupTMPHandler.Instance.CreatePopup(ModTranslation.getString("CoFakeKillPopup"), Color.white, Color.black);
                     }
                     target.moveable = true;
                     target.Visible = true;
@@ -592,7 +617,7 @@ namespace HarryPotter.Classes
                 if (voteArea.TargetPlayerId != playerId) continue;
                 ModdedPlayerClass targetPlayer = ModdedPlayerById(playerId);
                 
-                PopupTMPHandler.Instance.CreatePopup(targetPlayer._Object.Data.PlayerName + " has had their role revealed!", Color.white, Color.black);
+                PopupTMPHandler.Instance.CreatePopup(string.Format(ModTranslation.getString("RevealRolePopup"), targetPlayer._Object.Data.PlayerName), Color.white, Color.black);
                 
                 string roleHex = TaskInfoHandler.Instance.GetRoleHexColor(targetPlayer._Object);
                 string playerName = targetPlayer._Object.Data.PlayerName;
@@ -640,7 +665,7 @@ namespace HarryPotter.Classes
             ModdedPlayerById(player.PlayerId).Immortal = true;
             ImportantTextTask durationText = new ImportantTextTask();
             if (player.AmOwner)
-                durationText = TaskInfoHandler.Instance.AddNewItem(1, $"{TaskInfoHandler.Instance.GetRoleHexColor(player)}Defensive Duelist: {Config.DefensiveDuelistDuration}s remaining</color></color>");
+                durationText = TaskInfoHandler.Instance.AddNewItem(1, string.Format(ModTranslation.getString("CoDefensiveDuelistDurationText"), TaskInfoHandler.Instance.GetRoleHexColor(player), Config.DefensiveDuelistDuration));
             while (true)
             {
                 if (MeetingHud.Instance ||
@@ -657,10 +682,9 @@ namespace HarryPotter.Classes
                 {
                     player.transform.position = startingPosition;
                     player.MyPhysics.body.velocity = new Vector2(0, 0);
-                    durationText.Text = $"{TaskInfoHandler.Instance.GetRoleHexColor(player)}Defensive Duelist: {Math.Ceiling(Config.DefensiveDuelistDuration - (float) (DateTime.UtcNow - now).TotalSeconds)}s remaining</color></color>";
+                    durationText.Text = string.Format(ModTranslation.getString("CoDefensiveDuelistDurationText"), TaskInfoHandler.Instance.GetRoleHexColor(player), Math.Ceiling(Config.DefensiveDuelistDuration - (float)(DateTime.UtcNow - now).TotalSeconds));
                     GetLocalModdedPlayer().Role?.ResetCooldowns();
                 }
-
                 yield return null;
             }
         }
@@ -710,13 +734,13 @@ namespace HarryPotter.Classes
             DateTime now = DateTime.UtcNow;
             ImportantTextTask durationText = new ImportantTextTask();
             if (target.AmOwner)
-                durationText = TaskInfoHandler.Instance.AddNewItem(1, $"{TaskInfoHandler.Instance.GetRoleHexColor(target)}Invisibility Cloak: {Config.InvisCloakDuration}s remaining</color></color>");
+                durationText = TaskInfoHandler.Instance.AddNewItem(1, string.Format(ModTranslation.getString("CoInvisPlayerDurationText"), TaskInfoHandler.Instance.GetRoleHexColor(target), Config.InvisCloakDuration));
             
             while (true)
             {
                 if (target.AmOwner)
                 {
-                    durationText.Text = $"{TaskInfoHandler.Instance.GetRoleHexColor(target)}Invisibility Cloak: {Math.Ceiling(Config.InvisCloakDuration - (float) (DateTime.UtcNow - now).TotalSeconds)}s remaining</color></color>";
+                    durationText.Text = string.Format(ModTranslation.getString("CoInvisPlayerDurationText"), TaskInfoHandler.Instance.GetRoleHexColor(target), Math.Ceiling(Config.InvisCloakDuration - (float)(DateTime.UtcNow - now).TotalSeconds));
                     GetLocalModdedPlayer().Role?.ResetCooldowns();
 
                     target.Visible = true;
@@ -763,14 +787,14 @@ namespace HarryPotter.Classes
             ImportantTextTask durationText = new ImportantTextTask();
             if (target.AmOwner)
             {
-                PopupTMPHandler.Instance.CreatePopup("You were blinded and frozen by a spell!", Color.white, Color.black);
-                durationText = TaskInfoHandler.Instance.AddNewItem(1, $"{TaskInfoHandler.Instance.GetRoleHexColor(target)}You are blinded and frozen! {Config.CrucioDuration}s remaining</color></color>");
+                PopupTMPHandler.Instance.CreatePopup(ModTranslation.getString("CoBlindPlayerPopup"), Color.white, Color.black);
+                durationText = TaskInfoHandler.Instance.AddNewItem(1, string.Format(ModTranslation.getString("CoBlindPlayerDurationText"), TaskInfoHandler.Instance.GetRoleHexColor(target), Config.CrucioDuration));
             }
             while (true)
             {
                 if (target.AmOwner)
                 {
-                    durationText.Text = $"{TaskInfoHandler.Instance.GetRoleHexColor(target)}You are blinded and frozen! {Math.Ceiling(Config.CrucioDuration - (float) (DateTime.UtcNow - now).TotalSeconds)}s remaining</color></color>";
+                    durationText.Text = string.Format(ModTranslation.getString("CoBlindPlayerDurationText"), TaskInfoHandler.Instance.GetRoleHexColor(target), Math.Ceiling(Config.CrucioDuration - (float)(DateTime.UtcNow - now).TotalSeconds));
                     target.lightSource.flashlightSize = Mathf.Lerp(ShipStatus.Instance.MinLightRadius, ShipStatus.Instance.MaxLightRadius, num) * GameOptionsManager.Instance.currentNormalGameOptions.CrewLightMod;
                     target.moveable = false;
                 }
@@ -809,11 +833,11 @@ namespace HarryPotter.Classes
                 Camera.main.GetComponent<FollowerCamera>().Target = target;
                 Camera.main.GetComponent<FollowerCamera>().shakeAmount = 0;
                 durationText = TaskInfoHandler.Instance.AddNewItem(1,
-                    $"{TaskInfoHandler.Instance.GetRoleHexColor(controller)}You are mind-controlling \"{target.Data.PlayerName}\"! {Config.ImperioDuration}s remaining</color></color>");
+                    string.Format(ModTranslation.getString("CoControlPlayerDurationText"), TaskInfoHandler.Instance.GetRoleHexColor(controller), target.Data.PlayerName, Config.ImperioDuration));
             }
 
             if (target.AmOwner)
-                PopupTMPHandler.Instance.CreatePopup("You are being mind-controlled!", Color.white, Color.black);
+                PopupTMPHandler.Instance.CreatePopup(ModTranslation.getString("CoControlPlayerPopup"), Color.white, Color.black);
 
             target.moveable = true;
             controller.moveable = true;
@@ -855,7 +879,7 @@ namespace HarryPotter.Classes
                     if (controller.AmOwner)
                     {
                         durationText.Text =
-                            $"{TaskInfoHandler.Instance.GetRoleHexColor(controller)}You are mind-controlling \"{target.Data.PlayerName}\"! {Math.Ceiling(Config.ImperioDuration - (float) (DateTime.UtcNow - now).TotalSeconds)}s remaining</color></color>";
+                            string.Format(ModTranslation.getString("CoControlPlayerDurationText"), TaskInfoHandler.Instance.GetRoleHexColor(controller), target.Data.PlayerName, Math.Ceiling(Config.ImperioDuration - (float)(DateTime.UtcNow - now).TotalSeconds));
                         controller.lightSource.transform.position = target.transform.position;
                         DestroyableSingleton<HudManager>.Instance.KillButton.SetCoolDown(0f, GameOptionsManager.Instance.currentNormalGameOptions.KillCooldown);
 
@@ -946,7 +970,7 @@ namespace HarryPotter.Classes
             writer.Write(forceShowAnim);
             writer.EndMessage();
         }
-        
+
         public void KillPlayer(PlayerControl killer, PlayerControl target, bool isCurseKill, bool forceShowAnim)
         {
             if (MeetingHud.Instance || AmongUsClient.Instance.GameState != InnerNetClient.GameStates.Started)
@@ -959,7 +983,7 @@ namespace HarryPotter.Classes
             {
                 if (killer.AmOwner)
                 {
-                    PopupTMPHandler.Instance.CreatePopup("When using his ability, Ron cannot be killed.\nYour cooldowns were reset.", Color.white, Color.black);
+                    PopupTMPHandler.Instance.CreatePopup(ModTranslation.getString("KillPlayerPopup"), Color.white, Color.black);
                     killer.SetKillTimer(GameOptionsManager.Instance.currentNormalGameOptions.KillCooldown);
                     ModdedPlayerById(killer.PlayerId).Role?.ResetCooldowns();
                 }
@@ -981,23 +1005,25 @@ namespace HarryPotter.Classes
                 ModdedPlayerById(target.PlayerId).KilledByCurse = true;
                 if (target.AmOwner && killer.AmOwner)
                 {
-                    PopupTMPHandler.Instance.CreatePopup("You tried to kill Harry with the Killing Curse!\nBecause of Harry's passive ability, you are dead.", Color.white, Color.black, 3f);
+                    PopupTMPHandler.Instance.CreatePopup(ModTranslation.getString("KillPlayerPopup1"), Color.white, Color.black, 3f);
                     DestroyableSingleton<HudManager>.Instance.KillOverlay.ShowKillAnimation(killer.Data, killer.Data);
                 }
                 else if (target.AmOwner)
                 {
-                    PopupTMPHandler.Instance.CreatePopup("You were hit by a spell!", Color.white, Color.black);
+                    PopupTMPHandler.Instance.CreatePopup(ModTranslation.getString("KillPlayerPopup2"), Color.white, Color.black);
                 }
             }
-            
-            DeadBody deadBody = DeadBody.Instantiate(GameManager.Instance.DeadBodyPrefab);
-            deadBody.bloodSplatter.color = Color.cyan;
+
+            /*DeadBody deadBody = DeadBody.Instantiate(GameManager.Instance.DeadBodyPrefab);
+            SpriteRenderer rend = deadBody.transform.FindChild("Sprite").GetComponent<SpriteRenderer>();
+            rend.color = target.Data.Color;
             deadBody.gameObject.name = "body_" + target.PlayerId;
             Vector3 vector = target.transform.position + target.KillAnimations[0].BodyOffset;
             vector.z = vector.y / 1000f;
             deadBody.transform.position = vector;
             deadBody.ParentId = target.PlayerId;
-            target.SetPlayerMaterialColors(deadBody.GetComponent<Renderer>());
+            target.SetPlayerMaterialColors(deadBody.GetComponent<Renderer>());*/
+            target.MyPhysics.StartCoroutine(target.KillAnimations.First().CoPerformKill(target, target));
 
             if (target.AmOwner)
             {
@@ -1045,7 +1071,7 @@ namespace HarryPotter.Classes
 
         public void ForceAllVotes(byte playerId)
         {
-            PopupTMPHandler.Instance.CreatePopup($"All votes were forced onto a specific player!", Color.white, Color.black);
+            PopupTMPHandler.Instance.CreatePopup(ModTranslation.getString("ForceAllVotesPopup"), Color.white, Color.black);
             
             foreach (PlayerVoteArea playerVoteArea in MeetingHud.Instance.playerStates)
             {
@@ -1208,7 +1234,7 @@ namespace HarryPotter.Classes
         public string GetPlayerRoleName(ModdedPlayerClass player)
         {
             if (player == null) return "Null";
-            if (player.Role == null) return player._Object.Data.Role.IsImpostor ? "Impostor" : "Muggle";
+            if (player.Role == null) return player._Object.Data.Role.IsImpostor ? ModTranslation.getString("TeamImpostor") : ModTranslation.getString("TeamMuggle");
             return player.Role.RoleName;
         }
 

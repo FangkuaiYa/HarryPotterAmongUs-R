@@ -12,10 +12,11 @@ namespace HarryPotter.Classes.Roles
 
         public Voldemort(ModdedPlayerClass owner)
         {
+            RoleNameTranslation = "RoleNameVoldemort";
             RoleName = "Voldemort";
             RoleColor = Palette.ImpostorRed;
             RoleColor2 = Palette.ImpostorRed;
-            IntroString = "There is no good and evil. There is only\npower, and those too weak to seek it.";
+            IntroString = ModTranslation.getString("IntroStringVoldemort");
             Owner = owner;
 
             if (!Owner._Object.AmOwner)
@@ -25,7 +26,7 @@ namespace HarryPotter.Classes.Roles
             CurseButton.graphic.enabled = true;
             
             Tooltip tt = CurseButton.gameObject.AddComponent<Tooltip>();
-            tt.TooltipText = "The Killing Curse:\nA spell which will kill any target it hits, except Harry\nIf the spell hits Harry, you will die instead\n<#FF0000FF>Right click to shoot this spell in the direction of your cursor";
+            tt.TooltipText = ModTranslation.getString("TheKillingCurseTooltipText");
         }
 
         public override void Update()
@@ -40,7 +41,7 @@ namespace HarryPotter.Classes.Roles
 
             CurseButton.gameObject.SetActive(HudManager.Instance.KillButton.isActiveAndEnabled);
             CurseButton.graphic.sprite = Main.Instance.Assets.AbilityIcons[0];
-            CurseButton.buttonLabelText.text = "Avadacadavra";
+            CurseButton.buttonLabelText.text = ModTranslation.getString("ButtonTextAvadacadavra");
             CurseButton.transform.position = new Vector2(bottomLeft.x + 0.75f, bottomLeft.y + 0.75f);
             CurseButton.SetTarget(null);
             if (Main.Instance.Config.SeparateCooldowns)
@@ -56,6 +57,7 @@ namespace HarryPotter.Classes.Roles
             {
                 CurseButton.graphic.material.SetFloat("_Desat", 0f);
                 CurseButton.graphic.color = Palette.EnabledColor;
+                CurseButton.buttonLabelText.color = Palette.EnabledColor;
             }
             
             if (Input.GetMouseButtonDown(1))

@@ -67,13 +67,27 @@ namespace HarryPotter.Patches
                 popUp = Object.Instantiate(popUpTemplate);
 
                 popUp.gameObject.SetActive(true);
-                string creditsString = @$"<align=""center"">Contributors:
+                string creditsString = AmongUs.Data.DataManager.Settings.Language.CurrentLanguage == SupportedLangs.SChinese ? 
+                @$"<align=""center"">贡献者:
+模组由 FangkuaiYa 续更
+原创作者 Hunter101#1337
+艺术设计 賣蟑螂NotKomi & PhasmoFireGod
+
+" :
+                @$"<align=""center"">Contributors:
 Modded by FangkuaiYa
 Original Design by Hunter101#1337
 Art by 賣蟑螂NotKomi & PhasmoFireGod
 
 ";
-                creditsString += $@"<size=70%> Other Credits & Resources:
+                creditsString += AmongUs.Data.DataManager.Settings.Language.CurrentLanguage == SupportedLangs.SChinese ?
+                $@"<size=70%> 其他资源和贡献者:
+Reactor - 所有版本使用的框架
+BepInEx - 用于挂钩游戏函数
+TownOfUs-R - 游戏设置部分代码来自 eDonnes124
+TheOtherRoles - 哈利波特帽代码来自TheOtherHats
+</size>" :
+                $@"<size=70%> Other Credits & Resources:
 Reactor - The framework used for all versions
 BepInEx - Used to hook game functions
 TownOfUs-R - Custom game options by eDonnes124
@@ -85,8 +99,8 @@ TheOtherRoles - Harry Potter Hats is based on the code from TheOtherRoles
                     Id = "hpCredits",
                     Language = 0,
                     Number = 500,
-                    Title = "Credits and Contributors",
-                    ShortTitle = "Harry Potter Credits",
+                    Title = AmongUs.Data.DataManager.Settings.Language.CurrentLanguage == SupportedLangs.SChinese ? "贡献者" : "Credits and Contributors",
+                    ShortTitle = AmongUs.Data.DataManager.Settings.Language.CurrentLanguage == SupportedLangs.SChinese ? "哈利波特贡献者" : "Harry Potter Credits",
                     SubTitle = "",
                     PinState = false,
                     Date = "03.08.2025",
@@ -257,7 +271,7 @@ TheOtherRoles - Harry Potter Hats is based on the code from TheOtherRoles
             CloseRightButton.transform.localScale = new(1f, 1f, 1f);
             CloseRightButton.AddComponent<BoxCollider2D>().size = new(0.6f, 1.5f);
             var closeRightSpriteRenderer = CloseRightButton.AddComponent<SpriteRenderer>();
-            closeRightSpriteRenderer.sprite = ModHelpers.loadSpriteFromResources("RightPanelCloseButton.png", 100f);
+            closeRightSpriteRenderer.sprite = Main.Instance.Assets.AbilityIcons[7];
             closeRightSpriteRenderer.color = new(0.06f, 0.36f, 1f, 1f);
             var closeRightPassiveButton = CloseRightButton.AddComponent<PassiveButton>();
             closeRightPassiveButton.OnClick = new();

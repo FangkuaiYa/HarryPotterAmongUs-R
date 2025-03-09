@@ -4,6 +4,7 @@ namespace HarryPotter.Classes
 {
     public class Role
     {
+        public string RoleNameTranslation { get; set; }
         public string RoleName { get; set; }
         public string IntroString { get; set; }
         public Color RoleColor { get; set; }

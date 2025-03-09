@@ -11,10 +11,11 @@ namespace HarryPotter.Classes.Roles
         
         public Harry(ModdedPlayerClass owner)
         {
+            RoleNameTranslation = "RoleNameHarry";
             RoleName = "Harry";
             RoleColor = Palette.Orange;
             RoleColor2 = Palette.Orange;
-            IntroString = "I solemnly swear I am up to no good.";
+            IntroString = ModTranslation.getString("IntroStringHarry");
             Owner = owner;
             
             if (!Owner._Object.AmOwner)
@@ -23,7 +24,7 @@ namespace HarryPotter.Classes.Roles
             InvisCloakButton = KillButton.Instantiate(HudManager.Instance.KillButton);
             InvisCloakButton.graphic.enabled = true;
             Tooltip tt = InvisCloakButton.gameObject.AddComponent<Tooltip>();
-            tt.TooltipText = $"Cloak:\nWill make you invisible for {Main.Instance.Config.InvisCloakDuration}s";
+            tt.TooltipText = string.Format(ModTranslation.getString("CloakTooltipText"), Main.Instance.Config.InvisCloakDuration);
         }
 
         public override void ResetCooldowns()
@@ -75,7 +76,7 @@ namespace HarryPotter.Classes.Roles
             
             InvisCloakButton.gameObject.SetActive(HudManager.Instance.ReportButton.isActiveAndEnabled);
             InvisCloakButton.graphic.sprite = Main.Instance.Assets.AbilityIcons[4];
-            InvisCloakButton.buttonLabelText.text = "Cloak";
+            InvisCloakButton.buttonLabelText.text = ModTranslation.getString("ButtonTextCloak");
             InvisCloakButton.transform.position = new Vector2(bottomLeft.x + 0.75f, bottomLeft.y + 0.75f);
             InvisCloakButton.SetTarget(null);
             InvisCloakButton.SetCoolDown(Main.Instance.Config.InvisCloakCooldown - (float)(DateTime.UtcNow - LastCloak).TotalSeconds, Main.Instance.Config.InvisCloakCooldown);
@@ -86,6 +87,7 @@ namespace HarryPotter.Classes.Roles
             {
                 InvisCloakButton.graphic.material.SetFloat("_Desat", 0f);
                 InvisCloakButton.graphic.color = Palette.EnabledColor;
+                InvisCloakButton.buttonLabelText.color = Palette.EnabledColor;
             }
         }
     }

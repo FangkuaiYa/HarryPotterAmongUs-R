@@ -37,7 +37,7 @@ namespace HarryPotter.Classes.Helpers.UI
             closeButton.OnClick += Close;
 
             Tooltip closeTooltip = closeButtonObj.gameObject.AddComponent<Tooltip>();
-            closeTooltip.TooltipText = "Close Menu";
+            closeTooltip.TooltipText = ModTranslation.getString("CloseMenuTooltipText");
 
             for (var i = 0; i < Panel.transform.FindChild("Inventory").childCount; i++)
             {

@@ -13,10 +13,11 @@ namespace HarryPotter.Classes.Roles
 
         public Hermione(ModdedPlayerClass owner)
         {
+            RoleNameTranslation = "RoleNameHermione";
             RoleName = "Hermione";
             RoleColor = Palette.Orange;
             RoleColor2 = Palette.Orange;
-            IntroString = "We could all have been\nkilled - or worse, expelled.";
+            IntroString = ModTranslation.getString("IntroStringHermione");
             Owner = owner;
             
             if (!Owner._Object.AmOwner)
@@ -26,7 +27,7 @@ namespace HarryPotter.Classes.Roles
             HourglassButton.graphic.enabled = true;
             
             Tooltip tt = HourglassButton.gameObject.AddComponent<Tooltip>();
-            tt.TooltipText = $"Time Turner:\nOn a delay of {Main.Instance.Config.HourglassTimer}s, you will teleport back to your starting position\nThis will bring you back to life, unless you were killed by a spell";
+            tt.TooltipText = string.Format(ModTranslation.getString("HermioneTooltipText"), Main.Instance.Config.HourglassTimer);
         }
 
         public override void ResetCooldowns()
@@ -78,7 +79,7 @@ namespace HarryPotter.Classes.Roles
             
             HourglassButton.gameObject.SetActive(HudManager.Instance.ReportButton.isActiveAndEnabled);
             HourglassButton.graphic.sprite = Main.Instance.Assets.AbilityIcons[5];
-            HourglassButton.buttonLabelText.text = "Time Turner";
+            HourglassButton.buttonLabelText.text = ModTranslation.getString("ButtonTextTimeTurner");
             HourglassButton.transform.position = new Vector2(bottomLeft.x + 0.75f, bottomLeft.y + 0.75f);
             HourglassButton.SetTarget(null);
             HourglassButton.SetCoolDown(Main.Instance.Config.HourglassCooldown - (float)(DateTime.UtcNow - LastHourglass).TotalSeconds, Main.Instance.Config.HourglassCooldown);
@@ -91,6 +92,7 @@ namespace HarryPotter.Classes.Roles
             {
                 HourglassButton.graphic.material.SetFloat("_Desat", 0f);
                 HourglassButton.graphic.color = Palette.EnabledColor;
+                HourglassButton.buttonLabelText.color = Palette.EnabledColor;
             }
         }
     }

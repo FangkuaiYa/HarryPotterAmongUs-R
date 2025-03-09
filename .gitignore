@@ -1,10 +1,6 @@
-src/bin
-src/obj
-src/.vs
-src/.idea
+HarryPotter/bin
+HarryPotter/obj
 .vs
 .git
 .idea
 BUGS.txt
-/HarryPotter/bin/Debug
-/HarryPotter/obj

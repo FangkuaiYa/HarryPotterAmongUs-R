@@ -16,7 +16,7 @@ namespace HarryPotter.CustomOption
             Func<object, string> format = null)
         {
             ID = id;
-            Name = name;
+            Name = ModTranslation.getString(name);
             Type = type;
             DefaultValue = Value = defaultValue;
             Format = format ?? (obj => $"{obj}");
