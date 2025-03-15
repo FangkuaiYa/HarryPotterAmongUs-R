@@ -48,13 +48,6 @@ namespace HarryPotter.CustomOption
                 else if (type == CustomOptionType.Number) value = reader.ReadSingle();
                 else if (type == CustomOptionType.String) value = reader.ReadInt32();
 
-                try
-                {
-                    DestroyableSingleton<HudManager>.Instance.Notifier.AddModSettingsChangeMessage((StringNames)(customOption.ID + 6000), customOption.Value.ToString(), customOption.Name, false);
-                }
-                catch
-                { }
-
                 customOption?.Set(value);
 
                 var panels = GameObject.FindObjectsOfType<ViewSettingsInfoPanel>();

@@ -18,7 +18,7 @@ namespace HarryPotter.Patches
         }
     }
     [HarmonyPatch(typeof(RoleManager), nameof(RoleManager.SelectRoles))]
-    class PlayerControl_RpcSetInfected
+    class RoleManager_SelectRoles
     {
         static void Prefix()
         {

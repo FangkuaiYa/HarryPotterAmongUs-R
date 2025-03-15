@@ -1,3 +1,4 @@
+using HarryPotter.Classes;
 using System;
 using System.Collections.Generic;
 
@@ -49,6 +50,12 @@ namespace HarryPotter.CustomOption
             Value = value;
 
             if (Setting != null && AmongUsClient.Instance.AmHost && SendRpc) Rpc.SendRpc(this);
+            try
+            {
+                DestroyableSingleton<HudManager>.Instance.Notifier.AddModSettingsChangeMessage((StringNames)(this.ID + 6000), this.Value.ToString() == "False" ? AmongUs.Data.DataManager.Settings.Language.CurrentLanguage == SupportedLangs.SChinese ? "¹Ø±Õ" : "False" : AmongUs.Data.DataManager.Settings.Language.CurrentLanguage == SupportedLangs.SChinese ? "¿ªÆô" : "True", this.Name, false);
+            }
+            catch
+            { }
 
             try
             {

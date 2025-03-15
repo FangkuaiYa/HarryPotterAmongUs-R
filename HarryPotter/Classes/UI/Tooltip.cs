@@ -1,9 +1,8 @@
-﻿using HarmonyLib;
-using Reactor.Utilities.Attributes;
-using Reactor.Utilities.Extensions;
-using System;
+﻿using System;
 using TMPro;
 using UnityEngine;
+using Reactor.Utilities.Extensions;
+using Reactor.Utilities.Attributes;
 
 namespace HarryPotter.Classes.UI
 {
@@ -57,8 +56,6 @@ namespace HarryPotter.Classes.UI
 
         public void LateUpdate()
         {
-            if (TooltipObj == null || TooltipTMP == null || TooltipTransform == null) return;
-
             TooltipTransform.sizeDelta = TooltipTMP.GetPreferredValues(TooltipText);
             TooltipTMP.text = "<#EEFFB3FF>" + TooltipText;
 
@@ -68,10 +65,13 @@ namespace HarryPotter.Classes.UI
 
         public void FixedUpdate()
         {
-            if (TooltipObj == null) return;
             TooltipObj.SetActive(false);
-            if (Input.GetMouseButton(1))
-                TooltipObj.SetActive(true);
+        }
+
+        private void ReceiveMouseOver()
+        {
+            if (!Enabled || !Main.Instance.Config.ShowPopups) return;
+            TooltipObj.SetActive(true);
         }
     }
 }

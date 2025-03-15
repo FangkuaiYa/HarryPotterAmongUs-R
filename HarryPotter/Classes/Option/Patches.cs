@@ -8,6 +8,7 @@ using TMPro;
 using System.Collections;
 using HarryPotter.Classes;
 using Reactor.Utilities.Extensions;
+using Il2CppInterop.Runtime.InteropTypes.Arrays;
 
 namespace HarryPotter.CustomOption
 {
@@ -376,13 +377,13 @@ namespace HarryPotter.CustomOption
 		[HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.RpcSyncSettings))]
 		private class PlayerControlPatch
 		{
-			public static void Postfix()
+			public static void Postfix(Il2CppStructArray<byte> optionsByteArray)
 			{
 				if (PlayerControl.AllPlayerControls.Count < 2 || !AmongUsClient.Instance ||
 					!PlayerControl.LocalPlayer || !AmongUsClient.Instance.AmHost) return;
 				Rpc.SendRpc();
-			}
-		}
+            }
+        }
 
 		[HarmonyPatch(typeof(PlayerPhysics), nameof(PlayerPhysics.CoSpawnPlayer))]
 		private class PlayerJoinPatch
@@ -408,7 +409,6 @@ namespace HarryPotter.CustomOption
 				if (option is CustomToggleOption toggle)
 				{
 					toggle.Toggle();
-                    DestroyableSingleton<HudManager>.Instance.Notifier.AddModSettingsChangeMessage((StringNames)(option.ID + 6000), option.Value.ToString(), option.Name, false);
                     return false;
 				}
 				if (GameOptionsManager.Instance.currentGameOptions.GameMode == GameModes.HideNSeek || __instance.boolOptionName == BoolOptionNames.VisualTasks ||

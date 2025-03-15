@@ -41,7 +41,7 @@ namespace HarryPotter.Classes.Helpers.UI
             TargetedItem = localPlayer.Inventory[InventoryIndex];
             ItemSpriteRenderer.sprite = TargetedItem.Icon;
 
-            ItemTooltip.TooltipText = "\n\n\n\n\n\n\n\n\n\n" + TargetedItem.Tooltip;
+            ItemTooltip.TooltipText = TargetedItem.Tooltip;
             ItemButton.SetColor(TargetedItem.IsSpecial ? Color.gray : Color.yellow);
         }
 
