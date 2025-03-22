@@ -38,11 +38,7 @@ namespace HarryPotter.Classes
                 MenuObject.freeChatField.charCountText.gameObject.SetActive(false);
 
                 MenuObject.openKeyboardButton.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().enabled = false;
-                MenuObject.openKeyboardButton.Destroy();
-
-                //MenuObject.gameObject.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>()
-                //    .enabled = false;
-                MenuObject.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+                MenuObject.openKeyboardButton.SetActive(false);
 
                 MenuObject.backgroundImage.enabled = false;
 
