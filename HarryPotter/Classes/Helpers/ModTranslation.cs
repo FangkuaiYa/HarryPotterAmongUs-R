@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using HarmonyLib;
+using HarryPotter.Classes;
 using Newtonsoft.Json.Linq;
 
 namespace HarryPotter
@@ -16,10 +17,7 @@ namespace HarryPotter
         public static void Load()
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
-            Stream stream = assembly.GetManifestResourceStream("HarryPotter.Resources.stringData.json");
-            var byteArray = new byte[stream.Length];
-            var read = stream.Read(byteArray, 0, (int)stream.Length);
-            string json = System.Text.Encoding.UTF8.GetString(byteArray);
+            string json = Main.Instance.Assets.lanuageJsonAsset.text;
 
             stringData = new Dictionary<string, Dictionary<int, string>>();
             JObject parsed = JObject.Parse(json);
@@ -79,6 +77,13 @@ namespace HarryPotter
             }
 
             return key;
+        }
+    }
+    internal static class LanguageExtension
+    {
+        internal static string Translate(this string key)
+        {
+            return ModTranslation.getString(key);
         }
     }
 }

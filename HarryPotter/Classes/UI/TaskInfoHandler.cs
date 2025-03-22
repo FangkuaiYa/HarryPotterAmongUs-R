@@ -21,8 +21,7 @@ namespace HarryPotter.Classes
                     : ModTranslation.getString(Main.Instance.GetLocalModdedPlayer().Role.RoleNameTranslation);
                 AddNewItem(0, string.Format(ModTranslation.getString("taskTextRoleText"), GetRoleHexColor(PlayerControl.LocalPlayer), roleName));
                 if (Main.Instance.GetLocalModdedPlayer().Role == null) return;
-                if (!Main.Instance.Config.ShowPopups) return;
-                AddNewItem(1, string.Format(ModTranslation.getString("taskTextRoleIntroText"), GetRoleHexColor(PlayerControl.LocalPlayer)));
+                AddNewItem(1, string.Format(ModTranslation.getString("taskTextRoleIntroText"), GetRoleHexColor(PlayerControl.LocalPlayer), Main.Instance.GetLocalModdedPlayer().Role.TaskText) + $"\n{"taskTextRoleIntroText1".Translate()}");
             }
         }
 

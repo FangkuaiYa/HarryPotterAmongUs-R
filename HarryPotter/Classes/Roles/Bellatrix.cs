@@ -1,8 +1,6 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections.Generic;
-using HarryPotter.Classes.Helpers.UI;
-using HarryPotter.Classes.UI;
 
 namespace HarryPotter.Classes.Roles
 {
@@ -10,7 +8,8 @@ namespace HarryPotter.Classes.Roles
     {
         public KillButton CrucioButton { get; set; }
         public KillButton MindControlButton { get; set; }
-        public KillButton MarkButton { get; set; }
+        //public KillButton MarkButton { get; set; }
+        public MindControlMenu ControlMenu { get; set; }
         public ModdedPlayerClass MindControlledPlayer { get; set; }
         public List<PlayerControl> MarkedPlayers { get; set; }
         public DateTime LastCrucio { get; set; }
@@ -23,29 +22,24 @@ namespace HarryPotter.Classes.Roles
             RoleColor = Palette.ImpostorRed;
             RoleColor2 = Palette.ImpostorRed;
             IntroString = ModTranslation.getString("IntroStringBellatrix");
+            TaskText = $"{ModTranslation.getString("CrucioTooltipText")}\n" +
+$"{ModTranslation.getString("ImperioCrucioTooltipText")}";
             Owner = owner;
             MarkedPlayers = new List<PlayerControl>();
 
             if (!Owner._Object.AmOwner)
                 return;
-            
+
             CrucioButton = UnityEngine.Object.Instantiate(HudManager.Instance.KillButton);
             CrucioButton.graphic.enabled = true;
 
-            Tooltip tt = CrucioButton.gameObject.AddComponent<Tooltip>();
-            tt.TooltipText = ModTranslation.getString("CrucioTooltipText");
-            
             MindControlButton = UnityEngine.Object.Instantiate(HudManager.Instance.KillButton);
             MindControlButton.graphic.enabled = true;
 
-            Tooltip tt2 = MindControlButton.gameObject.AddComponent<Tooltip>();
-            tt2.TooltipText = ModTranslation.getString("ImperioCrucioTooltipText");
-            
-            MarkButton = UnityEngine.Object.Instantiate(HudManager.Instance.KillButton);
-            MarkButton.graphic.enabled = true;
-            
-            Tooltip tt3 = MarkButton.gameObject.AddComponent<Tooltip>();
-            tt3.TooltipText = ModTranslation.getString("MarkCrucioTooltipText");
+            //MarkButton = UnityEngine.Object.Instantiate(HudManager.Instance.KillButton);
+            //MarkButton.graphic.enabled = true;
+
+            ControlMenu = new MindControlMenu();
         }
 
         public override void RemoveCooldowns()
@@ -69,6 +63,12 @@ namespace HarryPotter.Classes.Roles
             if (!HudManager.Instance)
                 return;
 
+            if (Owner._Object.inVent || Owner._Object.Data.IsDead || MeetingHud.Instance ||
+    !MindControlButton.isActiveAndEnabled || MindControlButton.isCoolingDown)
+            {
+                ControlMenu?.CloseMenu();
+            }
+
             MarkedPlayers.RemoveAll(x => x.Data.IsDead || x.Data.Disconnected);
             foreach (PlayerControl player in MarkedPlayers)
             {
@@ -80,6 +80,8 @@ namespace HarryPotter.Classes.Roles
 
             if (MindControlledPlayer != null)
                 return;
+
+            ControlMenu.Update();
 
             if (Input.GetMouseButtonDown(1)) CastCrucio();
         }
@@ -96,8 +98,8 @@ namespace HarryPotter.Classes.Roles
             
             if (__instance == MindControlButton)
                 ToggleMindControlMenu();
-            else if (__instance == MarkButton)
-                MarkPlayer();
+            //else if (__instance == MarkButton)
+            //    MarkPlayer();
             else
                 return true;
 
@@ -118,10 +120,10 @@ namespace HarryPotter.Classes.Roles
             if (Owner._Object.inVent)
                 return;
 
-            MindControlMenu.Instance.ToggleMenu();
+            ControlMenu?.ToggleMenu();
         }
 
-        public void MarkPlayer()
+        /*public void MarkPlayer()
         {
             if (MarkButton.isCoolingDown)
                 return;
@@ -140,7 +142,7 @@ namespace HarryPotter.Classes.Roles
 
             LastMark = DateTime.UtcNow;
             MarkedPlayers.Add(MarkButton.currentTarget);
-        }
+        }*/
 
         public void CastCrucio()
         {
@@ -154,9 +156,6 @@ namespace HarryPotter.Classes.Roles
                 return;
 
             if (Owner._Object.inVent && !Main.Instance.Config.SpellsInVents)
-                return;
-
-            if (InventoryUI.Instance.IsOpen || InventoryUI.Instance.IsOpeningOrClosing)
                 return;
 
             LastCrucio = DateTime.UtcNow;
@@ -182,12 +181,12 @@ namespace HarryPotter.Classes.Roles
             MindControlButton.SetTarget(null);
             MindControlButton.SetCoolDown(Owner._Object.killTimer, GameOptionsManager.Instance.currentNormalGameOptions.KillCooldown);
             
-            MarkButton.gameObject.SetActive(ShouldDrawCustomButtons());
+            /*MarkButton.gameObject.SetActive(ShouldDrawCustomButtons());
             MarkButton.graphic.sprite = Main.Instance.Assets.AbilityIcons[6];
             MarkButton.buttonLabelText.text = ModTranslation.getString("ButtonTextMarkVictim");
             MarkButton.transform.position = new Vector2(bottomLeft.x + MindControlButton.graphic.size.x + MarkButton.graphic.size.x + 0.75f, bottomLeft.y + 0.75f);
             MarkButton.SetTarget(Main.Instance.GetClosestTarget(Owner._Object, true, MarkedPlayers.ToArray()));
-            MarkButton.SetCoolDown(10f - (float)(DateTime.UtcNow - LastMark).TotalSeconds, 10f);
+            MarkButton.SetCoolDown(10f - (float)(DateTime.UtcNow - LastMark).TotalSeconds, 10f);*/
 
             bool isDead = Owner._Object.Data.IsDead;
             if (isDead)

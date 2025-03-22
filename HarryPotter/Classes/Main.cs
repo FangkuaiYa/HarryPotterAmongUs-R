@@ -34,6 +34,15 @@ namespace HarryPotter.Classes
     
     public static class ModHelpers
     {
+        public static string cs(Color c, string s)
+        {
+            return string.Format("<color=#{0:X2}{1:X2}{2:X2}{3:X2}>{4}</color>", ToByte(c.r), ToByte(c.g), ToByte(c.b), ToByte(c.a), s);
+        }
+        private static byte ToByte(float f)
+        {
+            f = Mathf.Clamp01(f);
+            return (byte)(f * 255);
+        }
         public static bool isCN()
         {
             try
@@ -52,6 +61,29 @@ namespace HarryPotter.Classes
         {
             string str = DestroyableSingleton<TranslationController>.Instance.GetString(StringNames.LobbyChangeSettingNotification, "<font=\"Barlow-Black SDF\" material=\"Barlow-Black Outline\">" + option + "</font>", "<font=\"Barlow-Black SDF\" material=\"Barlow-Black Outline\">" + value + "</font>");
             popper.SettingsChangeMessageLogic(key, str, playSound);
+        }
+
+        public static void ModRevive(this PlayerControl player, bool resetRoleIfGhost = true)
+        {
+            player.Data.IsDead = false;
+            player.moveable = true;
+            player.gameObject.layer = LayerMask.NameToLayer("Players");
+            player.MyPhysics.ResetMoveState();
+            player.cosmetics.SetPetSource(player);
+            player.cosmetics.SetNameMask(true);
+            if (player.AmOwner)
+            {
+                DestroyableSingleton<HudManager>.Instance.ShadowQuad.gameObject.SetActive(true);
+                DestroyableSingleton<HudManager>.Instance.KillButton.ToggleVisible(player.Data.Role.IsImpostor);
+                DestroyableSingleton<HudManager>.Instance.AdminButton.ToggleVisible(player.Data.Role.IsImpostor);
+                DestroyableSingleton<HudManager>.Instance.SabotageButton.ToggleVisible(player.Data.Role.IsImpostor);
+                DestroyableSingleton<HudManager>.Instance.ImpostorVentButton.ToggleVisible(player.Data.Role.IsImpostor);
+                DestroyableSingleton<HudManager>.Instance.Chat.ForceClosed();
+                DestroyableSingleton<HudManager>.Instance.Chat.SetVisible(false);
+            }
+            if (!resetRoleIfGhost || !AmongUsClient.Instance.AmHost || !RoleManager.IsGhostRole(player.Data.Role.Role))
+                return;
+            player.RpcSetRole(RoleTypes.Crewmate);
         }
 
         public static bool isMira()
@@ -134,7 +166,7 @@ namespace HarryPotter.Classes
 
         internal delegate bool d_LoadImage(IntPtr tex, IntPtr data, bool markNonReadable);
         internal static d_LoadImage iCall_LoadImage;
-        private static bool LoadImage(Texture2D tex, byte[] data, bool markNonReadable)
+        internal static bool LoadImage(Texture2D tex, byte[] data, bool markNonReadable)
         {
             if (iCall_LoadImage == null)
                 iCall_LoadImage = IL2CPP.ResolveICall<d_LoadImage>("UnityEngine.ImageConversion::LoadImage");
@@ -317,17 +349,33 @@ namespace HarryPotter.Classes
             new Tuple<byte, Vector2>(4, new Vector2(-8.8501f, 5.144454f)),
             new Tuple<byte, Vector2>(4, new Vector2(4.531908f, 15.29855f)),
             new Tuple<byte, Vector2>(4, new Vector2(16.36781f, 15.21838f)),
-            new Tuple<byte, Vector2>(5, new Vector2(1.0139f, 4.3129f)),
-            new Tuple<byte, Vector2>(5, new Vector2(-9.4981f, -13.4451f)),
-            new Tuple<byte, Vector2>(5, new Vector2(13.0518f, 9.8709f)),
-            new Tuple<byte, Vector2>(5, new Vector2(7.733f, 4.2049f)),
-            new Tuple<byte, Vector2>(5, new Vector2(8.8821f, -10.03f)),
-            new Tuple<byte, Vector2>(5, new Vector2(21.4631f, -7.4165f)),
-            new Tuple<byte, Vector2>(5, new Vector2(-5.075f, -9.4086f)),
-            new Tuple<byte, Vector2>(5, new Vector2(-18.7677f, -0.3175f)),
-            new Tuple<byte, Vector2>(5, new Vector2(-7.5892f, 9.5704f)),
-            new Tuple<byte, Vector2>(5, new Vector2(21.8108f, 3.1205f)),
-            new Tuple<byte, Vector2>(5, new Vector2(-0.6718f, -5.8665f))
+            new Tuple<byte, Vector2>(5, new Vector2(-10.0842f, 13.0026f)),
+            new Tuple<byte, Vector2>(5, new Vector2(0.9815f, 6.7968f)),
+            new Tuple<byte, Vector2>(5, new Vector2(22.5621f, 3.2779f)),
+            new Tuple<byte, Vector2>(5, new Vector2(-1.8699f, -1.3406f)),
+            new Tuple<byte, Vector2>(5, new Vector2(12.0036f, 2.6763f)),
+            new Tuple<byte, Vector2>(5, new Vector2(21.705f, -7.8691f)),
+            new Tuple<byte, Vector2>(5, new Vector2(1.4485f, -1.6105f)),
+            new Tuple<byte, Vector2>(5, new Vector2(-4.0766f, -8.7178f)),
+            new Tuple<byte, Vector2>(5, new Vector2(2.9486f, 1.1347f)),
+            new Tuple<byte, Vector2>(5, new Vector2(-4.2181f, -8.6795f)),
+            new Tuple<byte, Vector2>(5, new Vector2(19.5553f, -12.5014f)),
+            new Tuple<byte, Vector2>(5, new Vector2(15.2497f, -16.5009f)),
+            new Tuple<byte, Vector2>(5, new Vector2(-22.7174f, -7.0523f)),
+            new Tuple<byte, Vector2>(5, new Vector2(-16.5819f, -2.1575f)),
+            new Tuple<byte, Vector2>(5, new Vector2(9.399f, -9.7127f)),
+            new Tuple<byte, Vector2>(5, new Vector2(7.3723f, 1.7373f)),
+            new Tuple<byte, Vector2>(5, new Vector2(22.0777f, -7.9315f)),
+            new Tuple<byte, Vector2>(5, new Vector2(-15.3916f, -9.3659f)),
+            new Tuple<byte, Vector2>(5, new Vector2(-16.1207f, -0.1746f)),
+            new Tuple<byte, Vector2>(5, new Vector2(-23.1353f, -7.2472f)),
+            new Tuple<byte, Vector2>(5, new Vector2(-20.0692f, -2.6245f)),
+            new Tuple<byte, Vector2>(5, new Vector2(-4.2181f, -8.6795f)),
+            new Tuple<byte, Vector2>(5, new Vector2(-9.9285f, 12.9848f)),
+            new Tuple<byte, Vector2>(5, new Vector2(-8.3475f, 1.6215f)),
+            new Tuple<byte, Vector2>(5, new Vector2(-17.7614f, 6.9115f)),
+            new Tuple<byte, Vector2>(5, new Vector2(-0.5743f, -4.7235f)),
+            new Tuple<byte, Vector2>(5, new Vector2(-20.8897f, 2.7606f)),
         };
 
         public Main()
@@ -458,10 +506,7 @@ namespace HarryPotter.Classes
                         yield break;
 
                     if (player.Data.IsDead)
-                    {
-                        if (AmongUsClient.Instance.AmHost) DestroyableSingleton<RoleManager>.Instance.AssignRoleOnDeath(player, false);
                         RpcRevivePlayer(player);
-                    }
 
                     if (MeetingHud.Instance)
                         yield break;
@@ -644,7 +689,7 @@ namespace HarryPotter.Classes
 
         public void RpcRevivePlayer(PlayerControl player)
         {
-            player.Revive();
+            player.ModRevive();
             foreach (DeadBody body in UnityEngine.Object.FindObjectsOfType<DeadBody>())
                 if (body.ParentId == player.PlayerId)
                     UnityEngine.Object.Destroy(body.gameObject);
@@ -666,7 +711,9 @@ namespace HarryPotter.Classes
             posWriter.Write(position.y);
             posWriter.EndMessage();
         }
-        
+
+        public bool isActivateHourglass = false;
+
         public void UseHourglass(PlayerControl player)
         {
             Coroutines.Start(CoActivateHourglass(player));

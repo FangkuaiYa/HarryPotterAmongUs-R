@@ -6,7 +6,7 @@
 	  <DebugType>embedded</DebugType>
   </PropertyGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-	  <Exec Command="xcopy /y /d &quot;$(TargetPath)&quot; &quot;E:\SteamLibrary\steamapps\common\Among Us HarryPotter\BepInEx\plugins\&quot;" />
+	  <Exec Command="xcopy /y /d &quot;$(TargetPath)&quot; &quot;D:\Program Files (x86)\Steam\steamapps\common\Among Us - Harry Potter\BepInEx\plugins\&quot;" />
   </Target>
   <ItemGroup>
     <PackageReference Include="AmongUs.GameLibs.Steam" Version="2024.10.29" />

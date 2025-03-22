@@ -22,7 +22,7 @@ namespace HarryPotter.Patches
         {
             if (GameOptionsManager.Instance.currentGameMode == GameModes.HideNSeek || !Main.Instance.Config.EnableModRole) return;
             ModdedPlayerClass localPlayer = Main.Instance.GetLocalModdedPlayer();
-            if (!localPlayer._Object.Data.Role.IsImpostor) __instance.__4__this.TeamTitle.text = ModTranslation.getString("TeamMuggle");
+            //if (!localPlayer._Object.Data.Role.IsImpostor) __instance.__4__this.TeamTitle.text = ModTranslation.getString("TeamMuggle");
             __instance.__4__this.ImpostorText.text = ModTranslation.getString("ImpostorTextHP");
             __instance.__4__this.ImpostorText.gameObject.SetActive(true);
             __instance.__4__this.ImpostorText.transform.localScale = new Vector3(0.7f, 0.7f);

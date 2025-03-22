@@ -16,6 +16,7 @@ namespace HarryPotter.Classes.Roles
             RoleColor = Palette.Orange;
             RoleColor2 = Palette.Orange;
             IntroString = ModTranslation.getString("IntroStringRon");
+            TaskText = string.Format(ModTranslation.getString("DefensiveDuelistTooltipText"), Main.Instance.Config.DefensiveDuelistDuration);
             Owner = owner;
             
             if (!Owner._Object.AmOwner)
@@ -23,9 +24,6 @@ namespace HarryPotter.Classes.Roles
             
             DDButton = KillButton.Instantiate(HudManager.Instance.KillButton);
             DDButton.graphic.enabled = true;
-
-            Tooltip tt = DDButton.gameObject.AddComponent<Tooltip>();
-            tt.TooltipText = string.Format(ModTranslation.getString("DefensiveDuelistTooltipText"), Main.Instance.Config.DefensiveDuelistDuration);
         }
 
         public override void ResetCooldowns()

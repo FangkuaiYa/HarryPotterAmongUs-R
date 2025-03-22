@@ -145,7 +145,7 @@ namespace HarryPotter.Classes
             float itemCount = 0;
             foreach (var item in Inventory)
             {
-                if (item.IsSpecial) continue;
+                //if (item.IsSpecial) continue;
                 item.DrawIcon(PlayerControl.LocalPlayer.Data.Role.IsImpostor ? 
                     HudManager.Instance.SabotageButton.graphic.bounds.max.x - 0.375f - (itemCount * 0.6f) : HudManager.Instance.ReportButton.graphic.bounds.max.x - 0.375f - (itemCount * 0.6f),
                     PlayerControl.LocalPlayer.Data.Role.IsImpostor ?

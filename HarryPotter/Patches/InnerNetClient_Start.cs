@@ -1,8 +1,6 @@
 ﻿using HarmonyLib;
 using HarryPotter.Classes;
 using InnerNet;
-using HarryPotter.Classes.Helpers.UI;
-using UnityEngine;
 
 namespace HarryPotter.Patches
 {
@@ -12,11 +10,6 @@ namespace HarryPotter.Patches
         static void Postfix()
         {
             SoundManager.Instance.PlaySound(Main.Instance.Assets.HPTheme, false, 1f);
-
-            new GameObject().AddComponent<InventoryUI>();
-            new GameObject().AddComponent<MindControlMenu>();
-
-            //Main.Instance.ResetCustomOptions();
         }
     }
 }

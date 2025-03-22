@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using HarryPotter.Classes.UI;
 using UnityEngine;
 
@@ -18,16 +16,14 @@ namespace HarryPotter.Classes.Roles
             RoleColor = Palette.Orange;
             RoleColor2 = Palette.Orange;
             IntroString = ModTranslation.getString("IntroStringHermione");
+            TaskText = string.Format(ModTranslation.getString("HermioneTooltipText"), Main.Instance.Config.HourglassTimer);
             Owner = owner;
             
             if (!Owner._Object.AmOwner)
                 return;
-            
+
             HourglassButton = KillButton.Instantiate(HudManager.Instance.KillButton);
             HourglassButton.graphic.enabled = true;
-            
-            Tooltip tt = HourglassButton.gameObject.AddComponent<Tooltip>();
-            tt.TooltipText = string.Format(ModTranslation.getString("HermioneTooltipText"), Main.Instance.Config.HourglassTimer);
         }
 
         public override void ResetCooldowns()
@@ -49,7 +45,10 @@ namespace HarryPotter.Classes.Roles
         public override bool DoClick(KillButton __instance)
         {
             if (__instance == HourglassButton)
+            {
+                Main.Instance.isActivateHourglass = true;
                 ActivateHourglass();
+            }
             else
                 return true;
             

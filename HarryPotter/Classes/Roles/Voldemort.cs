@@ -17,6 +17,7 @@ namespace HarryPotter.Classes.Roles
             RoleColor = Palette.ImpostorRed;
             RoleColor2 = Palette.ImpostorRed;
             IntroString = ModTranslation.getString("IntroStringVoldemort");
+            TaskText = ModTranslation.getString("TheKillingCurseTooltipText");
             Owner = owner;
 
             if (!Owner._Object.AmOwner)
@@ -24,9 +25,6 @@ namespace HarryPotter.Classes.Roles
             
             CurseButton = UnityEngine.Object.Instantiate(HudManager.Instance.KillButton);
             CurseButton.graphic.enabled = true;
-            
-            Tooltip tt = CurseButton.gameObject.AddComponent<Tooltip>();
-            tt.TooltipText = ModTranslation.getString("TheKillingCurseTooltipText");
         }
 
         public override void Update()
@@ -60,7 +58,7 @@ namespace HarryPotter.Classes.Roles
                 CurseButton.buttonLabelText.color = Palette.EnabledColor;
             }
             
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetMouseButtonDown(1))
                 ShootCurse();
         }
         
@@ -97,9 +95,6 @@ namespace HarryPotter.Classes.Roles
             if (Owner._Object.inVent && !Main.Instance.Config.SpellsInVents)
                 return;
             
-            if (InventoryUI.Instance.IsOpen || InventoryUI.Instance.IsOpeningOrClosing)
-                return;
-
             ResetCooldowns();
             Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Main.Instance.RpcCreateCurse(mouseWorld, Owner);

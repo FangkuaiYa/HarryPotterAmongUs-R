@@ -20,7 +20,6 @@ namespace HarryPotter.Classes.Helpers.UI
             GameObject itemButtonObj = gameObject.transform.GetChild(0).gameObject;
             PlayerButton = itemButtonObj.gameObject.AddComponent<CustomButton>();
             PlayerButton.OnClick += TryControlTargetedPlayer;
-            PlayerTooltip = itemButtonObj.gameObject.AddComponent<Tooltip>();
         }
 
         public void TryControlTargetedPlayer()
@@ -42,14 +41,12 @@ namespace HarryPotter.Classes.Helpers.UI
             if (!PlayerButton.Enabled) return;
             if (PlayerButton.HoverColor != Color.yellow) return;
 
-            MindControlMenu.Instance.CloseMenu();
             Main.Instance.RpcControlPlayer(PlayerControl.LocalPlayer, TargetedPlayer);
         }
 
         public void ResetIcon()
         {
             PlayerButton.Enabled = false;
-            PlayerTooltip.Enabled = false;
             
             ModdedPlayerClass localModdedPlayer = Main.Instance.GetLocalModdedPlayer();
             if (Main.Instance.GetPlayerRoleName(localModdedPlayer) != "Bellatrix")
@@ -86,9 +83,6 @@ namespace HarryPotter.Classes.Helpers.UI
             PlayerButton.Enabled = true;
             PlayerButton.SetColor(Color.yellow);
 
-            PlayerTooltip.Enabled = true;
-            PlayerTooltip.TooltipText = data.PlayerName;
-
             if (Icon == null)
             {
                 Icon = Instantiate(HudManager.Instance.IntroPrefab.PlayerPrefab, gameObject.transform).DontDestroy();
@@ -110,10 +104,8 @@ namespace HarryPotter.Classes.Helpers.UI
 
         public void LateUpdate()
         {
-            if (MindControlMenu.Instance.IsOpen) ResetIcon();
+            //if (MindControlMenu.Instance.IsOpen) ResetIcon();
         }
-        
-        public Tooltip PlayerTooltip { get; set; }
         public CustomButton PlayerButton { get; set; }
         public int PlayerIndex { get; set; }
         public PlayerControl TargetedPlayer { get; set; }

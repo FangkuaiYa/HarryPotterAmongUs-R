@@ -16,6 +16,7 @@ namespace HarryPotter.Classes.Roles
             RoleColor = Palette.Orange;
             RoleColor2 = Palette.Orange;
             IntroString = ModTranslation.getString("IntroStringHarry");
+            TaskText = string.Format(ModTranslation.getString("CloakTooltipText"), Main.Instance.Config.InvisCloakDuration);
             Owner = owner;
             
             if (!Owner._Object.AmOwner)
@@ -23,8 +24,6 @@ namespace HarryPotter.Classes.Roles
             
             InvisCloakButton = KillButton.Instantiate(HudManager.Instance.KillButton);
             InvisCloakButton.graphic.enabled = true;
-            Tooltip tt = InvisCloakButton.gameObject.AddComponent<Tooltip>();
-            tt.TooltipText = string.Format(ModTranslation.getString("CloakTooltipText"), Main.Instance.Config.InvisCloakDuration);
         }
 
         public override void ResetCooldowns()

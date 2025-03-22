@@ -22,6 +22,7 @@ namespace HarryPotter.Patches
 
             foreach (Item item in Main.Instance.GetLocalModdedPlayer()?.Inventory)
             {
+                if (item.IsSpecial) continue;
                 if (__instance != item.Button) continue;
                 if (!HudManager._instance.ReportButton.isActiveAndEnabled) break;
                 item.Use();

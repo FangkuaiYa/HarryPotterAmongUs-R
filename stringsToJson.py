@@ -8,7 +8,7 @@ from openpyxl import load_workbook
 WORKING_DIR = os.path.dirname(os.path.realpath(__file__))
 
 IN_FILE = os.path.join(WORKING_DIR, "Strings.xlsx")
-OUT_FILE = os.path.join(WORKING_DIR, "HarryPotter", "Resources", "stringData.json")
+OUT_FILE = os.path.join(WORKING_DIR, "HarryPotterUnity", "Assets", "stringData.json")
 
 def stringToJson(in_files):
   stringData = {}

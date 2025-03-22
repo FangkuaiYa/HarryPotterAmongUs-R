@@ -7,6 +7,7 @@ namespace HarryPotter.Classes
         public string RoleNameTranslation { get; set; }
         public string RoleName { get; set; }
         public string IntroString { get; set; }
+        public string TaskText { get; set; }
         public Color RoleColor { get; set; }
         public Color RoleColor2 { get; set; }
         public ModdedPlayerClass Owner { get; set; }

@@ -9,7 +9,6 @@ using System;
 using Reactor;
 using BepInEx.Unity.IL2CPP;
 using InnerNet;
-using HarryPotter.Classes.CustomHats;
 
 namespace HarryPotter
 {
@@ -21,7 +20,7 @@ namespace HarryPotter
     {
         public const string Id = "harry.potter.mod";
         public Harmony Harmony { get; } = new Harmony(Id);
-        public const string VersionString = "2.0.0";
+        public const string VersionString = "2.1.0";
         public static Version Version = Version.Parse(VersionString);
         public static Plugin Instance;
 
@@ -33,8 +32,8 @@ namespace HarryPotter
             TaskInfoHandler.Instance = new TaskInfoHandler { AllInfo = new List<ImportantTextTask>() };
             PopupTMPHandler.Instance = new PopupTMPHandler { AllPopups = new List<TextMeshPro>() };
             Classes.Config.LoadOption();
-            CustomHatManager.LoadHats();
             Harmony.PatchAll();
+            CustomOption.Patches.ImportSlot();
         }
     }
 
