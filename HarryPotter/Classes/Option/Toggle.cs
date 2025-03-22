@@ -1,31 +1,32 @@
-using System;
+using AmongUs.Data;
 
-namespace HarryPotter.CustomOption
+namespace HarryPotter.CustomOption;
+
+public class CustomToggleOption : CustomOption
 {
-    public class CustomToggleOption : CustomOption
+    public CustomToggleOption(int id, string name, bool value = true) : base(id, name,
+        CustomOptionType.Toggle,
+        value)
     {
-        public CustomToggleOption(int id, string name, bool value = true) : base(id, name,
-            CustomOptionType.Toggle,
-            value)
-        {
-            Format = val => (bool)val ? AmongUs.Data.DataManager.Settings.Language.CurrentLanguage == SupportedLangs.SChinese ? "¿ªÆô" : "On" : AmongUs.Data.DataManager.Settings.Language.CurrentLanguage == SupportedLangs.SChinese ? "¹Ø±Õ" : "Off";
-        }
+        Format = val =>
+            (bool)val ? DataManager.Settings.Language.CurrentLanguage == SupportedLangs.SChinese ? "ï¿½ï¿½ï¿½ï¿½" : "On" :
+            DataManager.Settings.Language.CurrentLanguage == SupportedLangs.SChinese ? "ï¿½Ø±ï¿½" : "Off";
+    }
 
-        public bool Get()
-        {
-            return (bool)Value;
-        }
+    public bool Get()
+    {
+        return (bool)Value;
+    }
 
-        public void Toggle()
-        {
-            Set(!Get());
-        }
+    public void Toggle()
+    {
+        Set(!Get());
+    }
 
-        public override void OptionCreated()
-        {
-            base.OptionCreated();
-            var tgl = Setting.Cast<ToggleOption>();
-            tgl.CheckMark.enabled = Get();
-        }
+    public override void OptionCreated()
+    {
+        base.OptionCreated();
+        var tgl = Setting.Cast<ToggleOption>();
+        tgl.CheckMark.enabled = Get();
     }
 }

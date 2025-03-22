@@ -1,13 +1,12 @@
 using HarmonyLib;
 
-namespace HarryPotter.Classes.Hats.Patches
+namespace HarryPotter.Classes.Hats.Patches;
+
+[HarmonyPatch(typeof(InventoryManager), nameof(InventoryManager.CheckUnlockedItems))]
+public class InventoryManager_Patches
 {
-    [HarmonyPatch(typeof(InventoryManager), nameof(InventoryManager.CheckUnlockedItems))]
-    public class InventoryManager_Patches
+    public static void Prefix()
     {
-        public static void Prefix()
-        {
-            HatLoader.LoadHatsRoutine();
-        }
+        HatLoader.LoadHatsRoutine();
     }
-}   
+}

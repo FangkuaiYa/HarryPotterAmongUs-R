@@ -1,46 +1,42 @@
 ﻿using HarmonyLib;
-using HarryPotter.Classes;
-using System.Linq;
-using UnityEngine;
 
-namespace HarryPotter.Patches
+namespace HarryPotter.Patches;
+
+[HarmonyPatch(typeof(CustomNetworkTransform), nameof(CustomNetworkTransform.FixedUpdate))]
+internal class CustomNetworkTransform_FixedUpdate
 {
-    [HarmonyPatch(typeof(CustomNetworkTransform), nameof(CustomNetworkTransform.FixedUpdate))]
-    class CustomNetworkTransform_FixedUpdate
+    /*static bool Prefix(CustomNetworkTransform __instance)
     {
-        /*static bool Prefix(CustomNetworkTransform __instance)
+        if (!__instance.AmOwner)
         {
-            if (!__instance.AmOwner)
+            if (Main.Instance.AllPlayers.Any(x => x._Object.NetTransform == __instance && x.ControllerOverride == Main.Instance.GetLocalModdedPlayer())) return false;
+
+            if (__instance.body.inertia != 0f)
             {
-                if (Main.Instance.AllPlayers.Any(x => x._Object.NetTransform == __instance && x.ControllerOverride == Main.Instance.GetLocalModdedPlayer())) return false;
-                
-                if (__instance.body.inertia != 0f)
+                Vector2 vector = __instance.lastPosition - __instance.body.position;
+                if (vector.sqrMagnitude >= 0.0001f)
                 {
-                    Vector2 vector = __instance.lastPosition - __instance.body.position;
-                    if (vector.sqrMagnitude >= 0.0001f)
+                    float num = __instance.body.inertia / CustomNetworkTransform.SEND_MOVEMENT_THRESHOLD;
+                    vector.x *= num;
+                    vector.y *= num;
+                    if (PlayerControl.LocalPlayer)
                     {
-                        float num = __instance.body.inertia / CustomNetworkTransform.SEND_MOVEMENT_THRESHOLD;
-                        vector.x *= num;
-                        vector.y *= num;
-                        if (PlayerControl.LocalPlayer)
-                        {
-                            float multiplier = 1f;
-                            var foundPlayers = Main.Instance.AllPlayers.FindAll(x => x._Object.NetTransform == __instance);
-                            if (foundPlayers.Count > 0)
-                                multiplier = foundPlayers.First().SpeedMultiplier;
-                            vector = Vector2.ClampMagnitude(vector, PlayerControl.LocalPlayer.MyPhysics.TrueSpeed * multiplier);
-                        }
-                        __instance.body.velocity = vector;
+                        float multiplier = 1f;
+                        var foundPlayers = Main.Instance.AllPlayers.FindAll(x => x._Object.NetTransform == __instance);
+                        if (foundPlayers.Count > 0)
+                            multiplier = foundPlayers.First().SpeedMultiplier;
+                        vector = Vector2.ClampMagnitude(vector, PlayerControl.LocalPlayer.MyPhysics.TrueSpeed * multiplier);
                     }
-                    else
-                    {
-                        __instance.body.velocity = Vector2.zero;
-                    }
+                    __instance.body.velocity = vector;
                 }
-                __instance.lastPosition += __instance.lastPosSent * Time.fixedDeltaTime * 0.1f;
-                return false;
+                else
+                {
+                    __instance.body.velocity = Vector2.zero;
+                }
             }
-            return true;
-        }*/
-    }
+            __instance.lastPosition += __instance.lastPosSent * Time.fixedDeltaTime * 0.1f;
+            return false;
+        }
+        return true;
+    }*/
 }

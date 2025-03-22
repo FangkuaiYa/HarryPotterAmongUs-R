@@ -1,24 +1,22 @@
 ﻿using HarmonyLib;
 using HarryPotter.Classes;
-using InnerNet;
 
-namespace HarryPotter.Patches
+namespace HarryPotter.Patches;
+
+[HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.FixedUpdate))]
+public class PlayerControl_FixedUpdate
 {
-    [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.FixedUpdate))]
-    public class PlayerControl_FixedUpdate
+    private static void Postfix(PlayerControl __instance)
     {
-        static void Postfix(PlayerControl __instance)
+        if (__instance.AmOwner)
         {
-            if (__instance.AmOwner)
+            foreach (var wItem in Main.Instance.AllItems)
             {
-                foreach (WorldItem wItem in Main.Instance.AllItems)
-                {
-                    wItem.DrawWorldIcon();
-                    wItem.Update();
-                }
-    
-                Main.Instance.AllItems.RemoveAll(x => x.IsPickedUp);
+                wItem.DrawWorldIcon();
+                wItem.Update();
             }
+
+            Main.Instance.AllItems.RemoveAll(x => x.IsPickedUp);
         }
     }
 }

@@ -1,7 +1,6 @@
-namespace HarryPotter.Classes.Hats
+namespace HarryPotter.Classes.Hats;
+
+public class HatMetadataJson
 {
-    public class HatMetadataJson
-    {
-        public HatMetadataElement[] Credits { get; set; }
-    }
+    public HatMetadataElement[] Credits { get; set; }
 }

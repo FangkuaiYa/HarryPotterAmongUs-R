@@ -1,23 +1,22 @@
 ﻿using Reactor.Utilities;
 
-namespace HarryPotter.Classes.Items
-{
-    public class BasItem : Item
-    {
-        public BasItem(ModdedPlayerClass owner)
-        {
-            Owner = owner;
-            ParentInventory = owner.Inventory;
-            Id = 7;
-            Name = "Basilisk";
-            Tooltip = "";
-            IsTrap = true;
-        }
+namespace HarryPotter.Classes.Items;
 
-        public override void Use()
-        {
-            Delete();
-            Coroutines.Start(Main.Instance.CoStunPlayer(Owner._Object));
-        }
+public class BasItem : Item
+{
+    public BasItem(ModdedPlayerClass owner)
+    {
+        Owner = owner;
+        ParentInventory = owner.Inventory;
+        Id = 7;
+        Name = "Basilisk";
+        Tooltip = "";
+        IsTrap = true;
+    }
+
+    public override void Use()
+    {
+        Delete();
+        Coroutines.Start(Main.Instance.CoStunPlayer(Owner._Object));
     }
 }

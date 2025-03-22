@@ -1,41 +1,23 @@
-﻿using HarmonyLib;
+﻿using System.Collections.Generic;
+using System.Linq;
+using HarmonyLib;
 using HarryPotter.Classes;
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
-namespace HarryPotter.Patches
+namespace HarryPotter.Patches;
+
+[HarmonyPatch]
+internal class ExileControllerWrapUpPatch
 {
-    [HarmonyPatch]
-    class ExileControllerWrapUpPatch
+    private static void WrapUpPostfix(PlayerControl exiled)
     {
-
-        [HarmonyPatch(typeof(ExileController), nameof(ExileController.WrapUp))]
-        class BaseExileControllerPatch
+        if (Main.Instance.Config.RandomGameStartPosition)
         {
-            public static void Postfix(ExileController __instance)
+            //Random spawn on round start
+
+            List<Vector3> skeldSpawn = new()
             {
-                NetworkedPlayerInfo networkedPlayer = __instance.initData.networkedPlayer;
-                WrapUpPostfix((networkedPlayer != null) ? networkedPlayer.Object : null);
-            }
-        }
-
-        [HarmonyPatch(typeof(AirshipExileController), nameof(AirshipExileController.WrapUpAndSpawn))]
-        class AirshipExileControllerPatch
-        {
-            public static void Postfix(AirshipExileController __instance)
-            {
-                NetworkedPlayerInfo networkedPlayer = __instance.initData.networkedPlayer;
-                WrapUpPostfix((networkedPlayer != null) ? networkedPlayer.Object : null);
-            }
-        }
-        static void WrapUpPostfix(PlayerControl exiled)
-        {
-            if (Main.Instance.Config.RandomGameStartPosition)
-            { //Random spawn on round start
-
-                List<Vector3> skeldSpawn = new() {
                 new Vector3(-2.2f, 2.2f, 0.0f), //cafeteria. botton. top left.
                 new Vector3(0.7f, 2.2f, 0.0f), //caffeteria. button. top right.
                 new Vector3(-2.2f, -0.2f, 0.0f), //caffeteria. button. bottom left.
@@ -74,9 +56,10 @@ namespace HarryPotter.Patches
                 new Vector3(-10.5f, 1.0f, 0.0f), //upper-mad hall
                 new Vector3(-10.5f, -2.0f, 0.0f), //medbay top
                 new Vector3(-6.5f, -4.5f, 0.0f) //medbay bottom
-                };
+            };
 
-                List<Vector3> miraSpawn = new() {
+            List<Vector3> miraSpawn = new()
+            {
                 new Vector3(-4.5f, 3.5f, 0.0f), //launchpad top
                 new Vector3(-4.5f, -1.4f, 0.0f), //launchpad bottom
                 new Vector3(8.5f, -1f, 0.0f), //launchpad- med hall
@@ -97,10 +80,11 @@ namespace HarryPotter.Patches
                 new Vector3(28f, 3f, 0.0f), //caf right
                 new Vector3(22f, 3f, 0.0f), //caf left
                 new Vector3(19f, 4f, 0.0f), //storage
-                new Vector3(22f, -2f, 0.0f), //balcony
-                };
+                new Vector3(22f, -2f, 0.0f) //balcony
+            };
 
-                List<Vector3> polusSpawn = new() {
+            List<Vector3> polusSpawn = new()
+            {
                 new Vector3(16.6f, -1f, 0.0f), //dropship top
                 new Vector3(16.6f, -5f, 0.0f), //dropship bottom
                 new Vector3(20f, -9f, 0.0f), //above storrage
@@ -144,10 +128,11 @@ namespace HarryPotter.Patches
                 new Vector3(12.7f, -15.5f, 0.0f), //coms antenna pult
                 new Vector3(13f, -24.5f, 0.0f), //weapons window
                 new Vector3(15f, -17f, 0.0f), //between coms-office
-                new Vector3(17.5f, -25.7f, 0.0f), //snowman under office
-                };
+                new Vector3(17.5f, -25.7f, 0.0f) //snowman under office
+            };
 
-                List<Vector3> dleksSpawn = new() {
+            List<Vector3> dleksSpawn = new()
+            {
                 new Vector3(2.2f, 2.2f, 0.0f), //cafeteria. botton. top left.
                 new Vector3(-0.7f, 2.2f, 0.0f), //caffeteria. button. top right.
                 new Vector3(2.2f, -0.2f, 0.0f), //caffeteria. button. bottom left.
@@ -186,9 +171,10 @@ namespace HarryPotter.Patches
                 new Vector3(10.5f, 1.0f, 0.0f), //upper-mad hall
                 new Vector3(10.5f, -2.0f, 0.0f), //medbay top
                 new Vector3(6.5f, -4.5f, 0.0f) //medbay bottom
-                };
+            };
 
-                List<Vector3> fungleSpawn = new() {
+            List<Vector3> fungleSpawn = new()
+            {
                 new Vector3(-10.0842f, 13.0026f, 0.013f),
                 new Vector3(0.9815f, 6.7968f, 0.0068f),
                 new Vector3(22.5621f, 3.2779f, 0.0033f),
@@ -216,61 +202,93 @@ namespace HarryPotter.Patches
                 new Vector3(-17.7614f, 6.9115f, 0.0069f),
                 new Vector3(-0.5743f, -4.7235f, -0.0047f),
                 new Vector3(-20.8897f, 2.7606f, 0.002f)
-                };
+            };
 
-                if (ModHelpers.isSkeld()) PlayerControl.LocalPlayer.NetTransform.RpcSnapTo(skeldSpawn[ModHelpers.rnd.Next(skeldSpawn.Count)]);
-                if (ModHelpers.isMira()) PlayerControl.LocalPlayer.NetTransform.RpcSnapTo(miraSpawn[ModHelpers.rnd.Next(miraSpawn.Count)]);
-                if (ModHelpers.isPolus()) PlayerControl.LocalPlayer.NetTransform.RpcSnapTo(polusSpawn[ModHelpers.rnd.Next(polusSpawn.Count)]);
-                if (GameOptionsManager.Instance.currentNormalGameOptions.MapId == 3) PlayerControl.LocalPlayer.NetTransform.RpcSnapTo(dleksSpawn[ModHelpers.rnd.Next(dleksSpawn.Count)]);
-                if (ModHelpers.isFungle()) PlayerControl.LocalPlayer.NetTransform.RpcSnapTo(fungleSpawn[ModHelpers.rnd.Next(fungleSpawn.Count)]);
-            }
+            if (ModHelpers.isSkeld())
+                PlayerControl.LocalPlayer.NetTransform.RpcSnapTo(skeldSpawn[ModHelpers.rnd.Next(skeldSpawn.Count)]);
+            if (ModHelpers.isMira())
+                PlayerControl.LocalPlayer.NetTransform.RpcSnapTo(miraSpawn[ModHelpers.rnd.Next(miraSpawn.Count)]);
+            if (ModHelpers.isPolus())
+                PlayerControl.LocalPlayer.NetTransform.RpcSnapTo(polusSpawn[ModHelpers.rnd.Next(polusSpawn.Count)]);
+            if (GameOptionsManager.Instance.currentNormalGameOptions.MapId == 3)
+                PlayerControl.LocalPlayer.NetTransform.RpcSnapTo(dleksSpawn[ModHelpers.rnd.Next(dleksSpawn.Count)]);
+            if (ModHelpers.isFungle())
+                PlayerControl.LocalPlayer.NetTransform.RpcSnapTo(fungleSpawn[ModHelpers.rnd.Next(fungleSpawn.Count)]);
         }
     }
 
     [HarmonyPatch(typeof(ExileController), nameof(ExileController.WrapUp))]
-    public class ExileController_WrapUp
+    private class BaseExileControllerPatch
     {
-        static bool Prefix(ExileController __instance)
+        public static void Postfix(ExileController __instance)
         {
-            if (__instance.initData.networkedPlayer != null)
-            {
-                PlayerControl @object = __instance.initData.networkedPlayer.Object;
-                if (@object) @object.Exiled();
-            }
-            if (DestroyableSingleton<TutorialManager>.InstanceExists || !GameManager.Instance.LogicFlow.IsGameOverDueToDeath())
-            {
-                DestroyableSingleton<HudManager>.Instance.StartCoroutine(DestroyableSingleton<HudManager>.Instance.CoFadeFullScreen(Color.black, Color.clear, 0.2f));
-                PlayerControl.LocalPlayer.SetKillTimer(GameOptionsManager.Instance.currentNormalGameOptions.KillCooldown);
-                ShipStatus.Instance.EmergencyCooldown = (float)GameOptionsManager.Instance.currentNormalGameOptions.EmergencyCooldown;
-                Camera.main.GetComponent<FollowerCamera>().Locked = false;
-                DestroyableSingleton<HudManager>.Instance.SetHudActive(true);
-                ControllerManager.Instance.ResetAll();
-            }
-            Object.Destroy(__instance.gameObject);
-
-            return false;
+            var networkedPlayer = __instance.initData.networkedPlayer;
+            WrapUpPostfix(networkedPlayer != null ? networkedPlayer.Object : null);
         }
     }
-    [HarmonyPatch(typeof(TranslationController), nameof(TranslationController.GetString), typeof(StringNames),
-    typeof(Il2CppReferenceArray<Il2CppSystem.Object>))]
-    public static class TranslationController_GetString
-    {
-        public static void Postfix(ref string __result, [HarmonyArgument(0)] StringNames name)
-        {
-            if (ExileController.Instance == null || ExileController.Instance.initData.networkedPlayer == null) return;
 
-            switch (name)
+    [HarmonyPatch(typeof(AirshipExileController), nameof(AirshipExileController.WrapUpAndSpawn))]
+    private class AirshipExileControllerPatch
+    {
+        public static void Postfix(AirshipExileController __instance)
+        {
+            var networkedPlayer = __instance.initData.networkedPlayer;
+            WrapUpPostfix(networkedPlayer != null ? networkedPlayer.Object : null);
+        }
+    }
+}
+
+[HarmonyPatch(typeof(ExileController), nameof(ExileController.WrapUp))]
+public class ExileController_WrapUp
+{
+    private static bool Prefix(ExileController __instance)
+    {
+        if (__instance.initData.networkedPlayer != null)
+        {
+            var @object = __instance.initData.networkedPlayer.Object;
+            if (@object) @object.Exiled();
+        }
+
+        if (DestroyableSingleton<TutorialManager>.InstanceExists ||
+            !GameManager.Instance.LogicFlow.IsGameOverDueToDeath())
+        {
+            DestroyableSingleton<HudManager>.Instance.StartCoroutine(
+                DestroyableSingleton<HudManager>.Instance.CoFadeFullScreen(Color.black, Color.clear));
+            PlayerControl.LocalPlayer.SetKillTimer(GameOptionsManager.Instance.currentNormalGameOptions.KillCooldown);
+            ShipStatus.Instance.EmergencyCooldown =
+                GameOptionsManager.Instance.currentNormalGameOptions.EmergencyCooldown;
+            Camera.main.GetComponent<FollowerCamera>().Locked = false;
+            DestroyableSingleton<HudManager>.Instance.SetHudActive(true);
+            ControllerManager.Instance.ResetAll();
+        }
+
+        Object.Destroy(__instance.gameObject);
+
+        return false;
+    }
+}
+
+[HarmonyPatch(typeof(TranslationController), nameof(TranslationController.GetString), typeof(StringNames),
+    typeof(Il2CppReferenceArray<Il2CppSystem.Object>))]
+public static class TranslationController_GetString
+{
+    public static void Postfix(ref string __result, [HarmonyArgument(0)] StringNames name)
+    {
+        if (ExileController.Instance == null || ExileController.Instance.initData.networkedPlayer == null) return;
+
+        switch (name)
+        {
+            case StringNames.ExileTextPN:
+            case StringNames.ExileTextSN:
+            case StringNames.ExileTextPP:
+            case StringNames.ExileTextSP:
             {
-                case StringNames.ExileTextPN:
-                case StringNames.ExileTextSN:
-                case StringNames.ExileTextPP:
-                case StringNames.ExileTextSP:
-                    {
-                        var info = ExileController.Instance.initData.networkedPlayer;
-                        var roleName = ModTranslation.getString(Main.Instance.AllPlayers.FindAll(p => p._Object.PlayerId == info.PlayerId).FirstOrDefault().Role.RoleNameTranslation);
-                        __result = string.Format(ModTranslation.getString("TranslationControllerGetString"), info.PlayerName, roleName);
-                        return;
-                    }
+                var info = ExileController.Instance.initData.networkedPlayer;
+                var roleName = ModTranslation.getString(Main.Instance.AllPlayers
+                    .FindAll(p => p._Object.PlayerId == info.PlayerId).FirstOrDefault().Role.RoleNameTranslation);
+                __result = string.Format(ModTranslation.getString("TranslationControllerGetString"), info.PlayerName,
+                    roleName);
+                return;
             }
         }
     }

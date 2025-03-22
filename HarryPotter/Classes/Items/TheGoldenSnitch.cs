@@ -1,19 +1,15 @@
-﻿using Hazel;
-using UnityEngine.Events;
+﻿namespace HarryPotter.Classes.Items;
 
-namespace HarryPotter.Classes.Items
+public class TheGoldenSnitch : Item
 {
-    public class TheGoldenSnitch : Item
+    public TheGoldenSnitch(ModdedPlayerClass owner)
     {
-        public TheGoldenSnitch(ModdedPlayerClass owner)
-        {
-            this.Owner = owner;
-            this.ParentInventory = owner.Inventory;
-            this.Id = 3;
-            this.Icon = Main.Instance.Assets.WorldItemIcons[Id];
-            this.Name = "The Golden Snitch";
-            this.IsSpecial = true;
-            this.Tooltip = ModTranslation.getString("TheGoldenSnitchTooltip");
-        }
+        Owner = owner;
+        ParentInventory = owner.Inventory;
+        Id = 3;
+        Icon = Main.Instance.Assets.WorldItemIcons[Id];
+        Name = "The Golden Snitch";
+        IsSpecial = true;
+        Tooltip = ModTranslation.getString("TheGoldenSnitchTooltip");
     }
 }

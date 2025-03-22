@@ -1,46 +1,46 @@
-﻿using Reactor.Utilities.Extensions;
-using System.Linq;
+﻿using System.Linq;
+using Reactor.Utilities.Extensions;
 using UnityEngine;
+using Random = System.Random;
 
-namespace HarryPotter.Classes.WorldItems
+namespace HarryPotter.Classes.WorldItems;
+
+public class BasWorldItem : WorldItem
 {
-    public class BasWorldItem : WorldItem
+    public BasWorldItem(Vector2 position)
     {
-        public static System.Random ItemRandom { get; set; } = new System.Random();
-        public static float ItemSpawnChance { get; set; } = 30;
-        public static bool HasSpawned { get; set; }
-        
-        public BasWorldItem(Vector2 position)
-        {
-            this.Position = position;
-            this.Id = 7;
-            this.Icon = Main.Instance.Assets.WorldItemIcons[Id];
-            this.Name = "Basilisk";
-        }
+        Position = position;
+        Id = 7;
+        Icon = Main.Instance.Assets.WorldItemIcons[Id];
+        Name = "Basilisk";
+    }
 
-        public static void WorldSpawn()
-        {
-            if (!CanSpawn())
-                return;
-            
-            if (!ShipStatus.Instance)
-                return;
+    public static Random ItemRandom { get; set; } = new();
+    public static float ItemSpawnChance { get; set; } = 30;
+    public static bool HasSpawned { get; set; }
 
-            Vector2 pos = Main.Instance.GetAllApplicableItemPositions().Random();
-            Main.Instance.RpcSpawnItem(7, pos);
-            HasSpawned = true;
-        }
-        
-        public static bool CanSpawn()
-        {
-            if (Main.Instance.AllItems.Where(x => x.Id == 7).ToList().Count > 0) return false;
-            if (MeetingHud.Instance) return false;
-            if (!AmongUsClient.Instance.IsGameStarted) return false;
-            if (ItemRandom.Next(0, 100000) > ItemSpawnChance) return false;
-            if (Main.Instance.CurrentStage != 0) return false;
-            if (HasSpawned) return false;
+    public static void WorldSpawn()
+    {
+        if (!CanSpawn())
+            return;
 
-            return true;
-        }
+        if (!ShipStatus.Instance)
+            return;
+
+        var pos = Main.Instance.GetAllApplicableItemPositions().Random();
+        Main.Instance.RpcSpawnItem(7, pos);
+        HasSpawned = true;
+    }
+
+    public static bool CanSpawn()
+    {
+        if (Main.Instance.AllItems.Where(x => x.Id == 7).ToList().Count > 0) return false;
+        if (MeetingHud.Instance) return false;
+        if (!AmongUsClient.Instance.IsGameStarted) return false;
+        if (ItemRandom.Next(0, 100000) > ItemSpawnChance) return false;
+        if (Main.Instance.CurrentStage != 0) return false;
+        if (HasSpawned) return false;
+
+        return true;
     }
 }

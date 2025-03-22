@@ -330,7 +330,7 @@
         "14": "\u6a21\u7d44\u4f5c\u8005: <color=#00ffff>FangkuaiYa</color>\n<#FFFFFFFF>\u539f\u4f5c\u8005: <#7289DAFF>Hunter101#1337\n<#FFFFFFFF>\u7f8e\u8853:<color=#5A5AAD>\u8ce3\u87d1\u8782</color><color=#D3A4FF>NotKomi(\u7e41\u9ad4\u4e2d\u6587\u7ffb\u8b6f)</color> & <#E67E22FF>PhasmoFireGod</color>"
     },
     "DeluminatorTooltip": {
-        "0": "Deluminator:\nToggles the status of the lights (expect Fungle).",
+        "0": "Deluminator:\nToggles the status of the lights\n(expect Fungle).",
         "13": "\u7184\u706f\u5668:\n\u80fd\u591f\u7834\u574f\u706f\u5149(\u9664Fungle\u5730\u56fe).",
         "14": "\u7184\u71c8\u5668:\n\u80fd\u5920\u6539\u8b8a\u71c8\u5149\u72c0\u614b(\u9664Fungle\u5730\u5716)."
     },
@@ -356,7 +356,7 @@
     },
     "PortKeyTooltip": {
         "0": "Port Key:\nTeleports you to\nthe emergency button.",
-        "13": "\u95e8\u94a5\u5319:\n\u4f7f\u7528\u540e\u4f1a\u5c06\u4f60\u4f20\u9001\u5230\u7d27\u6025\u4f1a\u8bae\u7684\u6309\u94ae\u65c1\u8fb9.",
+        "13": "\u95e8\u94a5\u5319:\n\u4f7f\u7528\u540e\u4f1a\u5c06\u4f60\u4f20\u9001\u5230\u7d27\u6025\u4f1a\u8bae\n\u7684\u6309\u94ae\u65c1\u8fb9.",
         "14": "\u6e2f\u53e3\u9470:\n\u4f7f\u7528\u5f8c\u6703\u5c07\u4f60\u50b3\u9001\u81f3\u7dca\u6025\u6703\u8b70\u6309\u9215\u65c1."
     },
     "SortingHatTooltip": {
@@ -365,7 +365,7 @@
         "14": "\u5206\u985e\u5e3d:\n\u986f\u793a\u76ee\u6a19\u73a9\u5bb6\u7684\u8077\u696d.\n<#FF0000FF>\u53ea\u80fd\u5728\u6703\u8b70\u4e2d\u4f7f\u7528!"
     },
     "TheGoldenSnitchTooltip": {
-        "0": "The Golden Snitch:\nForces all votes onto a targeted player.\n<#FF0000FF>Can only be used in meetings!",
+        "0": "The Golden Snitch:\nForces all votes onto a targeted\n player.\n<#FF0000FF>Can only be used in meetings!",
         "13": "\u91d1\u8272\u98de\u8d3c:\n\u5c06\u6240\u6709\u9009\u7968\u5f3a\u5236\u5206\u914d\u7ed9\u76ee\u6807\u73a9\u5bb6.\n<#FF0000FF>\u53ea\u80fd\u5728\u4f1a\u8bae\u4e2d\u4f7f\u7528!",
         "14": "\u91d1\u63a2\u5b50:\n\u5c07\u6240\u6709\u6295\u7968\u5f37\u5236\u5206\u914d\u7d66\u76ee\u6a19\u73a9\u5bb6.\n<#FF0000FF>\u53ea\u80fd\u5728\u6703\u8b70\u4e2d\u4f7f\u7528!"
     },
@@ -385,12 +385,12 @@
         "14": "\u6309\u4e0b<b>H</b>\u6309\u9375\u67e5\u770b\u9053\u5177\u4ecb\u7d39"
     },
     "ButterBeerTooltip": {
-        "0": "Butter Beer:\nPlayers who pick it up will walk in the opposite direction for some time.",
+        "0": "Butter Beer:\nPlayers who pick it up will walk in the\n opposite direction for some time.",
         "13": "\u9ec4\u6cb9\u5564\u9152:\n\u6361\u5230\u5b83\u7684\u73a9\u5bb6\u8d70\u8def\u65b9\u5411\u4f1a\u53d8\u53cd\u4e00\u6bb5\u65f6\u95f4.",
         "14": "\u5976\u6cb9\u5564\u9152:\n\u64bf\u5230\u5b83\u7684\u73a9\u5bb6\u65b9\u5411\u6703\u76f8\u53cd\u4e00\u6bb5\u6642\u9593"
     },
     "BasItemTooltip": {
-        "0": "Basilisk:\nPlayers who pick it up will be petrified until the end of the next meeting.",
+        "0": "\nBasilisk:\nPlayers who pick it up will be petrified \nuntil the end of the next meeting.",
         "13": "\u86c7\u602a:\n\u6361\u5230\u5b83\u7684\u73a9\u5bb6\u4f1a\u88ab\u77f3\u5316\u76f4\u5230\u4e0b\u6b21\u4f1a\u8bae\u7ed3\u675f.",
         "14": "\u86c7\u602a:\n\u64bf\u5230\u5b83\u7684\u73a9\u5bb6\u6703\u88ab\u77f3\u5316\u76f4\u5230\u4e0b\u6b21\u6703\u8b70\u7d50\u675f"
     }

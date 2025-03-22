@@ -1,25 +1,22 @@
-﻿using HarryPotter.Classes.WorldItems;
-using Hazel;
-using Reactor.Utilities;
+﻿using Reactor.Utilities;
 
-namespace HarryPotter.Classes.Items
+namespace HarryPotter.Classes.Items;
+
+public class ButterBeer : Item
 {
-    public class ButterBeer : Item
+    public ButterBeer(ModdedPlayerClass owner)
     {
-        public ButterBeer(ModdedPlayerClass owner)
-        {
-            this.Owner = owner;
-            this.ParentInventory = owner.Inventory;
-            this.Id = 5;
-            this.Name = "Butter Beer";
-            this.Tooltip = "";
-            this.IsTrap = true;
-        }
+        Owner = owner;
+        ParentInventory = owner.Inventory;
+        Id = 5;
+        Name = "Butter Beer";
+        Tooltip = "";
+        IsTrap = true;
+    }
 
-        public override void Use()
-        {
-            this.Delete();
-            Coroutines.Start(Main.Instance.CoActivateButterBeer(Owner._Object));
-        }
+    public override void Use()
+    {
+        Delete();
+        Coroutines.Start(Main.Instance.CoActivateButterBeer(Owner._Object));
     }
 }

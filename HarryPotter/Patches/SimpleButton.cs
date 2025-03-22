@@ -2,12 +2,18 @@ using System;
 using HarmonyLib;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
 namespace HarryPotter.Patches;
 
 public class SimpleButton
 {
+    private static PassiveButton baseButton;
+    private readonly BoxCollider2D buttonCollider;
+    private float _fontSize;
+    private Vector2 _scale;
+
     public SimpleButton(
         Transform parent,
         string name,
@@ -18,10 +24,7 @@ public class SimpleButton
         string label,
         bool isActive = true)
     {
-        if (baseButton == null)
-        {
-            throw new InvalidOperationException("baseButtonが未設定");
-        }
+        if (baseButton == null) throw new InvalidOperationException("baseButtonが未設定");
 
         Button = Object.Instantiate(baseButton, parent);
         Label = Button.transform.Find("FontPlacer/Text_TMP").GetComponent<TextMeshPro>();
@@ -44,31 +47,27 @@ public class SimpleButton
         Label.text = label;
         Button.gameObject.SetActive(isActive);
     }
+
     public PassiveButton Button { get; }
     public TextMeshPro Label { get; }
     public SpriteRenderer NormalSprite { get; }
     public SpriteRenderer HoverSprite { get; }
-    private readonly BoxCollider2D buttonCollider;
-    private Vector2 _scale;
+
     public Vector2 Scale
     {
         get => _scale;
         set => _scale = NormalSprite.size = HoverSprite.size = buttonCollider.size = value;
     }
-    private float _fontSize;
+
     public float FontSize
     {
         get => _fontSize;
         set => _fontSize = Label.fontSize = Label.fontSizeMin = Label.fontSizeMax = value;
     }
 
-    private static PassiveButton baseButton;
     public static void SetBase(PassiveButton passiveButton)
     {
-        if (baseButton != null || passiveButton == null)
-        {
-            return;
-        }
+        if (baseButton != null || passiveButton == null) return;
         // 複製
         baseButton = Object.Instantiate(passiveButton);
         var label = baseButton.transform.Find("FontPlacer/Text_TMP").GetComponent<TextMeshPro>();
@@ -84,15 +83,20 @@ public class SimpleButton
         label.text = "YuET SIMPLE BUTTON BASE";
         // 当たり判定がズレてるのを直す
         var buttonCollider = baseButton.GetComponent<BoxCollider2D>();
-        buttonCollider.offset = new(0f, 0f);
-        baseButton.OnClick = new();
+        buttonCollider.offset = new Vector2(0f, 0f);
+        baseButton.OnClick = new Button.ButtonClickedEvent();
     }
-    public static bool IsNullOrDestroyed(SimpleButton button) => button == null || button.Button == null;
+
+    public static bool IsNullOrDestroyed(SimpleButton button)
+    {
+        return button == null || button.Button == null;
+    }
 }
+
 public static class ObjectHelper
 {
     /// <summary>
-    /// オブジェクトの<see cref="TextTranslatorTMP"/>コンポーネントを破棄します
+    ///     オブジェクトの<see cref="TextTranslatorTMP" />コンポーネントを破棄します
     /// </summary>
     public static void DestroyTranslator(this GameObject obj)
     {
@@ -101,8 +105,12 @@ public static class ObjectHelper
         TextTranslatorTMP[] translator = obj.GetComponentsInChildren<TextTranslatorTMP>(true);
         translator?.Do(Object.Destroy);
     }
+
     /// <summary>
-    /// オブジェクトの<see cref="TextTranslatorTMP"/>コンポーネントを破棄します
+    ///     オブジェクトの<see cref="TextTranslatorTMP" />コンポーネントを破棄します
     /// </summary>
-    public static void DestroyTranslatorL(this MonoBehaviour obj) => obj?.gameObject?.DestroyTranslator();
+    public static void DestroyTranslatorL(this MonoBehaviour obj)
+    {
+        obj?.gameObject?.DestroyTranslator();
+    }
 }

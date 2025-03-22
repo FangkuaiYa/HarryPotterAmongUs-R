@@ -1,17 +1,15 @@
-﻿namespace HarryPotter.Classes.Items
-{
+﻿namespace HarryPotter.Classes.Items;
 
-    public class SortingHat : Item
+public class SortingHat : Item
+{
+    public SortingHat(ModdedPlayerClass owner)
     {
-        public SortingHat(ModdedPlayerClass owner)
-        {
-            this.Owner = owner;
-            this.ParentInventory = owner.Inventory;
-            this.Id = 8;
-            this.Icon = Main.Instance.Assets.WorldItemIcons[Id];
-            this.Name = "Sorting Hat";
-            this.IsSpecial = true;
-            this.Tooltip = ModTranslation.getString("SortingHatTooltip");
-        }
+        Owner = owner;
+        ParentInventory = owner.Inventory;
+        Id = 8;
+        Icon = Main.Instance.Assets.WorldItemIcons[Id];
+        Name = "Sorting Hat";
+        IsSpecial = true;
+        Tooltip = ModTranslation.getString("SortingHatTooltip");
     }
 }
