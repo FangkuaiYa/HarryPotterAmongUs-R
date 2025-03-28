@@ -156,7 +156,7 @@ internal class VersionShowerStartPatch
 
     private static void Postfix(VersionShower __instance)
     {
-        var credentialsText = "<color=#00ffff>FANGKUAI</color> © 2025";
+        var credentialsText = "<color=#cdfffd>XtremeWave</color> © 2025";
         credentialsText += "\t\t\t";
         var versionText = $"<color=#FFF319>Harry Potter</color> - {Plugin.Version.ToString()}";
         credentialsText += versionText;
