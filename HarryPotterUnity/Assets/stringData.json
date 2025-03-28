@@ -393,5 +393,13 @@
         "0": "\nBasilisk:\nPlayers who pick it up will be petrified \nuntil the end of the next meeting.",
         "13": "\u86c7\u602a:\n\u6361\u5230\u5b83\u7684\u73a9\u5bb6\u4f1a\u88ab\u77f3\u5316\u76f4\u5230\u4e0b\u6b21\u4f1a\u8bae\u7ed3\u675f.",
         "14": "\u86c7\u602a:\n\u64bf\u5230\u5b83\u7684\u73a9\u5bb6\u6703\u88ab\u77f3\u5316\u76f4\u5230\u4e0b\u6b21\u6703\u8b70\u7d50\u675f"
+    },
+    "optionOn": {
+        "0": "On",
+        "13": "\u5f00\u542f"
+    },
+    "optionOff": {
+        "0": "Off",
+        "13": "\u5173\u95ed"
     }
 }

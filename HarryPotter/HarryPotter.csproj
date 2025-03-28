@@ -9,7 +9,7 @@
         <Exec Command="xcopy /y /d &quot;$(TargetPath)&quot; &quot;D:\Program Files (x86)\Steam\steamapps\common\Among Us - Harry Potter\BepInEx\plugins\&quot;"/>
     </Target>
     <ItemGroup>
-        <PackageReference Include="AmongUs.GameLibs.Steam" Version="2024.10.29"/>
+        <PackageReference Include="AmongUs.GameLibs.Steam" Version="2025.3.25" />
         <PackageReference Include="BepInEx.IL2CPP.MSBuild" Version="2.1.0-rc.1">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

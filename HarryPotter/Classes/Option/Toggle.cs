@@ -9,8 +9,8 @@ public class CustomToggleOption : CustomOption
         value)
     {
         Format = val =>
-            (bool)val ? DataManager.Settings.Language.CurrentLanguage == SupportedLangs.SChinese ? "����" : "On" :
-            DataManager.Settings.Language.CurrentLanguage == SupportedLangs.SChinese ? "�ر�" : "Off";
+            (bool)val ? "optionOn".Translate() :
+            "optionOff".Translate();
     }
 
     public bool Get()

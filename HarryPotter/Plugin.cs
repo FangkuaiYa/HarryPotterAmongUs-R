@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using AmongUs.Data.Player;
 using BepInEx;
 using BepInEx.Unity.IL2CPP;
 using HarmonyLib;
@@ -18,7 +19,7 @@ namespace HarryPotter;
 public class Plugin : BasePlugin
 {
     public const string Id = "harry.potter.mod";
-    public const string VersionString = "2.1.0";
+    public const string VersionString = "2.2.0";
     public static Version Version = Version.Parse(VersionString);
     public static Plugin Instance;
     public Harmony Harmony { get; } = new(Id);
@@ -36,8 +37,8 @@ public class Plugin : BasePlugin
     }
 }
 
-[HarmonyPatch(typeof(StatsManager), nameof(StatsManager.AmBanned), MethodType.Getter)]
-public static class StatsManager_AmBanned
+[HarmonyPatch(typeof(PlayerBanData), nameof(PlayerBanData.IsBanned), MethodType.Getter)]
+public static class PlayerBanData_IsBanned
 {
     private static void Postfix(out bool __result)
     {

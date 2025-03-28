@@ -1370,7 +1370,7 @@ internal class Main
     public PlayerControl GetClosestTarget(PlayerControl player, bool excludeImp, PlayerControl[] exclusions = null)
     {
         PlayerControl result = null;
-        var num = GameOptionsData.KillDistances[
+        var num = LegacyGameOptions.KillDistances[
             Mathf.Clamp(GameOptionsManager.Instance.currentNormalGameOptions.KillDistance, 0, 2)];
         if (!ShipStatus.Instance) return null;
         var truePosition = player.GetTruePosition();

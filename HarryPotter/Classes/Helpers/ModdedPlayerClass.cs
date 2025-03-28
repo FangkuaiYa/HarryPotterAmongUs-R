@@ -91,7 +91,7 @@ public class ModdedPlayerClass
                         (x._Object.Data.IsDead || x._Object.Data.Disconnected)) &&
                     Main.Instance.AllPlayers.Any(x =>
                         Main.Instance.IsPlayerRole(x, "Ron") && (x._Object.Data.IsDead || x._Object.Data.Disconnected)))
-                    GameManager.Instance.RpcEndGame(GameOverReason.ImpostorByKill, false);
+                    GameManager.Instance.RpcEndGame(GameOverReason.ImpostorsByKill, false);
         }
     }
 
