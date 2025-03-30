@@ -33,7 +33,7 @@ public class Plugin : BasePlugin
         PopupTMPHandler.Instance = new PopupTMPHandler { AllPopups = new List<TextMeshPro>() };
         Classes.Config.LoadOption();
         Harmony.PatchAll();
-        CustomOption.Patches.ImportSlot();
+        CustomOption.Patches.SettingsUpdate.ImportSlot("HarryPotterSettings");
     }
 }
 

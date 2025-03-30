@@ -6,6 +6,7 @@ using HarryPotter.Classes;
 using HarryPotter.Classes.Roles;
 using Reactor.Utilities;
 using Reactor.Utilities.Extensions;
+using UnityEngine;
 
 namespace HarryPotter.Patches;
 
@@ -50,14 +51,14 @@ internal class RoleManager_SelectRoles
             var rolePlayer = allImp.Random();
             allImp.Remove(rolePlayer);
 
-            if (impRolesToAssign.Contains("Voldemort") && Main.Instance.Config.EnableVoldemort)
+            if (impRolesToAssign.Contains("Voldemort") && Random.Range(0, 101) <= Main.Instance.Config.EnableVoldemort)
             {
                 impRolesToAssign.Remove("Voldemort");
                 Main.Instance.RpcAssignRole(rolePlayer, new Voldemort(rolePlayer));
                 continue;
             }
 
-            if (impRolesToAssign.Contains("Bellatrix") && Main.Instance.Config.EnableBellatrix)
+            if (impRolesToAssign.Contains("Bellatrix") && Random.Range(0, 101) <= Main.Instance.Config.EnableBellatrix)
             {
                 impRolesToAssign.Remove("Bellatrix");
                 Main.Instance.RpcAssignRole(rolePlayer, new Bellatrix(rolePlayer));
@@ -69,21 +70,21 @@ internal class RoleManager_SelectRoles
             var rolePlayer = allCrew.Random();
             allCrew.Remove(rolePlayer);
 
-            if (crewRolesToAssign.Contains("Harry") && Main.Instance.Config.EnableHarry)
+            if (crewRolesToAssign.Contains("Harry") && Random.Range(0, 101) <= Main.Instance.Config.EnableHarry)
             {
                 crewRolesToAssign.Remove("Harry");
                 Main.Instance.RpcAssignRole(rolePlayer, new Harry(rolePlayer));
                 continue;
             }
 
-            if (crewRolesToAssign.Contains("Ron") && Main.Instance.Config.EnableRon)
+            if (crewRolesToAssign.Contains("Ron") && Random.Range(0, 101) <= Main.Instance.Config.EnableRon)
             {
                 crewRolesToAssign.Remove("Ron");
                 Main.Instance.RpcAssignRole(rolePlayer, new Ron(rolePlayer));
                 continue;
             }
 
-            if (crewRolesToAssign.Contains("Hermione") && Main.Instance.Config.EnableHermione)
+            if (crewRolesToAssign.Contains("Hermione") && Random.Range(0, 101) <= Main.Instance.Config.EnableHermione)
             {
                 crewRolesToAssign.Remove("Hermione");
                 Main.Instance.RpcAssignRole(rolePlayer, new Hermione(rolePlayer));

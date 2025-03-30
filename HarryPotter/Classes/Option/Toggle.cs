@@ -1,32 +1,31 @@
-using AmongUs.Data;
+using System;
 
-namespace HarryPotter.CustomOption;
-
-public class CustomToggleOption : CustomOption
+namespace HarryPotter.CustomOption
 {
-    public CustomToggleOption(int id, string name, bool value = true) : base(id, name,
-        CustomOptionType.Toggle,
-        value)
+    public class CustomToggleOption : CustomOption
     {
-        Format = val =>
-            (bool)val ? "optionOn".Translate() :
-            "optionOff".Translate();
-    }
+        protected internal CustomToggleOption(int id, string name, bool value = true) : base(id, name,
+            CustomOptionType.Toggle,
+            value)
+        {
+            Format = val => (bool)val ? "optionOn".Translate() : "optionOff".Translate();
+        }
 
-    public bool Get()
-    {
-        return (bool)Value;
-    }
+        protected internal bool Get()
+        {
+            return (bool)Value;
+        }
 
-    public void Toggle()
-    {
-        Set(!Get());
-    }
+        protected internal void Toggle()
+        {
+            Set(!Get());
+        }
 
-    public override void OptionCreated()
-    {
-        base.OptionCreated();
-        var tgl = Setting.Cast<ToggleOption>();
-        tgl.CheckMark.enabled = Get();
+        public override void OptionCreated()
+        {
+            base.OptionCreated();
+            var tgl = Setting.Cast<ToggleOption>();
+            tgl.CheckMark.enabled = Get();
+        }
     }
 }

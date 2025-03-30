@@ -1,83 +1,92 @@
 using System;
 using System.Collections.Generic;
+using Reactor.Localization.Utilities;
+using Reactor.Utilities;
 
-namespace HarryPotter.CustomOption;
-
-public class CustomOption
+namespace HarryPotter.CustomOption
 {
-    public static List<CustomOption> AllOptions = new();
-    public readonly int ID;
-
-    public Func<object, string> Format;
-    public string Name;
-
-
-    public CustomOption(int id, string name, CustomOptionType type, object defaultValue,
-        Func<object, string> format = null)
+    public class CustomOption
     {
-        ID = id;
-        Name = ModTranslation.getString(name);
-        Type = type;
-        DefaultValue = Value = defaultValue;
-        Format = format ?? (obj => $"{obj}");
+        public static List<CustomOption> AllOptions = new List<CustomOption>();
+        public readonly int ID;
 
-        if (Type == CustomOptionType.Button) return;
-        AllOptions.Add(this);
-        Set(Value);
-    }
+        public Func<object, string> Format;
+        public string Name;
 
-    public object Value { get; set; }
-    public OptionBehaviour Setting { get; set; }
-    public CustomOptionType Type { get; set; }
-    public object DefaultValue { get; set; }
+        public StringNames StringName;
 
-    public override string ToString()
-    {
-        return Format(Value);
-    }
-
-    public virtual void OptionCreated()
-    {
-        Setting.name = Setting.gameObject.name = Name;
-    }
-
-
-    public void Set(object value, bool SendRpc = true)
-    {
-        System.Console.WriteLine($"{Name} set to {value}");
-
-        Value = value;
-
-        if (Setting != null && AmongUsClient.Instance.AmHost && SendRpc) Rpc.SendRpc(this);
-
-        if (Patches.haveLoadSettings)
-            Patches.ExportSlot();
-
-        try
+        protected internal CustomOption(int id, string name, CustomOptionType type, object defaultValue,
+            Func<object, string> format = null)
         {
-            if (Setting is ToggleOption toggle)
-            {
-                var newValue = (bool)Value;
-                toggle.oldValue = newValue;
-                if (toggle.CheckMark != null) toggle.CheckMark.enabled = newValue;
-            }
-            else if (Setting is NumberOption number)
-            {
-                var newValue = (float)Value;
+            ID = id;
+            Name = name.Translate();
+            Type = type;
+            DefaultValue = Value = defaultValue;
+            Format = format ?? (obj => $"{obj}");
 
-                number.Value = number.oldValue = newValue;
-                number.ValueText.text = ToString();
-            }
-            else if (Setting is StringOption str)
-            {
-                var newValue = (int)Value;
+            if (Type == CustomOptionType.Button) return;
+            AllOptions.Add(this);
+            Set(Value);
 
-                str.Value = str.oldValue = newValue;
-                str.ValueText.text = ToString();
-            }
+            StringName = CustomStringName.CreateAndRegister(name.Translate());
         }
-        catch
+
+        protected internal object Value { get; set; }
+        protected internal OptionBehaviour Setting { get; set; }
+        protected internal CustomOptionType Type { get; set; }
+        public object DefaultValue { get; set; }
+
+        public override string ToString()
         {
+            return Format(Value);
+        }
+
+        public virtual void OptionCreated()
+        {
+            Setting.name = Setting.gameObject.name = Name;
+        }
+
+
+        protected internal void Set(object value, bool SendRpc = true)
+        {
+            System.Console.WriteLine($"{Name} set to {value}");
+
+            Value = value;
+
+            if (Setting != null && AmongUsClient.Instance.AmHost && SendRpc) Coroutines.Start(Rpc.SendRpc(this));
+
+            try
+            {
+                if (Setting is ToggleOption toggle)
+                {
+                    var newValue = (bool) Value;
+                    toggle.oldValue = newValue;
+                    if (toggle.CheckMark != null) toggle.CheckMark.enabled = newValue;
+                }
+                else if (Setting is NumberOption number)
+                {
+                    var newValue = (float) Value;
+
+                    number.Value = number.oldValue = newValue;
+                    number.ValueText.text = ToString();
+                }
+                else if (Setting is StringOption str)
+                {
+                    var newValue = (int) Value;
+
+                    str.Value = str.oldValue = newValue;
+                    str.ValueText.text = ToString();
+                }
+            }
+            catch
+            {
+            }
+
+            if (HudManager.InstanceExists && Type != CustomOptionType.Header)
+            {
+                Patches.SettingsUpdate.ExportSlot();
+                HudManager.Instance.Notifier.AddSettingsChangeMessage(StringName, ToString());
+            }
         }
     }
 }

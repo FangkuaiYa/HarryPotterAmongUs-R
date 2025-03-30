@@ -1,15 +1,16 @@
 ﻿using HarryPotter.CustomOption;
+using System;
 
 namespace HarryPotter.Classes;
 
 internal class Config
 {
     private static CustomHeaderOption roleSettings;
-    private static CustomToggleOption BellatrixOn;
-    private static CustomToggleOption HarryOn;
-    private static CustomToggleOption HermioneOn;
-    private static CustomToggleOption RonOn;
-    private static CustomToggleOption VoldemortOn;
+    private static CustomNumberOption BellatrixOn;
+    private static CustomNumberOption HarryOn;
+    private static CustomNumberOption HermioneOn;
+    private static CustomNumberOption RonOn;
+    private static CustomNumberOption VoldemortOn;
 
     private static CustomHeaderOption HPSettings;
     private static CustomToggleOption enableModRole;
@@ -38,11 +39,11 @@ internal class Config
     private static CustomNumberOption hourglassTimer;
 
 
-    public bool EnableVoldemort { get; private set; }
-    public bool EnableBellatrix { get; private set; }
-    public bool EnableHarry { get; private set; }
-    public bool EnableHermione { get; private set; }
-    public bool EnableRon { get; private set; }
+    public int EnableVoldemort { get; private set; }
+    public int EnableBellatrix { get; private set; }
+    public int EnableHarry { get; private set; }
+    public int EnableHermione { get; private set; }
+    public int EnableRon { get; private set; }
 
     public bool OrderOfTheImp { get; private set; }
     public float MapDuration { get; private set; }
@@ -60,6 +61,10 @@ internal class Config
     public bool SeparateCooldowns { get; private set; }
     public bool EnableModRole { get; private set; }
     public bool RandomGameStartPosition { get; private set; }
+    public static Func<object, string> PercentFormat { get; } = value => $"{value:0}%";
+    private static Func<object, string> CooldownFormat { get; } = value => $"{value:0.0#}s";
+    private static Func<object, string> MultiplierFormat { get; } = value => $"{value:0.0#}x";
+
 
     public static void LoadOption()
     {
@@ -70,49 +75,49 @@ internal class Config
         randomGameStartPosition = new CustomToggleOption(num++, "randomGameStartPosition");
 
         roleSettings = new CustomHeaderOption(num++, "roleSettings");
-        VoldemortOn = new CustomToggleOption(num++, ModHelpers.cs(Palette.ImpostorRed, "RoleNameVoldemort"));
-        BellatrixOn = new CustomToggleOption(num++, ModHelpers.cs(Palette.ImpostorRed, "RoleNameBellatrix"));
-        HarryOn = new CustomToggleOption(num++, ModHelpers.cs(Palette.Orange, "RoleNameHarry"));
-        HermioneOn = new CustomToggleOption(num++, ModHelpers.cs(Palette.Orange, "RoleNameHermione"));
-        RonOn = new CustomToggleOption(num++, ModHelpers.cs(Palette.Orange, "RoleNameRon"));
+        VoldemortOn = new CustomNumberOption(num++, ModHelpers.cs(Palette.ImpostorRed, "RoleNameVoldemort"), 0f, 0f, 100f, 10f, PercentFormat);
+        BellatrixOn = new CustomNumberOption(num++, ModHelpers.cs(Palette.ImpostorRed, "RoleNameBellatrix"), 0f, 0f, 100f, 10f, PercentFormat);
+        HarryOn = new CustomNumberOption(num++, ModHelpers.cs(Palette.Orange, "RoleNameHarry"), 0f, 0f, 100f, 10f, PercentFormat);
+        HermioneOn = new CustomNumberOption(num++, ModHelpers.cs(Palette.Orange, "RoleNameHermione"), 0f, 0f, 100f, 10f, PercentFormat);
+        RonOn = new CustomNumberOption(num++, ModHelpers.cs(Palette.Orange, "RoleNameRon"), 0f, 0f, 100f, 10f, PercentFormat);
 
         VoldemortSettings = new CustomHeaderOption(num++, ModHelpers.cs(Palette.ImpostorRed, "RoleNameVoldemort"));
         spellsInVents = new CustomToggleOption(num++, "spellsInVents", false);
         separateCooldowns = new CustomToggleOption(num++, "separateCooldowns");
-        crucioCooldown = new CustomNumberOption(num++, "crucioCooldown", 20f, 40f, 10f, 2.5f);
-        crucioDuration = new CustomNumberOption(num++, "crucioDuration", 5f, 5f, 30f, 1f);
+        crucioCooldown = new CustomNumberOption(num++, "crucioCooldown", 20f, 40f, 10f, 2.5f, CooldownFormat);
+        crucioDuration = new CustomNumberOption(num++, "crucioDuration", 5f, 5f, 30f, 1f, CooldownFormat);
 
         BellatrixSettings = new CustomHeaderOption(num++, ModHelpers.cs(Palette.ImpostorRed, "RoleNameBellatrix"));
-        imperioDuration = new CustomNumberOption(num++, "imperioDuration", 5f, 5f, 30f, 1f);
+        imperioDuration = new CustomNumberOption(num++, "imperioDuration", 5f, 5f, 30f, 1f, CooldownFormat);
 
         RonSettings = new CustomHeaderOption(num++, ModHelpers.cs(Palette.Orange, "RoleNameRon"));
-        defensiveDuelistCooldown = new CustomNumberOption(num++, "defensiveDuelistCooldown", 20f, 40f, 10, 2.5f);
-        defensiveDuelistDuration = new CustomNumberOption(num++, "defensiveDuelistDuration", 5f, 5f, 30f, 1f);
+        defensiveDuelistCooldown = new CustomNumberOption(num++, "defensiveDuelistCooldown", 20f, 40f, 10, 2.5f, CooldownFormat);
+        defensiveDuelistDuration = new CustomNumberOption(num++, "defensiveDuelistDuration", 5f, 5f, 30f, 1f, CooldownFormat);
 
         HarrySettings = new CustomHeaderOption(num++, ModHelpers.cs(Palette.Orange, "RoleNameHarry"));
-        invisCloakCooldown = new CustomNumberOption(num++, "invisCloakCooldown", 20f, 40f, 10, 2.5f);
-        invisCloakDuration = new CustomNumberOption(num++, "invisCloakDuration", 5f, 5f, 30f, 1f);
+        invisCloakCooldown = new CustomNumberOption(num++, "invisCloakCooldown", 20f, 40f, 10, 2.5f, CooldownFormat);
+        invisCloakDuration = new CustomNumberOption(num++, "invisCloakDuration", 5f, 5f, 30f, 1f, CooldownFormat);
 
         HermioneSettings = new CustomHeaderOption(num++, ModHelpers.cs(Palette.Orange, "RoleNameHermione"));
-        hourglassCooldown = new CustomNumberOption(num++, "hourglassCooldown", 20f, 40f, 10f, 2.5f);
-        hourglassTimer = new CustomNumberOption(num++, "hourglassTimer", 5f, 5f, 30f, 1f);
+        hourglassCooldown = new CustomNumberOption(num++, "hourglassCooldown", 20f, 40f, 10f, 2.5f, CooldownFormat);
+        hourglassTimer = new CustomNumberOption(num++, "hourglassTimer", 5f, 5f, 30f, 1f, CooldownFormat);
 
 
         ItemSettings = new CustomHeaderOption(num++, "ItemSettings");
 
-        beerDuration = new CustomNumberOption(num++, "beerDuration", 5f, 5f, 30f, 1f);
-        mapDuration = new CustomNumberOption(num++, "mapDuration", 5f, 5f, 30f, 1f);
+        beerDuration = new CustomNumberOption(num++, "beerDuration", 5f, 5f, 30f, 1f, CooldownFormat);
+        mapDuration = new CustomNumberOption(num++, "mapDuration", 5f, 5f, 30f, 1f, CooldownFormat);
     }
 
     public void ReloadSettings()
     {
         EnableModRole = enableModRole.Get();
 
-        EnableVoldemort = VoldemortOn.Get();
-        EnableBellatrix = BellatrixOn.Get();
-        EnableHarry = HarryOn.Get();
-        EnableHermione = HermioneOn.Get();
-        EnableRon = RonOn.Get();
+        EnableVoldemort = (int)VoldemortOn.Get();
+        EnableBellatrix = (int)BellatrixOn.Get();
+        EnableHarry = (int)HarryOn.Get();
+        EnableHermione = (int)HermioneOn.Get();
+        EnableRon = (int)RonOn.Get();
 
 
         OrderOfTheImp = orderOfTheImp.Get();

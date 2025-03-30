@@ -1,10 +1,11 @@
-namespace HarryPotter.CustomOption;
-
-public enum CustomOptionType
+namespace HarryPotter.CustomOption
 {
-    Header,
-    Toggle,
-    Number,
-    String,
-    Button
+    public enum CustomOptionType
+    {
+        Header,
+        Toggle,
+        Number,
+        String,
+        Button
+    }
 }
