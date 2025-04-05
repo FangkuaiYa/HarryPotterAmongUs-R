@@ -39,6 +39,7 @@ public class DeluminatorWorld : WorldItem
         if (!AmongUsClient.Instance.IsGameStarted) return false;
         if (ItemRandom.Next(0, 100000) > ItemSpawnChance) return false;
         if (HasSpawned) return false;
+        if (ModHelpers.isFungle()) return false;
 
         return true;
     }

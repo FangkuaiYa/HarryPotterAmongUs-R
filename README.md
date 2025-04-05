@@ -58,14 +58,39 @@ Basilisk (Trap Item)  |  Stuns the player who touches the item and lowers their 
 
 Game Setting  | Explanation
 ------------- | -------------
-Defensive Duelist Cooldown  |  Changes the cooldown of Ron's active ability.
-Invisibility Cloak Cooldown  |  Changes the cooldown of Harry's active ability.
-Time Turner Cooldown  |  Changes the cooldown of Hermione's active ability.
-Crucio Cooldown  |  Changes the cooldown of Bellatrix's spell.
+Harry Potter Settings | --
+Enable Mod Role | When 'Off', There will be no Mod role.
 Order of the Impostors  | If toggled, the Impostors can win by eliminating Harry, Hermione, and Ron.
+Random Game Start Position | When 'On', Players will appear at random positions in each round of the game.
+-- | --
+Role Settings | The setting of spawn chance that includes all roles.
+ -- | --
+Voldemort Settings | --
 Can Spells be Used in Vents  | If toggled, spells can be casted while the caster is inside a vent.
-Show Info Popups/Tooltips  |  When 'On', informational popups/tooltips will be shown.
 Shared Voldemort Cooldowns  |  When 'On', the Kill button and the Curse button will share a cooldown.
+-- | --
+Bellatrix Settings | --
+Imperio Duration | Changes the duration of Bellatrix's imperio.
+Crucio Cooldown  |  Changes the cooldown of Bellatrix's spell.
+Crucio Duration  |  Changes the duration of Bellatrix's spell.
+-- | --
+Ron Settings | --
+Defensive Duelist Cooldown  |  Changes the cooldown of Ron's active ability.
+Defensive Duelist Duration  |  Changes the duration of Ron's active ability.
+-- | --
+Harry Settings | --
+Invisibility Cloak Cooldown  |  Changes the cooldown of Harry's active ability.
+Invisibility Cloak Duration  |  Changes the duration of Harry's active ability.
+-- | --
+Hermione Settings
+Time Turner Cooldown  |  Changes the cooldown of Hermione's active ability.
+Time Turner Timer  |  Changes the duration of Hermione's active ability.
+-- | --
+Item Settings
+Butter Beer Duration  |  Changes the duration of Butter Beer.
+Marauders Map Duration  |  Changes the duration of Marauders Map .
+
+<!--Show Info Popups/Tooltips  |  When 'On', informational popups/tooltips will be shown.-->
 
 # Bugs or feature suggestions
 For general help with issues, feature suggestions, or bugs, join the [Discord Server](https://discord.gg/chGrxw8mJk).

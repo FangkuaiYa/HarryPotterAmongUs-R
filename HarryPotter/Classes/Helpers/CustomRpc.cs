@@ -167,7 +167,7 @@ public class CustomRpc
                     if (!player.Data.IsDead)
                         continue;
 
-                    player.Revive();
+                    player.ModRevive();
                     foreach (var body in Object.FindObjectsOfType<DeadBody>())
                         if (body.ParentId == reviveId)
                             Object.Destroy(body.gameObject);

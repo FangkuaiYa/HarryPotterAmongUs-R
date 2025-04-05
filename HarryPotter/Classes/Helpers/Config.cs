@@ -84,11 +84,11 @@ internal class Config
         VoldemortSettings = new CustomHeaderOption(num++, ModHelpers.cs(Palette.ImpostorRed, "RoleNameVoldemort"));
         spellsInVents = new CustomToggleOption(num++, "spellsInVents", false);
         separateCooldowns = new CustomToggleOption(num++, "separateCooldowns");
-        crucioCooldown = new CustomNumberOption(num++, "crucioCooldown", 20f, 40f, 10f, 2.5f, CooldownFormat);
-        crucioDuration = new CustomNumberOption(num++, "crucioDuration", 5f, 5f, 30f, 1f, CooldownFormat);
 
         BellatrixSettings = new CustomHeaderOption(num++, ModHelpers.cs(Palette.ImpostorRed, "RoleNameBellatrix"));
         imperioDuration = new CustomNumberOption(num++, "imperioDuration", 5f, 5f, 30f, 1f, CooldownFormat);
+        crucioCooldown = new CustomNumberOption(num++, "crucioCooldown", 20f, 40f, 10f, 2.5f, CooldownFormat);
+        crucioDuration = new CustomNumberOption(num++, "crucioDuration", 5f, 5f, 30f, 1f, CooldownFormat);
 
         RonSettings = new CustomHeaderOption(num++, ModHelpers.cs(Palette.Orange, "RoleNameRon"));
         defensiveDuelistCooldown = new CustomNumberOption(num++, "defensiveDuelistCooldown", 20f, 40f, 10, 2.5f, CooldownFormat);

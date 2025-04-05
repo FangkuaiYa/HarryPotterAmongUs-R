@@ -401,5 +401,33 @@
     "optionOff": {
         "0": "Off",
         "13": "\u5173\u95ed"
+    },
+    "updatingText": {
+        "0": "Updating <b>Harry Potter Mod</b>\nPlease wait...",
+        "13": "\u6b63\u5728\u66f4\u65b0<b>\u54c8\u5229\u6ce2\u7279\u6a21\u7ec4</b>\n\u8bf7\u7a0d\u7b49..."
+    },
+    "downliadingText": {
+        "0": "Updating <b>Harry Potter Mod</b>\nDownloading...\n{0}\nDownload speed: {1}",
+        "13": "\u6b63\u5728\u66f4\u65b0<b>\u54c8\u5229\u6ce2\u7279\u6a21\u7ec4</b>\n\u6b63\u5728\u4e0b\u8f7d\u66f4\u65b0...\n{0}\n\u4e0b\u8f7d\u901f\u5ea6: {1}"
+    },
+    "updateFailedText": {
+        "0": "Update wasn't successful\nTry again later,\nor update manually.",
+        "13": "\u66f4\u65b0\u5931\u8d25 :(\n\u8bf7\u7a0d\u540e\u91cd\u65b0\u6216\u624b\u52a8\u66f4\u65b0"
+    },
+    "copyingFileText": {
+        "0": "Updating <b>Harry Potter Mod</b>\nPlease wait...\n\nDownload complete\ncopying file...",
+        "13": "\u6b63\u5728\u66f4\u65b0<b>\u54c8\u5229\u6ce2\u7279\u6a21\u7ec4</b>\n\u8bf7\u7a0d\u7b49...\n\n\u4e0b\u8f7d\u6210\u529f\uff01\n\u6b63\u5728\u590d\u5236\u6587\u4ef6..."
+    },
+    "updateEndText": {
+        "0": "<b>Harry Potter Mod</b>\nupdated successfully\nPlease restart the game.",
+        "13": "<b>\u54c8\u5229\u6ce2\u7279\u6a21\u7ec4</b>\n\u66f4\u65b0\u6210\u529f\n\u8bf7\u91cd\u542f\u6e38\u620f."
+    },
+    "announcementText": {
+        "0": "<size=150%>A new <b>Harry Potter Mod</b> update to {0} is available</size>\n{1}",
+        "13": "<size=150%><b>\u54c8\u5229\u6ce2\u7279\u6a21\u7ec4</b> {0} \u5df2\u7ecf\u53d1\u5e03\u5566\uff01</size>\n{1}"
+    },
+    "updateButtonText": {
+        "0": "Update HP",
+        "13": "\u66f4\u65b0\u6a21\u7ec4"
     }
 }

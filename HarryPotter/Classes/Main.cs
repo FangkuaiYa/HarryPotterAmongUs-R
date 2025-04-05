@@ -32,7 +32,7 @@ public class Pair<T1, T2>
     public T2 Item2 { get; set; }
 }
 
-public static class ModHelpers
+internal static class ModHelpers
 {
     public static Random rnd = new((int)DateTime.Now.Ticks);
     internal static d_LoadImage iCall_LoadImage;
@@ -61,16 +61,6 @@ public static class ModHelpers
         {
             return false;
         }
-    }
-
-    public static void AddModSettingsChangeMessage(this NotificationPopper popper, StringNames key, string value,
-        string option, bool playSound = true)
-    {
-        var str = DestroyableSingleton<TranslationController>.Instance.GetString(
-            StringNames.LobbyChangeSettingNotification,
-            "<font=\"Barlow-Black SDF\" material=\"Barlow-Black Outline\">" + option + "</font>",
-            "<font=\"Barlow-Black SDF\" material=\"Barlow-Black Outline\">" + value + "</font>");
-        popper.SettingsChangeMessageLogic(key, str, playSound);
     }
 
     public static void ModRevive(this PlayerControl player, bool resetRoleIfGhost = true)
