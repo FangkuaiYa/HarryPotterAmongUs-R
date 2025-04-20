@@ -515,6 +515,25 @@ namespace HarryPotter.CustomOption
             }
         }
 
+        [HarmonyPatch(typeof(NumberOption), nameof(NumberOption.Initialize))]
+        private class NumberOptionInitialise
+        {
+            public static bool Prefix(NumberOption __instance)
+            {
+                var option =
+                    CustomOption.AllOptions.FirstOrDefault(option =>
+                        option.Setting == __instance);
+                if (option is CustomNumberOption number)
+                {
+                    __instance.MinusBtn.isInteractable = true;
+                    __instance.PlusBtn.isInteractable = true;
+                    return false;
+                }
+
+                return true;
+            }
+        }
+
         [HarmonyPatch(typeof(NumberOption), nameof(NumberOption.Increase))]
         private class NumberOptionPatchIncrease
         {
@@ -525,8 +544,6 @@ namespace HarryPotter.CustomOption
                         option.Setting == __instance); // Works but may need to change to gameObject.name check
                 if (option is CustomNumberOption number)
                 {
-                    __instance.MinusBtn.isInteractable = true;
-                    __instance.PlusBtn.isInteractable = true;
                     number.Increase();
                     return false;
                 }

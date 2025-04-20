@@ -62,7 +62,6 @@ internal class Asset
         SmallSortSprite = bundle.LoadAsset<Sprite>("SmallSortIco").DontUnload();
         SmallSnitchSprite = bundle.LoadAsset<Sprite>("SmallSnitchIco").DontUnload();
         SnitchMaterial = bundle.LoadAsset<PhysicsMaterial2D>("SnitchMaterial").DontUnload();
-        HPTheme = bundle.LoadAsset<AudioClip>("HPTheme").DontUnload();
     }
 
     public List<Sprite> ItemIcons { get; }
@@ -73,7 +72,6 @@ internal class Asset
     public List<Sprite> CrucioSprite { get; }
     public List<Sprite> CurseSprite { get; }
     public PhysicsMaterial2D SnitchMaterial { get; }
-    public AudioClip HPTheme { get; }
     public TextAsset lanuageJsonAsset { get; }
     public Sprite colorBG { get; }
 }

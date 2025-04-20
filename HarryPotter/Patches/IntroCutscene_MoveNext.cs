@@ -5,17 +5,6 @@ using UnityEngine;
 
 namespace HarryPotter.Patches;
 
-[HarmonyPatch(typeof(IntroCutscene._CoBegin_d__35), nameof(IntroCutscene._CoBegin_d__35.MoveNext))]
-public static class IntroCutscene_CoBegin_d__29
-{
-    public static void Prefix(IntroCutscene._CoBegin_d__35 __instance)
-    {
-        if (GameOptionsManager.Instance.currentGameMode == GameModes.HideNSeek ||
-            !Main.Instance.Config.EnableModRole) return;
-        __instance.__4__this.IntroStinger = Main.Instance.Assets.HPTheme;
-    }
-}
-
 [HarmonyPatch(typeof(IntroCutscene._ShowTeam_d__38), nameof(IntroCutscene._ShowTeam_d__38.MoveNext))]
 public static class IntroCutscene_ShowTeam__d_MoveNext
 {
