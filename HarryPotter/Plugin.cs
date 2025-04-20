@@ -19,7 +19,7 @@ namespace HarryPotter;
 public class Plugin : BasePlugin
 {
     public const string Id = "harry.potter.mod";
-    public const string VersionString = "2.3.1";
+    public const string VersionString = "2.2.1";
     public static Version Version = Version.Parse(VersionString);
     public static Plugin Instance;
     public Harmony Harmony { get; } = new(Id);

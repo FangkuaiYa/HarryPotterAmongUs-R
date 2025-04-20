@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 2798916333
+CRC: 962220338
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: dc5782abd9b6e9c10dec08529164b9df
+    Hash: 8349923932a0e2859de9d614bcd83fb0
   TypeTreeHash:
     serializedVersion: 2
-    Hash: a2f4e04debca3abff4da5e7e1fddf290
+    Hash: 649dc5349e9764c29e7dc8fa570c9415
 HashAppended: 0
 ClassTypes:
 - Class: 28
@@ -14,8 +14,6 @@ ClassTypes:
 - Class: 49
   Script: {instanceID: 0}
 - Class: 62
-  Script: {instanceID: 0}
-- Class: 83
   Script: {instanceID: 0}
 - Class: 213
   Script: {instanceID: 0}
@@ -55,6 +53,5 @@ Assets:
 - Assets/SortingHatWorldIcon.png
 - Assets/CurseF2.png
 - Assets/ElderWandWorldIcon.png
-- Assets/HPTheme.mp3
 - Assets/stringData.json
 Dependencies: []
