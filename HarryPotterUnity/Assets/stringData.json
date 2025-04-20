@@ -423,8 +423,8 @@
         "13": "<b>\u54c8\u5229\u6ce2\u7279\u6a21\u7ec4</b>\n\u66f4\u65b0\u6210\u529f\n\u8bf7\u91cd\u542f\u6e38\u620f."
     },
     "announcementText": {
-        "0": "<size=150%>A new <b>Harry Potter Mod</b> update to {0} is available</size>\n{1}",
-        "13": "<size=150%><b>\u54c8\u5229\u6ce2\u7279\u6a21\u7ec4</b> {0} \u5df2\u7ecf\u53d1\u5e03\u5566\uff01</size>\n{1}"
+        "0": "<size=150%>A new <b>Harry Potter Mod</b> update to {0} is available</size>\n\n{1}",
+        "13": "<size=150%><b>\u54c8\u5229\u6ce2\u7279\u6a21\u7ec4</b> {0} \u5df2\u7ecf\u53d1\u5e03\u5566\uff01</size>\n\n{1}"
     },
     "updateButtonText": {
         "0": "Update HP",
