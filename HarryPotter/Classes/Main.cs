@@ -444,9 +444,8 @@ internal class Main
             {
                 var roleColorHex = TaskInfoHandler.Instance.GetRoleHexColor(player);
                 durationText.Text = string.Format(ModTranslation.getString("CoStunPlayerDurationText"), roleColorHex);
-                player.lightSource.flashlightSize =
-                    Mathf.Lerp(ShipStatus.Instance.MinLightRadius, ShipStatus.Instance.MaxLightRadius, 0) *
-                    GameOptionsManager.Instance.currentNormalGameOptions.CrewLightMod;
+                player.lightSource.SetViewDistance(Mathf.Lerp(ShipStatus.Instance.MinLightRadius, ShipStatus.Instance.MaxLightRadius, 0) *
+                    GameOptionsManager.Instance.currentNormalGameOptions.CrewLightMod);
                 player.moveable = false;
                 player.MyPhysics.body.velocity = Vector2.zero;
             }
@@ -894,9 +893,8 @@ internal class Main
                 durationText.Text = string.Format(ModTranslation.getString("CoBlindPlayerDurationText"),
                     TaskInfoHandler.Instance.GetRoleHexColor(target),
                     Math.Ceiling(Config.CrucioDuration - (float)(DateTime.UtcNow - now).TotalSeconds));
-                target.lightSource.flashlightSize =
-                    Mathf.Lerp(ShipStatus.Instance.MinLightRadius, ShipStatus.Instance.MaxLightRadius, num) *
-                    GameOptionsManager.Instance.currentNormalGameOptions.CrewLightMod;
+                target.lightSource.SetViewDistance(Mathf.Lerp(ShipStatus.Instance.MinLightRadius, ShipStatus.Instance.MaxLightRadius, num) *
+                    GameOptionsManager.Instance.currentNormalGameOptions.CrewLightMod);
                 target.moveable = false;
             }
 
