@@ -52,11 +52,11 @@ internal class Asset
         WorldItemIcons.Add(bundle.LoadAsset<Sprite>("SortingHatWorldIcon").DontUnload());
         WorldItemIcons.Add(bundle.LoadAsset<Sprite>("PhiloStoneWorldIcon").DontUnload());
 
-        CrucioSprite.Add(bundle.LoadAsset<Sprite>("CrucioF1").DontUnload());
-        CrucioSprite.Add(bundle.LoadAsset<Sprite>("CrucioF2").DontUnload());
+        CrucioSprite.Add(ModHelpers.loadSpriteFromResources("CrucioF1"));
+        CrucioSprite.Add(ModHelpers.loadSpriteFromResources("CrucioF2"));
 
-        CurseSprite.Add(bundle.LoadAsset<Sprite>("CurseF1").DontUnload());
-        CurseSprite.Add(bundle.LoadAsset<Sprite>("CurseF2").DontUnload());
+        CurseSprite.Add(ModHelpers.loadSpriteFromResources("CurseF2"));
+        CurseSprite.Add(ModHelpers.loadSpriteFromResources("CurseF2"));
 
         colorBG = bundle.LoadAsset<Sprite>("White").DontUnload();
         SmallSortSprite = bundle.LoadAsset<Sprite>("SmallSortIco").DontUnload();

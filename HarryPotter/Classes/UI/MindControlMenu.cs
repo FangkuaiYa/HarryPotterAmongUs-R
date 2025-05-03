@@ -77,7 +77,7 @@ public class MindControlMenu
 
     public void CloseMenu()
     {
-        MenuObject?.Toggle();
+        MenuObject?.ForceClosed();
         MenuObject?.gameObject.Destroy();
         MenuObject = null;
     }
